@@ -2,6 +2,19 @@
     require_once("navbar.php");
 ?>
 
+<?php 
+require_once("../query/conn.php");
+
+$topMarketQry = "SELECT * FROM tblMarket ORDER BY marketRate DESC LIMIT 10";
+$getTopMarket = $conn->execute_query($topMarketQry); 
+
+$trendingItemQry = "SELECT * FROM tblItem INNER JOIN tblMarket ON tblMarket.marketID = tblItem.marketID 
+ORDER BY  itemRating DESC LIMIT 10" ;
+$getTrendingItem = $conn->execute_query($trendingItemQry);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +26,7 @@
     <section id="marketSelector">
         <figure>
             <img src="" alt="">
-            <figcaption>Raw Goods</figcaption>
+            <figcaption><a href="">Raw Goods</a></figcaption>
             <figcaption>Vegetables, Fruits, Raw Meat & More</figcaption>
         </figure>
 
@@ -25,20 +38,24 @@
     </section>
 
     <section id="topMarket">
-        <ul>
-            <li>
-        <figure>
-            <img src="" alt="">
-            <figcaption>Market 1</figcaption>
-        </figure>
-        </li>
+    <ul>
+<?php  
+    while($topMarket = $getTopMarket-> fetch_assoc()){
 
-        <li>
+    echo ' 
+
+    <li>
         <figure>
-            <img src="" alt="">
-            <figcaption>Market 2</figcaption>
+            <img src="images/' . $topMarket['marketImg'] . '" alt="">
+            <figcaption>' . $topMarket['marketName'] . '</figcaption>
         </figure>
-        </li>
+    </li>'
+    ;
+
+        
+    }
+?>
+
         </ul>
     </section>
 
@@ -46,19 +63,22 @@
     <secion id="trending">
         <p>Trending</p>
         <div id="trendingMarketList">
-        <figure>
-            <img src="" alt="">
-            <figcaption>Item</figcaption>
-            <figcaption>Market</figcaption>
-            <figcaption>Price</figcaption>
-        </figure>
 
+        <?php 
+
+        while($trendingItem = $getTrendingItem->fetch_assoc()){
+        echo '
         <figure>
-            <img src="" alt="">
-            <figcaption>Item</figcaption>
-            <figcaption>Market</figcaption>
-            <figcaption>Price</figcaption>
-        </figure>
+            <img src="images/' .$trendingItem['itemImage']. '" alt="">
+            <figcaption>' .$trendingItem['marketName'] . '</figcaption>
+            <figcaption>' . $trendingItem['itemRating']. '</figcaption>
+            <figcaption>'.$trendingItem['price'].'</figcaption>
+        </figure>'
+        ;
+        }
+
+        ?>
+
         </div>
     </secion>
 </body>
