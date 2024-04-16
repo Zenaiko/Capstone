@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
     <title>Login Page</title>
     <style>
@@ -151,7 +152,7 @@
         <h1 class="heading">RootReach</h1>
         <p class="subheading">All things food related</p>
 
-        <form action="#" method="post">
+        <form action="/query/loginform.php" method="post">
             <div class="input-container">
                 <input type="text" name="userName" placeholder="Mobile number or email address" required>
             </div>
@@ -166,7 +167,7 @@
 
             <a href="#" class="forgot-password">Forgot Password?</a>
 
-            <button type="submit" class="login-button">Log In</button>
+            <button type="submit" name="login" class="login-button">Log In</button>
         </form>
 
         <hr>

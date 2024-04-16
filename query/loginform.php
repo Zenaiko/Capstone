@@ -10,7 +10,11 @@ $userExistQry = "SELECT * FROM tblUser WHERE phoneNumber = (?) AND pass = (?)";
 $checkValidity = $conn->execute_query($userExistQry,([$validityUser , $vailidityPass]));
 
 if ($checkValidity -> num_rows == 1 ){
-        header("location: ../pages/newsFeed.php");
+        header("location: /pages/newsFeed.php");
+        echo ("success");
+    }
+    else{
+        echo ("error");
     }
 
 }

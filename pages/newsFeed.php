@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/newsFeed.css">
     <title>Document</title>
 </head>
 <body>
@@ -15,12 +16,12 @@
 <section class="newsfeed">
     <div class="post">
         <div class="postAccount">
-            <ul>
-                <a href=""><li> <img src="" alt=""> </li></a>
+            <ul class="accountDisplay">
+            <li> <a href=""><img class="profileIcon" src="/pages/images/Megumi2.png" alt=""> </a></li>
 
-                <a href=""><li>Account Name</li></a>
+            <li><a href="">Account Name</a></li>
 
-                <a href=""><li>Edit</li></a>
+            <li><a href="">Edit</a></li>
             </ul>
 
             <div class="postStrcture">
