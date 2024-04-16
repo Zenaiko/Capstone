@@ -1,0 +1,47 @@
+section#marketSelector{
+    display: flex;
+    color: aliceblue;
+    justify-content: center;
+}
+
+#marketSelector img{
+    height: 30rem;
+    width: 30rem;
+    filter: brightness(75%);
+}
+
+#marketSelector figure{
+    position: relative;
+}
+
+#marketSelector figcaption{
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+#topMarket figure{
+    text-align: center;
+}
+
+#topMarket figure img{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+}
+
+#containerMarket ul{
+    list-style: none;
+}
+
+#containerMarket ul.sorter{
+    display: flex;
+    flex-direction: row;
+}
+
+#trending img{
+    width: 20rem;
+    height: 20rem;
+}
+
+

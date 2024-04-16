@@ -21,29 +21,38 @@ $getTrendingItem = $conn->execute_query($trendingItemQry);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/market.css">
 </head>
 <body>
     <section id="marketSelector">
         <figure>
-            <img src="" alt="">
-            <figcaption><a href="">Raw Goods</a></figcaption>
-            <figcaption>Vegetables, Fruits, Raw Meat & More</figcaption>
+            <img src="/pages/images/rawGoods.jpg" alt="">
+        
+            <figcaption>Raw Goods
+                <p>Vegetables, Fruits, Raw Meat & More</p>
+            </figcaption>
+   
+
         </figure>
 
         <figure>
-            <img src="" alt="">
-            <figcaption>Processed Foods</figcaption>
-            <figcaption>Carinderia, Restaurants, Milktea & More</figcaption>
+            <img src="/pages/images/processedFoods.jpg" alt="">
+            <figcaption>Processed Foods
+                <p>Carinderia, Restaurants, Milktea & More</p>
+            </figcaption>
         </figure>
     </section>
 
+    <div id="containerMarket">
     <section id="topMarket">
-    <ul>
+        <p>Top Stores</p>
+    <ul class="sorter">
+
+
 <?php  
     while($topMarket = $getTopMarket-> fetch_assoc()){
 
     echo ' 
-
     <li>
         <figure>
             <img src="images/' . $topMarket['marketImg'] . '" alt="">
@@ -60,26 +69,36 @@ $getTrendingItem = $conn->execute_query($trendingItemQry);
     </section>
 
 
-    <secion id="trending">
+
+    <section id="trending">
         <p>Trending</p>
         <div id="trendingMarketList">
+        <ul class="sorter">
 
         <?php 
 
         while($trendingItem = $getTrendingItem->fetch_assoc()){
         echo '
+        <li>
         <figure>
-            <img src="images/' .$trendingItem['itemImage']. '" alt="">
-            <figcaption>' .$trendingItem['marketName'] . '</figcaption>
-            <figcaption>' . $trendingItem['itemRating']. '</figcaption>
-            <figcaption>'.$trendingItem['price'].'</figcaption>
-        </figure>'
-        ;
+        <img src="images/' .$trendingItem['itemImage']. '" alt="">
+        <figcaption>
+            <ul>
+                <li>' .$trendingItem['marketName'] . '</li>
+                <li>' . $trendingItem['itemRating']. '</li>
+                <li>'.$trendingItem['price'].'</li>
+            </ul>
+            </figcaption>
+        </figure>
+        <li>';
         }
 
         ?>
 
+     
+        </ul>
         </div>
-    </secion>
+    </section>
+    </div>
 </body>
 </html>
