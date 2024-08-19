@@ -1,0 +1,21 @@
+body, html{
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    font-family: "Inter", sans-serif;
+}
+
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Bootstrap Icons */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+/* Color Root */
+:root{
+    --app_name: #303030;
+    --inp_field_bg: #F6F5F5;
+    --login_bg: #5783DB;
+}
