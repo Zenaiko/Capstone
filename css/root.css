@@ -1,6 +1,7 @@
 body, html{
     margin: 0;
     padding: 0;
+    max-width: 100vw;
 }
 
 *{
@@ -18,4 +19,5 @@ body, html{
     --app_name: #303030;
     --inp_field_bg: #F6F5F5;
     --login_bg: #5783DB;
+    --soc_med_bg: #F6F5F5;
 }

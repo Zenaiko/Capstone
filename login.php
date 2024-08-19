@@ -1,5 +1,5 @@
 
-<form action="">
+<form id="login_form" action="">
     <div id="login_container">
         <div id="login_field">
             <input type="text" name="" id="" placeholder="Username/Email">

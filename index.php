@@ -26,7 +26,7 @@
 
                         <?php require_once('login.php'); ?>
 
-                        <span id="line_span">or</span>
+                        <span id="main_line">or</span>
 
                         <div id="socmed_wrapper">
                             <div id="socmed_container">
@@ -36,7 +36,9 @@
                         </div>
 
                         <footer id="main_footer">
-                            <p>Don't have an account? <a href="" id="main_form_changer">Sign In</a></p>
+                            <div id="main_footer_contents">
+                                <p>Don't have an account? <a href="" id="main_form_changer">Sign In</a></p>
+                            </div>
                         </footer>
                     </div>
                 </div>
