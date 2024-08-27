@@ -24,9 +24,10 @@
                 <div id="main_contents_wrapper">
                     <div id="main_contents_container">
 
-                        <?php require_once('login.php'); ?>
-
-                        <span id="main_line">or</span>
+                        <div id="main_content">
+                        <?php require_once('otp.php'); ?>
+                        </div>
+                         <p id="main_line_p"><span id="main_line">or</span></p>
 
                         <div id="socmed_wrapper">
                             <div id="socmed_container">
