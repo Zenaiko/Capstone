@@ -1,4 +1,16 @@
-<form action="" id="otp_form">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<section class="main_section">
+    <div class="main_container">
+        <?php require_once("arrow_header.php")?>
+
+<form action="sign_up.php" id="otp_form">
     <div id="otp_form_container">
         <div id="otp_form_contents">
             <p class="h3 fw-bold text-center">Enter Your OTP</p>
@@ -15,3 +27,8 @@
         </div>
     </div>
 </form>
+</div>
+</section>
+
+</body>
+</html>

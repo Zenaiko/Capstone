@@ -4,20 +4,29 @@ body{
     min-height: 100vh;
 }
 
-#main_section, #main_wrapper, #main_contents_container, #main_contents_wrapper{
-    max-width: 100%;
-    min-height: 100%;
+.main_section{
+    min-height: 100vh;
+    max-height: 100vh;
+    display: flex;
 }
 
-#main_wrapper{
+.main_contents_container, .main_contents_wrapper, .main_container{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+}
+
+.main_section{
     display: flex;
     justify-content: center;
 }
 
-#main_container{
-    width: 90%;
+.main_container{
+    height: fit-content;
+    max-width: 90%;
     display: flex;
-    flex-direction: column  ;
+    flex-direction: column;
+    height: 100%;
 }
 
 #main_header{
@@ -46,11 +55,9 @@ body{
     color: var(--app_name);
 }
 
-#main_contents_container{
+.main_contents_container{
     display: flex;
     flex-direction: column;
-    position: relative;
-    height: 100%;
 }
 
 /* Login */
@@ -126,101 +133,63 @@ body{
 
 /* Sign up */
 
-
-/* ------------------------------------Second Placeholder------------------------------------*/
-#main_arrow_header{
-    margin-top: 1.5rem;
+#sign_up_contents p{
+    font-weight: 600;
 }
 
-#back_arrow{
-    cursor: pointer;
-}
-
-#second_placeholder_container{
-    margin-top: 1.5rem;
-}
-
-/* Send Number */
-
-.submit_button{
-    border: none;
-    height: 2.5rem;
-    font-size: 0.8rem;
-    background-color:var(--login_bg) ;
-    color: white;
-    border-radius: 5px;
-}
-
-#otp_number_container{
+#sign_up_form{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 0.3rem;
 }
 
-#otp_number_contents{
-    width: fit-content;
-}
-
-#otp_number_contents p{
-    margin-bottom: 3rem;
-}
-
-#otp_number_contents input{
+#sign_up_form input{
     width: 100%;
+    height: 3.5rem;
+    margin-bottom: 1rem;
     border-radius: 0.5rem;
-}
-
-#opt_phone{
-    height: 3rem;
-    font-size: 0.8rem;
     background-color: var(--inp_field_bg);
     border: 1px solid var(--field_border);
-    margin-bottom: 2.2rem;
     text-indent: 0.5rem;
 }
 
-/* OTP Accept */
-
-#otp_form_contents{
+#terms_conditions_container{
     display: flex;
+    margin-bottom: 1.2em;
+}
+
+#terms_conditions_checkbox{
+    margin-right: 0.5rem;
+    background-color: white;
+    border: 1px solid var(--login_bg)
+}
+
+#sign_up_submit{
+    height: 3rem;
     width: 100%;
-    flex-direction: column;
-    justify-content: center;
+    border: none;
+    background-color: var(--login_bg);
+    color: white;
+    border-radius: 0.5rem;
 }
 
-#otp_field_wrapper{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-top: 1rem;
-
-}
-
-#otp_field{
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    justify-content: space-between;
-}
-
-.otp_input{
-    width: 2.5rem;
-    aspect-ratio: 1/1;
-    background-color: var(--inp_field_bg);
-    border: 1px solid var(--field_border);
-}
-
-#resend_otp{
-    margin-top: 1rem;
-    font-size: 0.8rem;
-}
-
-#otp_timer{
-    color: var(--login_bg);
-}
-
+/* ------------------------------------Second Placeholder------------------------------------*/
 
 
 /* Lower Part Main */
+#main_footer_section{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    margin-top: 3rem;
+}
+
+#main_footer_wrapper{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
 #main_line_p{
     width: 100%; 
@@ -256,8 +225,9 @@ body{
 
 #main_footer{
     position: relative;
-    max-width: 100%;
-    height: 100%;
+    width: 100%;
+    min-height: 12rem;
+    display: flex;
 }
 
 #main_footer_contents{

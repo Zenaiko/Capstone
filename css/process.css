@@ -1,0 +1,92 @@
+@import url("main.css");
+@import url("root.css");
+#main_arrow_header{
+    margin-top: 1.5rem;
+}
+
+#back_arrow{
+    cursor: pointer;
+}
+
+.second_placeholder_container{
+    margin-top: 1.5rem;
+}
+
+/* Send Number */
+
+.submit_button{
+    border: none;
+    height: 2.5rem;
+    font-size: 0.8rem;
+    background-color:var(--login_bg) ;
+    color: white;
+    border-radius: 5px;
+}
+
+#otp_number_container{
+    display: flex;
+    justify-content: center;
+}
+
+#otp_number_contents{
+    width: fit-content;
+}
+
+#otp_number_contents p{
+    margin-bottom: 3rem;
+}
+
+#otp_number_contents input{
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+#opt_phone{
+    height: 3rem;
+    font-size: 0.8rem;
+    background-color: var(--inp_field_bg);
+    border: 1px solid var(--field_border);
+    margin-bottom: 2.2rem;
+    text-indent: 0.5rem;
+}
+
+/* OTP Accept */
+
+#otp_form_contents{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#otp_field_wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+
+}
+
+#otp_field{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.otp_input{
+    width: 2.5rem;
+    aspect-ratio: 1/1;
+    background-color: var(--inp_field_bg);
+    border: 1px solid var(--field_border);
+}
+
+#resend_otp{
+    margin-top: 1rem;
+    font-size: 0.8rem;
+}
+
+#otp_timer{
+    color: var(--login_bg);
+}
+
