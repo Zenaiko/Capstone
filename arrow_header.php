@@ -4,3 +4,5 @@ require_once('utilities/initialize.php') ?>
 <header id="main_arrow_header">
     <i id="back_arrow" class="bi bi-arrow-left h5"></i>
 </header>
+
+<script src="js/arrow..js"></script>
