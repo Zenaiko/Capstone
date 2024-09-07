@@ -8,7 +8,7 @@
 </head>
 
 <?php require_once('../utilities/initialize.php');
-        require_once('nav.php');?>
+        require_once('../utilities/nav.php');?>
 
 <body>
     <section id="cus_acc_section">
@@ -78,8 +78,11 @@
                 </div>
             </div>
         </div>
-
     </section>
     
+    <p class="text-center">You may also like</p>
+
+    <div class="item_loop"><?php require_once('item_loop.php') ?></div>
+
 </body>
 </html>

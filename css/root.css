@@ -37,7 +37,8 @@ body, html{
     --price_linear: linear-gradient(0deg, rgba(244,61,48,1) 35%, rgba(189,74,42,1) 100%);
     --star_icon: #FABC3F;
     --star_splitter_span: #131313;
-    --cart_bg: #4CFF1B;
+    --cart_bg: #40A578;
+    --item_border: #DEDEDE;
 }
 
 body{

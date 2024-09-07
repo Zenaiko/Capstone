@@ -1,28 +1,31 @@
 @import url(root.css);
 
-#loop{
-    display: flex;
-}
+#loop{display: flex;}
+#loop div{ margin: auto;}
 
-#loop div{
-    margin: auto;
+.item_wrapper{
+    max-width: 100%;
 }
 
 .item_contents{
-    background-color: rgb(203, 222, 203);
-    min-width: 28rem;
-    max-width: 28rem;
-    min-height: 45rem;
+    background-color:white;
+    border: 0.5px solid var(--item_border);
+    min-width: 10rem;
+    max-width: 10rem;
+    min-height: 16rem;
+    max-height: 16rem;
 }
 
 .item_img{
     min-width: 100%;
+    max-width: 100%;
     aspect-ratio: 1/1;
 }
 
 .item_info{
-    font-size: 1.8rem;
-
+    font-size: 0.75rem;
+    max-width: 90%;
+    height: fit-content;
     position: relative;
 }
 
@@ -39,7 +42,6 @@
     background: var(--price_linear);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
-    
 }
 
 .item_stars{
@@ -54,7 +56,7 @@
     height: inherit ;
     background-color: var(--star_splitter_span);
     width: 0.05rem;
-    margin: 0 0.8rem;
+    margin: 0 0.3rem;
 }
 
 .item_stars ul{
@@ -65,11 +67,12 @@
 
 i.item_cart{
     position: absolute;
-    right: 0.8rem;
+    right: 0;
     bottom: 0;
-    padding: 1rem;
+    padding: 0.3rem;
     color: white;
-    font-size: 3rem;
+    font-size: 1rem;
+    border-radius: 3px;
     background-color: var(--cart_bg);
     
 }

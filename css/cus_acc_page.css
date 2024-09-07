@@ -54,6 +54,7 @@
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
+    border: 0.5px solid black;
 }
 
 #cus_acc_order_info_wrapper{
