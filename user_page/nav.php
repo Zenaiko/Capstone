@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Store</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="../css/nav.css">
 </head>
 <body>
+
+<?php require_once('../utilities/initialize.php') ?>
+
 <!-- main nav -->
 <header class="header">
     <a href="#" class="logo"><i class="fas fa-shopping-basket"></i></a>
@@ -37,6 +33,5 @@
     </form>
 
 </header>
-    <script src="nav.js"></script>
+    <script src="../js/nav.js"></script>
 </body>
-</html>

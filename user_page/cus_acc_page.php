@@ -7,7 +7,8 @@
     <title></title>
 </head>
 
-<?php require_once('../utilities/initialize.php') ?>
+<?php require_once('../utilities/initialize.php');
+        require_once('nav.php');?>
 
 <body>
     <section id="cus_acc_section">
