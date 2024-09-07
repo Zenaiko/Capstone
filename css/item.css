@@ -1,0 +1,75 @@
+@import url(root.css);
+
+#loop{
+    display: flex;
+}
+
+#loop div{
+    margin: auto;
+}
+
+.item_contents{
+    background-color: rgb(203, 222, 203);
+    min-width: 28rem;
+    max-width: 28rem;
+    min-height: 45rem;
+}
+
+.item_img{
+    min-width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.item_info{
+    font-size: 1.8rem;
+
+    position: relative;
+}
+
+.item_info *{
+    margin-bottom: 0.1rem;
+}
+
+.item_name{
+    font-weight: 300;
+}
+
+.item_price{
+    font-weight: 600;
+    background: var(--price_linear);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    
+}
+
+.item_stars{
+    display: flex;
+}
+
+.item_stars ul li{
+    color: var(--star_icon);
+}
+
+.star_splitter{
+    height: inherit ;
+    background-color: var(--star_splitter_span);
+    width: 0.05rem;
+    margin: 0 0.8rem;
+}
+
+.item_stars ul{
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+i.item_cart{
+    position: absolute;
+    right: 0.8rem;
+    bottom: 0;
+    padding: 1rem;
+    color: white;
+    font-size: 3rem;
+    background-color: var(--cart_bg);
+    
+}
