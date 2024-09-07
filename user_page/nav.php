@@ -1,37 +1,49 @@
-<head>
-    <link rel="stylesheet" href="../css/nav.css">
-</head>
-<body>
 
-<?php require_once('../utilities/initialize.php') ?>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="nav.css">
+    <div class="main-navbar shadow-sm sticky-top">
+        <div class="top-navbar">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
+                        <h5 class="brand-name">Cab-Mart</h5>
+                    </div>
+                    <div class="col-md-5 my-auto">
+                        <form role="search">
+                            <div class="input-group">
+                                <input type="search" placeholder="Search your product" class="form-control" />
+                                <button class="btn bg-white" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-5 my-auto">
+                        <ul class="nav justify-content-end">
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-shopping-cart"></i> Cart 
+                                </a>
+                            </li>
 
-<!-- main nav -->
-<header class="header">
-    <a href="#" class="logo"><i class="fas fa-shopping-basket"></i></a>
-    <nav class="navbar">
-      
-              <a href="#">???</a>  
-              <a href="#">???</a>  
-              <a href="#">???</a>  
-              <a href="#">???</a>  
-              <a href="#">???</a>  
-              <a href="#">???</a>  
-        
-    </nav>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">
+                                  <i class="fa fa-message"></i> Messages
+                              </a>
+                          </li>
 
-    <div class="icons">
-      <div class="fas fa-search" id="search-btn"></div>
-      <div class="fas fa-shopping-cart" id="cart-btn"></div>
-      <div class="fas fa-message" id="msg-btn"></div>
-      <div class="fas fa-user" id="login-btn"></div>
-      <div class="fas fa-bars" id="menu-btn"></div>
-  </div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-user"></i> User
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <form action="" class="search-form">
-        <input type="search" id="search-box" placeholder="search here...">
-        <label for="search-box" class="fas fa-search"></label>
-    </form>
-
-</header>
-    <script src="../js/nav.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
