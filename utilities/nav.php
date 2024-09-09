@@ -1,5 +1,7 @@
 
-    <link rel="stylesheet" href="../css/nav.css">
+
+
+<link rel="stylesheet" href="../css/nav.css">
     <div class="main-navbar shadow-sm sticky-top">
         <div class="top-navbar">
             <div class="container-fluid">
