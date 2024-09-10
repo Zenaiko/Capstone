@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <?php require_once('../utilities/initialize.php') ?>
+    <?php require_once('../utilities/initialize.php'); require_once('../utilities/nav.php') ?>
     <section id="solo_item_section">
         <div id="solo_item_wrapper">
             <div id="solo_item_container">
@@ -95,6 +95,7 @@
                 </div>
 
                 <hr class="splitter">
+                
                 <div id="item_description_wrapper">
                     <div id="item_description_container">
                         <p>Item Description</p>
@@ -107,5 +108,8 @@
             </div>
         </div>
     </section>
+
+    <?php require_once('../utilities/item_interaction.php') ?>
+
 </body>
 </html>
