@@ -1,0 +1,40 @@
+@import url(root.css);
+
+
+.seller_cart_wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.seller_cart_contents{
+    width: 90%;
+}
+
+.seller_cart_name_container, .seller_item, .item_counter{
+    display: flex;
+    flex-direction: row;
+}
+
+.seller_items_wrapper{
+    margin-left: 1rem;
+}
+
+.item_cart_checkbox{
+    margin-right: 0.5rem;
+}
+
+.item_cart_img{
+    margin-right:0.5rem;
+    width: 5rem;
+    aspect-ratio: 1/1;
+}
+
+.cart_item_description{
+    display: flex;
+    flex-direction: column;
+}
+
+.cart_item_description *{
+    margin: 0;
+}
+

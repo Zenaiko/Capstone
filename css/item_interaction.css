@@ -5,6 +5,7 @@
     bottom: 0;
     width: 100%;
     border-top: 1px solid var(--gray_item_interaction_border);
+    
 }
 
 #item_interaction_container{
