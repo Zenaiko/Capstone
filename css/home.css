@@ -1,0 +1,185 @@
+/* Carousel Styles */
+.carousel-item img {
+    width: 100%; /* Full width of the carousel */
+    height: 20rem; /* Fixed height for consistent slide size */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+}
+
+/* Categories grid */
+.category-item {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+.category-item img {
+    border-radius: 50%; /* Circular images */
+    width: 5rem; /* Fixed size for consistency */
+    height: 5rem; /* Fixed size for consistency */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+    margin-bottom: 0.25rem; /* Space between image and text */
+}
+
+.category-item p {
+    font-size: 0.75rem; /* Smaller text for category labels */
+}
+
+/* Top Shops Section */
+.featured-shop-contents-row {
+    display: flex; /* Use flexbox for horizontal layout */
+    gap: 1rem; /* Space between shop items */
+    overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+    padding-bottom: 1rem; /* Space below the row */
+}
+
+.featured-shop-contents {
+    display: flex; /* Use flexbox for vertical alignment */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin-right: 1rem; /* Space between items */
+    flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+.featured-shop-contents img {
+    border-radius: 50%; /* Circular images */
+    width: 7rem; /* Fixed size for consistency */
+    height: 7rem; /* Fixed size for consistency */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+    margin-bottom: 0.5rem; /* Space between image and text */
+}
+
+/* Sale Section */
+.sale-shop-contents-row {
+    display: flex; /* Use flexbox for horizontal layout */
+    gap: 1rem; /* Space between sale items */
+    overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+    padding-bottom: 1rem; /* Space below the row */
+}
+
+.sale-shop-contents {
+    display: flex; /* Use flexbox for vertical alignment */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin-right: 1rem; /* Space between items */
+    flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+.sale-shop-contents img {
+    border-radius: 50%; /* Circular images */
+    width: 7rem; /* Fixed size for consistency */
+    height: 7rem; /* Fixed size for consistency */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+    margin-bottom: 0.5rem; /* Space between image and text */
+}
+
+.sale-info {
+    text-align: center; /* Center text within the sale item */
+}
+
+.sale-name {
+    font-size: 0.875rem; /* Slightly larger text for sale item names */
+}
+
+/* View More Link */
+.view-more {
+    font-size: 0.875rem; /* Slightly larger text for readability */
+    text-decoration: none; /* Remove underline */
+    color: #878787; /* Gray color for the link */
+}
+
+.view-more:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Footer Styles */
+.footer {
+    background-color: #20263e; /* Dark background color */
+    color: #fff; /* White text color */
+    padding: 1rem 0; /* Padding for top and bottom */
+}
+
+.footer h5 {
+    font-size: 1.25rem; /* Larger font size for section headings */
+}
+
+.footer-link {
+    color: #878787; /* Gray color for links */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer-link:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+.footer-icon {
+    color: #fff; /* White color for icons */
+    font-size: 1.5rem; /* Larger icons */
+}
+
+.footer-icon:hover {
+    color: #878787; /* Gray color on hover */
+}
+
+.footer-contact {
+    margin-bottom: 0.25rem; /* Space between contact items */
+}
+
+/* Mobile Responsiveness */
+/* Styles for mobile view adjustments */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 10rem; /* Smaller height for mobile view */
+    }
+
+    .featured-shops-header h2, .categories-header h2, .sale-section-header h2 {
+        font-size: 1.25rem; /* Smaller font size for headers */
+    }
+
+    .featured-shop-contents, .sale-shop-contents {
+        width: 10rem; /* Smaller size for mobile view */
+        height: 10rem; /* Smaller size for mobile view */
+    }
+    
+    .featured-shop-contents img, .sale-shop-contents img {
+        width: 5rem; /* Smaller image size for mobile view */
+        height: 5rem; /* Smaller image size for mobile view */
+    }
+
+    .category-item img {
+        width: 4rem; /* Smaller category icons for mobile */
+        height: 4rem; /* Smaller category icons for mobile */
+    }
+
+    .category-row {
+        display: flex; /* Use flexbox for layout */
+        flex-wrap: wrap; /* Wrap items onto multiple lines */
+        justify-content: space-between; /* Space out items */
+        gap: 0.5rem; /* Space between items */
+    }
+
+    .category-item {
+        width: calc(25% - 0.5rem); /* Four categories per row */
+    }
+
+    /* Footer responsiveness */
+    .footer {
+        padding: 1rem; /* Adjust padding for mobile */
+    }
+
+    .footer .row {
+        flex-direction: column; /* Stack columns vertically */
+        text-align: center; /* Center text in each column */
+    }
+
+    .footer .col-md-4 {
+        margin-bottom: 1rem; /* Add space between stacked columns */
+    }
+
+    .footer-icon {
+        font-size: 1.25rem; /* Slightly smaller icons on mobile */
+    }
+
+    .footer-contact p {
+        margin-bottom: 0.5rem; /* Reduce space between contact items */
+    }
+}
