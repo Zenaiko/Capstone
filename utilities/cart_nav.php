@@ -1,5 +1,6 @@
+<link rel="stylesheet" href="../css/cart_nav.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="../css/shop_nav.css">
 <nav class="navbar">
     <div class="nav-left">
       <button class="back-btn">&#8592;</button>

@@ -152,6 +152,7 @@
     justify-content: center;
     border-bottom: 1px solid var(--gray_item_wrapper_head);
     margin: 0;
+    padding: 0;
 }
 
 #haeder_item_wrapper{
@@ -160,6 +161,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin: 0;
+    
 }
 
 #haeder_item_wrapper *{

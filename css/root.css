@@ -46,6 +46,9 @@ body, html{
     --gray_item_wrapper_head: #E3E3E3;
     --gray_item_interaction_border: #989898;
     --orange_fill_gradient: linear-gradient(-70deg, #FFB000 5%, #EA2027 100%);
+    --orange_fill_gradient_two: linear-gradient(-75deg, #FFB000 0%, #EA2027 70%);
+    --seller_page_gray: #ECECEC;
+    --seller_page_green: #74D680;
 }
 
 body{

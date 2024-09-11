@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <?php require_once('../utilities/initialize.php') ?>
+    <?php require_once('../utilities/initialize.php'); require_once('../utilities/cart_nav.php') ?>
 
     <section id="cart_section">
         <div id="cart_contents">
