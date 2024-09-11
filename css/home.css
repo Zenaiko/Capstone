@@ -84,7 +84,7 @@
 .view-more {
     font-size: 0.875rem; /* Slightly larger text for readability */
     text-decoration: none; /* Remove underline */
-    color: #878787; /* Gray color for the link */
+    color: #878787; /* GrAy color for the link */
 }
 
 .view-more:hover {
@@ -161,7 +161,6 @@
         width: calc(25% - 0.5rem); /* Four categories per row */
     }
 
-    /* Footer responsiveness */
     .footer {
         padding: 1rem; /* Adjust padding for mobile */
     }
