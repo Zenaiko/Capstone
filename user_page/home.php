@@ -134,7 +134,7 @@
             <h2 class="fw-bold">Sale</h2>
             <a href="#" class="view-more" style="color: #878787;">View More</a>
         </div>
-        <div class="item_loop"><?php require_once(' ') ?></div>
+        <div class="item_loop"><?php require_once('../utilities/item_loop.php') ?></div>
     </div>
 </section>
 

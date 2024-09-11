@@ -1,16 +1,12 @@
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream:utilities/nav.php
-=======
+
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
->>>>>>> Stashed changes:user_page/nav.php
     <link rel="stylesheet" href="../css/nav.css">
-=======
+
 
 
 <link rel="stylesheet" href="../css/nav.css">
->>>>>>> 29ba6e3153886eef6e757666cef0a684a58e9dff
     <div class="main-navbar shadow-sm sticky-top">
         <div class="top-navbar">
             <div class="container-fluid">
