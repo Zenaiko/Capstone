@@ -1,0 +1,67 @@
+@import url(root.css);
+
+#item_interaction_wrapper{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid var(--gray_item_interaction_border);
+}
+
+#item_interaction_container{
+    display: flex;
+    flex-direction: row;
+    height: 2.875rem;
+    background-color: white;
+}
+
+#item_interaction_container div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#item_interaction_container div:not(:last-child){
+    font-size: 0.65rem;
+}
+
+#item_interaction_container div *{
+    margin:0;
+    width: fit-content;
+    height: fit-content;
+}
+
+#item_interaction_container div i{
+    font-size: 1.125rem;
+}
+
+#item_interaction_share{
+    border-right: 0.25px solid black;
+}
+
+#item_interaction_message{
+    border-left: 0.25px solid black;
+}
+
+#item_interaction_message, #item_interaction_share{
+    width: 18%;
+
+}
+
+#item_interaction_cart, #item_interaction_order{
+    color: white;
+    font-weight: 700;
+    font-weight: bold;
+}
+
+
+#item_interaction_cart{
+    width: 30%;
+    background-color: var(--cart_bg);
+}
+
+#item_interaction_order{
+    flex:1;
+    background-image: var(--orange_fill_gradient);
+    font-size: 0.75rem;
+}
