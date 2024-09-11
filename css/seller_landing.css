@@ -1,0 +1,39 @@
+@import url(root.css);
+
+#store_top_products_header{
+    display: flex;
+    justify-content: center;
+}
+
+#store_top_products_header_container{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+}
+
+#store_top_products_header_container *{
+    margin: 0;
+}
+
+#store_top_products_header_container:first-child{
+    font-size: 1.125rem;
+}
+
+#top_products_view{
+    font-size: 0.625rem;
+    color: var(--view_all);
+    align-content: flex-end;
+}
+
+#top_store_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#top_store_container{
+    gap: 0.5rem;
+    width: 90%;
+    padding-bottom: 1rem;
+}

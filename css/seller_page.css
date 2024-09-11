@@ -116,3 +116,15 @@
     z-index: 1; /* Ensure the border is above the parent */
     border-radius: 3rem;
   }
+
+  #seller_main_wrapper{
+    margin-top: 1rem;
+  }
+
+  #seller_page_carousel_wrapper{
+    margin-top: 3rem;
+  }
+
+.seller_carousel_img{
+    aspect-ratio: 21/9;
+}
