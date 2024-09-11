@@ -29,23 +29,55 @@
     display: flex; /* Use flexbox for horizontal layout */
     gap: 1rem; /* Space between shop items */
     overflow-x: auto; /* Allow horizontal scrolling if content overflows */
-    padding-bottom: 1rem; /* Space below the row */
+    padding-bottom: 2rem; /* Space below the row */
 }
 
 .featured-shop-contents {
     display: flex; /* Use flexbox for vertical alignment */
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally */
-    margin-right: 1rem; /* Space between items */
-    flex-shrink: 0; /* Prevent items from shrinking */
+    background-color: white ;
+    min-width: 7.188rem;
+    min-height: 9.063rem;
 }
 
 .featured-shop-contents img {
     border-radius: 50%; /* Circular images */
-    width: 7rem; /* Fixed size for consistency */
-    height: 7rem; /* Fixed size for consistency */
+    width:6.25rem; /* Fixed size for consistency */
+    aspect-ratio: 1/1;
     object-fit: cover; /* Ensure the image covers the container without distortion */
     margin-bottom: 0.5rem; /* Space between image and text */
+ 
+}
+
+.featured-name{
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.feature_shop_rate{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-height: fit-content;
+    position: relative;
+}
+
+.feature_shop_stars{
+    display: flex;
+}
+
+.feature_seller_star{
+    font-size: 0.5rem;
+}
+
+.feature_rate_respondents{
+    font-size: 0.438rem;
+    margin: 0;
+}
+
+span.feature_star_splitter{
+    align-self: stretch;
 }
 
 /* Sale Section */
@@ -135,15 +167,15 @@
         font-size: 1.25rem; /* Smaller font size for headers */
     }
 
-    .featured-shop-contents, .sale-shop-contents {
-        width: 10rem; /* Smaller size for mobile view */
-        height: 10rem; /* Smaller size for mobile view */
-    }
+    /* .featured-shop-contents, .sale-shop-contents {
+        width: 10rem; 
+        height: 10rem; 
+    } */
     
-    .featured-shop-contents img, .sale-shop-contents img {
-        width: 5rem; /* Smaller image size for mobile view */
-        height: 5rem; /* Smaller image size for mobile view */
-    }
+    /* .featured-shop-contents img, .sale-shop-contents img {
+        width: 5rem; 
+        height: 5rem; 
+    } */
 
     .category-item img {
         width: 4rem; /* Smaller category icons for mobile */
