@@ -37,13 +37,6 @@
     font-weight: 300;
 }
 
-.item_price{
-    font-weight: 600;
-    background: var(--price_linear);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-}
-
 .item_stars{
     display: flex;
 }
@@ -74,5 +67,4 @@ i.item_cart{
     font-size: 1rem;
     border-radius: 3px;
     background-color: var(--cart_bg);
-    
 }

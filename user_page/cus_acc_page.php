@@ -80,9 +80,9 @@
         </div>
     </section>
     
-    <p class="text-center">You may also like</p>
+    <p class="text-center text-capitalize">You may also like</p>
 
-    <div class="item_loop"><?php require_once('item_loop.php') ?></div>
+    <div class="item_loop"><?php require_once('../utilities/item_loop.php') ?></div>
 
 </body>
 </html>
