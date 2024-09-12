@@ -14,12 +14,16 @@
     max-width: 10rem;
     min-height: 16rem;
     max-height: 16rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
 }
 
 .item_img{
     min-width: 100%;
     max-width: 100%;
     aspect-ratio: 1/1;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
 }
 
 .item_info{

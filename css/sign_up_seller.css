@@ -1,0 +1,199 @@
+@import url(root.css);
+
+#seller_sign_up_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#seller_sign_up_container{
+    width: 90%;
+    min-height: 100%;
+}
+
+/* Seller Information */
+
+#shop_information_form{
+    position: relative;
+    min-height: 90%;
+}
+
+#shop_information_form *{
+    font-size: 0.75rem;
+}
+
+#shop_info_title{
+    font-size: 0.938rem;
+    font-weight: 700;
+}
+
+#shop_img_sign_wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+#shop_img_sign_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#shop_img_sign_container *{
+    margin: 0;
+    width: fit-content;
+    align-self: center;
+}
+
+#sign_img_preview{
+    border-radius: 50%;
+    width: 7.813rem;
+    aspect-ratio: 1/1;
+}
+
+#sign_upload_shop_image{
+    margin: 0;
+    width: fit-content;
+}
+#seller_sign_field{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5em;
+}
+
+#seller_sign_field label{
+    text-transform: uppercase;
+}
+
+#seller_sign_field input{
+    height: 1.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--seller_inp_border);
+}
+
+#seller_sign_loc_button{
+    margin-bottom: 1rem;
+    width: 80%;
+    background-color: white;
+    height: 1.75rem;
+    align-self: center;
+    border: 1px solid var(--seller_loc_border);
+    border-radius: 0.3rem;
+}
+
+#address_title, #shop_sell_food_container label{
+    font-weight: 600;
+}
+
+#shop_sell_food_container{
+    display: flex;
+}
+
+#shop_sell_food_container label{
+    height: fit-content;
+    margin-right: 0.3rem;
+}
+
+#shop_sell_food_container input{
+    margin: 0;
+    height: fit-content;
+    align-self: center;
+}
+
+#sign_bs_info_next{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* Busines Form */
+#bs_info_title{
+    font-weight: 700;
+}
+
+#shop_business_form{
+    font-size: 0.625rem;
+}
+
+#shop_business_form *{
+    text-transform: uppercase;
+}
+
+#shop_business_form input[type="file"]{
+    font-size: 0.5rem;
+}
+
+#sign_tin{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+}
+
+#sign_tin input{
+    height: 1.75rem;
+    background-color: white;
+    border: 1px solid var(--seller_inp_border);
+    border-radius: 0.3rem;
+}
+
+#bs_inp_field div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign_bs_img{
+    width: 6.25rem;
+    aspect-ratio: 1/1;
+    margin-bottom: 0.5rem;
+    border-radius: 0.3rem;
+    border: 1px solid var(--seller_sign_img_border);
+}
+
+#bs_inp_field div p{
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+#sign_agreement_container{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    margin: 1.5rem 0;
+}
+
+#sign_agreement_container *{
+    font-size: 0.625rem;
+    margin: 0;
+}
+
+#agreement_terms_conditions{
+    margin-right: 0.8rem;
+}
+
+#bs_info_footer_buttons{
+    margin-top: 3rem;
+    position: relative;
+}
+
+#bs_info_back, #seller_sign_submit{
+    position: absolute;
+    bottom: 0;
+    border: 1px solid var(--seller_inp_border);
+    background-color: white;
+    font-size: 0.8rem;
+    border-radius: 0.3rem;
+    height: 1.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#bs_info_back{
+    left: 0;
+}
+
+#seller_sign_submit{
+    right: 0;
+}
+

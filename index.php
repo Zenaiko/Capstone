@@ -8,7 +8,7 @@
 <body>
     <?php require_once('utilities/initialize.php'); ?>
          
-    <?php header("location: user_page/cart.php") ?>
+    <?php header("location: user_page/sign_up_seller.php") ?>
 
 </body>
 </html>

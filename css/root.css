@@ -50,6 +50,12 @@ body, html{
     --seller_page_gray: #ECECEC;
     --seller_page_green: #74D680;
     --view_all: #878787;
+    --black_fifty: rgba(0, 0, 0, 0.5);
+    --products_orange: #FF8343;
+    --seller_inp_border: #CBCBCB;
+    --seller_loc_border: #979797;
+    --seller_sign_img_border: #B7B7B7;
+
 }
 
 body{

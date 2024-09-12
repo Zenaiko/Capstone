@@ -1,0 +1,32 @@
+@import url(root.css);
+
+#seller_products_header, #products_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#products_header_container, #products_container{
+    width: 90%;
+    display: flex;
+}
+
+#products_header_container{
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#products_header_container p{
+    color: var(--black_fifty);
+    font-size: 0.813rem;
+}
+
+#products_header_container p:first-child{
+    color: var(--products_orange);
+}
+
+#products_container{
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 1rem;
+}
