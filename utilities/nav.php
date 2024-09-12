@@ -28,7 +28,7 @@
                         <ul class="nav justify-content-end">
                             
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="../user_page/cart.php">
                                     <i class="fa fa-shopping-cart"></i> Cart 
                                 </a>
                             </li>
@@ -40,7 +40,7 @@
                           </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="../user_page/cus_acc_page.php">
                                     <i class="fa fa-user"></i> User
                                 </a>
                             </li>

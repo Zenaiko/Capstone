@@ -137,35 +137,35 @@
         <div class="category-row">
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 1"></a>
-                <p>Category 1</p>
+                <p>Vegetables</p>
             </div>
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 2"></a>
-                <p>Category 2</p>
+                <p>Fruits</p>
             </div>
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 3"></a>
-                <p>Category 3</p>
+                <p>Meat</p>
             </div>
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Category 4</p>
+                <p>Fish</p>
             </div>
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Category 4</p>
+                <p>Dairy</p>
             </div>
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Category 4</p>
+                <p>Condiments</p>
             </div>
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Category 4</p>
+                <p>Utensils and Kitchenware</p>
             </div>
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Category 4</p>
+                <p>Others</p>
             </div>
         </div>
     </div>
