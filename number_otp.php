@@ -12,12 +12,14 @@
         
         <div class="second_placeholder_container">
             <div class="second_placeholder_content">
-                <form action="otp.php" id="number_for_otp_form">
+                <form action="otp.php" id="number_for_otp_form" method="post">
                     <div id="otp_number_container">
                         <div id="otp_number_contents">
                             <p class="h3 fw-bold text-center">Enter your phone number</p>
-                            <input type="text" step="1" name="" id="opt_phone" placeholder="Phone Number" maxlength="11">
-                            <input type="submit" name="" id="otp_send_code" value="Send Code" class="submit_button">
+                            <form action="otp.php" id="visitor_sign_contact">
+                                <input type="text" step="1" name="opt_phone" id="opt_phone" placeholder="Phone Number" maxlength="11">
+                                <input type="submit" name="" id="otp_send_code" value="Send Code" class="submit_button">
+                            </form>
                         </div>
                     </div>
                 </form>

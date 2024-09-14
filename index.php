@@ -6,9 +6,12 @@
     <title>Login</title>
 </head>
 <body>
-    <?php require_once('utilities/initialize.php'); ?>
-         
-    <?php header("location: user_page/sign_up_seller.php") ?>
-
+    <?php 
+    require_once('utilities/initialize.php'); 
+    header("location: user_page/home.php?visitor") ;
+    session_start();
+    $_SESSION['user'] = 'visitor';
+    ?>
+        
 </body>
 </html>

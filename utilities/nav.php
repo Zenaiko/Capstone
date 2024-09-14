@@ -4,7 +4,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/nav.css">
 
-
+<?php 
+session_start();
+?>
 
 <link rel="stylesheet" href="../css/nav.css">
     <div class="main-navbar shadow-sm sticky-top">
@@ -40,7 +42,9 @@
                           </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="../user_page/cus_acc_page.php">
+                                <a class="nav-link" href="<?php 
+                                if($_SESSION['user'] == 'visitor'){
+                                    echo "../login.php";} ?>">
                                     <i class="fa fa-user"></i> User
                                 </a>
                             </li>
@@ -51,3 +55,4 @@
         </div>
     </div>
 
+<script src="../js/nav.js"></script>

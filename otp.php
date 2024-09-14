@@ -8,7 +8,9 @@
 <body>
 <section class="main_section">
     <div class="main_container">
-        <?php require_once("arrow_header.php")?>
+        <?php require_once("arrow_header.php");
+        session_start();
+        $_SESSION['visitor_sign_num'] = $_POST['opt_phone'];?>
 
 <form action="sign_up.php" id="otp_form">
     <div id="otp_form_container">
