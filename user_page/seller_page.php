@@ -39,7 +39,7 @@
             </div>
 
             <div id="seller_main_wrapper">
-                <?php require_once('seller_products.php') ?>
+                <?php require_once('seller_landing.php') ?>
             </div>
       
         </div>
