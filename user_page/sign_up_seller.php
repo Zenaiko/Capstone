@@ -7,11 +7,18 @@
     <title>Document</title>
 </head>
 <body>
-    <?php require_once('../utilities/initialize.php') ?>
+    <?php require_once('../utilities/initialize.php'); ?>
 
     <section id="seller_sign_up">
         <div id="seller_sign_up_wrapper">
-            <div id="seller_sign_up_container"><?php include('sign_business_info.php') ?></div>
+            <div id="seller_sign_up_container">
+                <?php
+                if(isset($_GET['business_information'])){
+                    include('sign_business_info.php');
+                }else{
+                    include('sign_shop_info.php'); }
+                    ?>
+            </div>
         </div>
     </section>
 </body>

@@ -1,6 +1,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/sign_up_seller.css">
-<form action="" id="shop_business_form">
+<form action="../db_api/db_seller_sign.php" method="post" id="shop_business_form">
     <p id="bs_info_title">Business Information</p>
     <div id="sign_tin"><label for="tin_input">Taxpayer Identification Number (TIN)</label><input type="text" id="tin_input"></div>
 
@@ -29,12 +29,15 @@
                 <img src="https://via.placeholder.com/100x100" alt="" class="sign_bs_img">
                 <input type="file" name="" id="" class="sign_bs_file">
             </div>
+            <?php 
+            if (isset($_GET['food_seller'])){?>
             <hr>
             <div id="sign_fda">
                 <p class="sign_bs_title">Food and Drug Administration (FDA) registration</p>
                 <img src="https://via.placeholder.com/100x100" alt="" class="sign_bs_img">
                 <input type="file" name="" id="" class="sign_bs_file">
             </div>
+            <?php } ?>
         </div>
     </div>
 
@@ -46,7 +49,7 @@
 
     <div id="bs_info_footer_buttons">
         <button id="bs_info_back">Back</button>
-        <input type="submit" value="Submit" id="seller_sign_submit">
+        <input type="submit" value="Submit" name="submit_seller_form" id="seller_sign_submit">
     </div>
 
 </form>

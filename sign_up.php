@@ -14,7 +14,7 @@
             <div class="main_contents_container">
                 <div class="main_content">
                     
-                    <form action="db_api/sign_seller_info_session.php" method="post">
+                    <form action="db_api/db_sign_visitor.php" method="post">
                         <div id="sign_up_container">
                             <div id="sign_up_contents">
                                 <p class="h5 text-uppercase">Sign Up</p>

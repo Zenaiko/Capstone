@@ -61,27 +61,27 @@
 
             <div id="cus_acc_body">
                 <div id="cus_acc_body_wrapeper">
-                    <figure class="cus_acc_body_content">
+                    <figure id="account" class="cus_acc_body_content">
                         <i class="bi bi-person-gear"></i>
                         <figcaption>Account</figcaption>
                     </figure>
-                    <figure class="cus_acc_body_content">
+                    <figure id="address" class="cus_acc_body_content">
                         <i class="bi bi-compass"></i>
                         <figcaption>Address</figcaption>
                     </figure>
-                    <figure class="cus_acc_body_content">
+                    <figure id="liked" class="cus_acc_body_content">
                         <i class="bi bi-heart"></i>
                         <figcaption>Liked Items</figcaption>
                     </figure>
-                    <figure class="cus_acc_body_content">
+                    <figure id="followed" class="cus_acc_body_content">
                         <i class="bi bi-person-check"></i>
                         <figcaption>Followed Store</figcaption>
                     </figure>
-                    <figure class="cus_acc_body_content">
+                    <figure id="help" class="cus_acc_body_content">
                         <i class="bi bi-question-circle"></i>
                         <figcaption>Help Center</figcaption>
                     </figure>
-                    <figure class="cus_acc_body_content">
+                    <figure id="store" class="cus_acc_body_content">
                         <i class="bi bi-basket"></i>
                         <figcaption>My Store</figcaption>
                     </figure>
@@ -93,6 +93,8 @@
     <p class="text-center text-capitalize">You may also like</p>
 
     <div class="item_loop"><?php require_once('../utilities/item_loop.php') ?></div>
+
+    <script src="../js/cus_acc.js"></script>
 
 </body>
 </html>
