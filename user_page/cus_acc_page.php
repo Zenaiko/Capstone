@@ -8,18 +8,20 @@
 </head>
 
 <?php require_once('../utilities/initialize.php');
-        require_once('../utilities/nav.php');?>
+        require_once('../utilities/nav.php');
+        require_once('../db_api/db_cus_info.php');
+        ?>
 
 <body>
     <section id="cus_acc_section">
         <div id="cus_acc_wrapper">
             <header id="cus_acc_header">
                 <div id="cus_acc_header_contents">
-                    <img id="cus_acc_img" src="../assets/tmp.png" alt="">
+                    <img id="cus_acc_img"  src="<?php if(isset($cus_info->user_img)){echo $cus_info->user_img;}else{echo '../assets/tmp.png';}?>" alt="">
                     <div id="cus_acc_info">
-                        <p id="cus_username">Abc Account</p>
-                        <p id="cus_liked_items" class="cus_info_relation">10 Liked Items</p>
-                        <p id="cus_following" class="cus_info_relation"> 8 Following</p>
+                        <p id="cus_username"> <?=$cus_info->username?> </p>
+                        <p id="cus_liked_items" class="cus_info_relation">  <?=$cus_info->like?> Liked Items</p>
+                        <p id="cus_following" class="cus_info_relation"> <?=$cus_info->follw?> Following</p>
                     </div>
                 </div>
             </header>
@@ -60,6 +62,14 @@
             <div id="cus_acc_body">
                 <div id="cus_acc_body_wrapeper">
                     <figure class="cus_acc_body_content">
+                        <i class="bi bi-person-gear"></i>
+                        <figcaption>Account</figcaption>
+                    </figure>
+                    <figure class="cus_acc_body_content">
+                        <i class="bi bi-compass"></i>
+                        <figcaption>Address</figcaption>
+                    </figure>
+                    <figure class="cus_acc_body_content">
                         <i class="bi bi-heart"></i>
                         <figcaption>Liked Items</figcaption>
                     </figure>
@@ -73,7 +83,7 @@
                     </figure>
                     <figure class="cus_acc_body_content">
                         <i class="bi bi-basket"></i>
-                        <figcaption>Store</figcaption>
+                        <figcaption>My Store</figcaption>
                     </figure>
                 </div>
             </div>

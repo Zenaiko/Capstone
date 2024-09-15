@@ -44,7 +44,9 @@ session_start();
                             <li class="nav-item">
                                 <a class="nav-link" href="<?php 
                                 if($_SESSION['user'] == 'visitor'){
-                                    echo "../login.php";} ?>">
+                                    echo "../login.php";}elseif($_SESSION['user'] == 'customer'){
+                                        echo"../user_page/cus_acc_page.php";
+                                    } ?>">
                                     <i class="fa fa-user"></i> User
                                 </a>
                             </li>

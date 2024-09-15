@@ -63,6 +63,9 @@
         $conn->execute_query($visitor_insert_username_qry, ([$visitor_id_assign->user_id,  $visitor->username , 'active', true, date('Y-m-d H:i:s'), true ]));
         $visitor_id_assign->username_id = $conn->insert_id;
 
+        $visitor_assign_cus_qry = ("INSERT INTO tbl_customer (usernameID) VALUES (?)");
+        $conn->execute_query($visitor_assign_cus_qry, ( [$visitor_id_assign->username_id] ));
+
         $visitor_insert_login_qry = ("INSERT INTO tbl_login(usernameID, passwordID, roleID, appID) VALUES (?, ?, ?, ?)");
         $conn-> execute_query($visitor_insert_login_qry, ([$visitor_id_assign->username_id, $visitor_id_assign->pasword_id,  $visitor_id_assign->role_id, $visitor_id_assign->app_id ]));
 
