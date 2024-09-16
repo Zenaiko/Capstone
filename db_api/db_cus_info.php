@@ -1,7 +1,7 @@
 <?php require_once('db_root_conn.php');
 
 
-    class user_info_database extends class_database{
+    class cus_info_database extends class_database{
         private $customer_id;
         public function __construct()
         {
@@ -26,7 +26,7 @@
     }
 
 
-    $cus_info_db = new user_info_database();
+    $cus_info_db = new cus_info_database();
     $cus_info_array = $cus_info_db->get_cus_info()[0];
     $cus_like_array = $cus_info_db->get_cus_like()[0];
     $cus_follow_array = $cus_info_db->get_cus_follow()[0];
@@ -34,7 +34,7 @@
     class class_cus_info{
         public $username;
         public $user_img;
-        public $follw;
+        public $follow;
         public $like;
     }
 
@@ -42,7 +42,7 @@
 
     $cus_info->username =  $cus_info_array['username']; 
     $cus_info->user_img =  $cus_info_array['user_img'];
-    $cus_info->follw =  $cus_like_array['item_liked'];
+    $cus_info->follow =  $cus_like_array['item_liked'];
     $cus_info->like =  $cus_follow_array['shop_follow'];
 
 

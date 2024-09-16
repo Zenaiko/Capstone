@@ -27,6 +27,8 @@
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         return $stmt;
+
+        
     }
     }
 

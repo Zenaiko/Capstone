@@ -35,6 +35,7 @@
             public $pasword_id;
             public $user_id;
             public $username_id;
+            public $cus_id;
             public $role_id = 1;
             public $app_id = 1;
             
@@ -65,11 +66,21 @@
 
         $visitor_assign_cus_qry = ("INSERT INTO tbl_customer (usernameID) VALUES (?)");
         $conn->execute_query($visitor_assign_cus_qry, ( [$visitor_id_assign->username_id] ));
+        $visitor_id_assign->cus_id = $conn->insert_id;
 
         $visitor_insert_login_qry = ("INSERT INTO tbl_login(usernameID, passwordID, roleID, appID) VALUES (?, ?, ?, ?)");
         $conn-> execute_query($visitor_insert_login_qry, ([$visitor_id_assign->username_id, $visitor_id_assign->pasword_id,  $visitor_id_assign->role_id, $visitor_id_assign->app_id ]));
 
+        $cus_asset_dir = '../user_page/user_assets/';
+        $cus_folder_name =$cus_asset_dir. 'c' . $visitor_id_assign->cus_id . '_assets';
+        
+        $ins_cus_folder = ("UPDATE tbl_customer SET cus_asset_folder = ? WHERE customerID = ?");
+        $conn->execute_query($ins_cus_folder, ([$cus_folder_name, $visitor_id_assign->cus_id] ));
+
+        mkdir($cus_folder_name);
+
         $conn->query("COMMIT");
+        header('location ../login.php');
     }   
 
 ?>

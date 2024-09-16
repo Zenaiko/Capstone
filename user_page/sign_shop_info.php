@@ -1,5 +1,5 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<form action="../db_api/db_seller_sign.php" id="shop_information_form" method="post">
+<form action="../db_api/db_seller_sign.php" id="shop_information_form" method="post" enctype="multipart/form-data">
     <p id="shop_info_title" class="m-0 text-uppercase">Shop Information</p>
     <div id="shop_img_sign_wrapper">
         <div id="shop_img_sign_container">

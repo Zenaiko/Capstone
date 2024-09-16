@@ -21,7 +21,7 @@
                     <div id="cus_acc_info">
                         <p id="cus_username"> <?=$cus_info->username?> </p>
                         <p id="cus_liked_items" class="cus_info_relation">  <?=$cus_info->like?> Liked Items</p>
-                        <p id="cus_following" class="cus_info_relation"> <?=$cus_info->follw?> Following</p>
+                        <p id="cus_following" class="cus_info_relation"> <?=$cus_info->follow?> Following</p>
                     </div>
                 </div>
             </header>

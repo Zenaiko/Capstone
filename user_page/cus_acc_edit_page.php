@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div id="edit_save_container">
-                    <input type="text" id="edit_save" value="Save">
+                    <input type="sbumit" id="edit_save" value="Save">
                 </div>
             </form>
         </div>
