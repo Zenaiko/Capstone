@@ -7,133 +7,192 @@
     <link rel="stylesheet" href="../css/product-add.css">
 </head>
 <body>
-    <div class="form-container">
+    <?php require_once('../utilities/initialize.php'); ?>
 
-        <!-- Product Name Section -->
-        <div class="section" id="product-name-section">
-            <label for="product-name">Product Name</label>
-            <span id="product-name-counter">0/100</span>
-            <input type="text" id="product-name" placeholder="Product name" maxlength="100" oninput="updateCounter('product-name', 'product-name-counter', 100)">
-        </div>
+    <form action="../db_api/db.conn.php" enctype="multipart/form-data">
+        <div class="form-container">
+            <!-- Product Name Section -->
+            <div class="section" id="product-name-section">
+                <label for="product-name">Product Name</label>
+                <span id="product-name-counter">0/100</span>
+                <input type="text" id="product-name" placeholder="Product name" maxlength="100" oninput="updateCounter('product-name', 'product-name-counter', 100)">
+            </div>
+            <!-- Product Description Section -->
+            <div class="section" id="description-section">
+                <label for="description">Product Description</label>
+                <span id="description-counter">0/500</span>
+                <textarea id="description" placeholder="Product description" maxlength="500" oninput="updateCounter('description', 'description-counter', 500)"></textarea>
+            </div>
+            <!-- Category Section -->
+            <div class="section" id="category-section">
+                <div id="toggle_splitter">
+                    <div id="category">
+                        <span>Category</span>
+                        <p>Meat</p>
+                    </div>
+                    <i class="bi bi-chevron-right" id="categ_chev" data-bs-toggle="collapse" data-bs-target="#div_collapse" aria-expanded="false" aria-controls="div_collapse"></i>
+                </div>
+                <div class="collapse" id="div_collapse">
+                    <hr>
+                    <div class="category">
+                        <input type="radio" name="categ" id="categ_meat">
+                        <label for="categ_meat">Meat</label>
+                    </div>
+                    <div class="category">
+                        <input type="radio" name="categ" id="categ_fish">
+                        <label for="categ_fish">Fish</label>
+                    </div>
+                    <div class="category">
+                        <input type="radio" name="categ" id="categ_aaa">
+                        <label for="categ_aaa">AAA</label>
+                    </div>
+                    <div class="category">
+                        <input type="radio" name="categ" id="categ_other">
+                        <label for="categ_other">Others</label>
+                    </div>
+                    <div class="category">
+                        <input type="radio" name="categ" id="categ_ku">
+                        <label for="categ_ku">Kitchenware and Utensils</label>
+                    </div>
+                </div>
+            </div>
+            <!-- Price Section -->
+            <div class="section" id="price-section">
+                <span>Price</span>
+                <div class="price-input">
+                    <input type="text" id="price" placeholder="0.00">
+                </div>
+            </div>
+            <!-- Stock Section -->
+            <div class="section" id="stock-section">
+                <span>Stock</span>
+                <input type="text" id="stock" placeholder="Set">
+            </div>  
+       
+            <div class="section" id="stock-section">
+                <div id="variant_splitter">
+                    <span>Variant</span>
+                    <i class="bi bi-plus-lg"  id="add_variant_btn" data-bs-toggle="offcanvas" data-bs-target="#add_variant" aria-controls="add_variant"></i>
+                </div>
 
-        <!-- Product Description Section -->
-        <div class="section" id="description-section">
-            <label for="description">Product Description</label>
-            <span id="description-counter">0/500</span>
-            <textarea id="description" placeholder="Product description" maxlength="500" oninput="updateCounter('description', 'description-counter', 500)"></textarea>
-        </div>
+                <!-- Variants -->
+                <div class="added_varaint_container">
+                    <div class="added_variant_contents" id="added_variant_contents">
+                        <!-- <div class="added_varaint">
+                            <div class="var_header">
+                                <input type="text" disabled readonly class="var_name" placeholder="Color">
+                                <div class="var_buttons">
+                                    <button class="var_button">Edit</button>
+                                    <button class="var_button">Add</button>
+                                </div>
+                            </div>
+                            <div class="var_contents">
+                                <img src="../assets/tmp.png" alt="" class="var_img">
+                                <div class="added_var_info">
+                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
+                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
+                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
+                                </div>
+                            </div>
+                            <div class="var_contents">
+                                <img src="../assets/tmp.png" alt="" class="var_img">
+                                <div class="added_var_info">
+                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
+                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
+                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Category Section -->
-        <div class="section" id="category-section">
-            <span>Category</span>
-            <a href="#" class="clickable-arrow">...</a>
-        </div>
+                        <div class="added_varaint">
+                            <div class="var_header">
+                                <input type="text" disabled readonly class="var_name" placeholder="Color">
+                                <div class="var_buttons">
+                                    <button class="var_button">Edit</button>
+                                    <button class="var_button">Add</button>
+                                </div>
+                            </div>
+                            <div class="var_contents">
+                                <img src="../assets/tmp.png" alt="" class="var_img">
+                                <div class="added_var_info">
+                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
+                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
+                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
+                                </div>
+                            </div>
+                            <div class="var_contents">
+                                <img src="../assets/tmp.png" alt="" class="var_img">
+                                <div class="added_var_info">
+                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
+                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
+                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
+                                </div>
+                            </div>
+                        </div> -->
 
-        <!-- Price Section -->
-        <div class="section" id="price-section">
-            <span>Price</span>
-            <div class="price-input">
-                <input type="text" id="price" placeholder="0.00">
+                    </div>
+                </div>
+
+                <!-- Add a variant type canvas -->
+                <div class="offcanvas offcanvas-bottom"  data-bs-scroll="true" tabindex="-1" aria-labelledby="offcanvasBottomLabel" id="add_variant">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="">Variant Name</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="offcanvas-body large" id="add_variant_body">
+                        <input type="text" name="" id="add_variant_field" >
+                        <button type="button" id="add_varaint_btn_canvas" data-bs-dismiss="offcanvas" aria-label="Close">Add Variant</button>
+                    </div>
+                </div>
+                
+                <!-- Add Variants -->
+                <div class="offcanvas offcanvas-bottom" id="variant_form" data-bs-scroll="false" tabindex="-1" aria-labelledby="offcanvasBottomLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title vairant_title" id="vairant_title"></h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body large">
+                    <div class="variant_type_container">
+                        <div class="variant">
+                            <div class="variant_info_container">
+                                <div class="variant_type_info">
+                                    <label for="">Type</label>
+                                    <input type="text" name="" id="variant_form_type">
+                                </div>
+                                <div class="variant_type_info">
+                                    <label for="">Price</label>
+                                    <input type="text" name="" id="variant_form_price">
+                                </div>
+                                <div class="variant_type_info">
+                                    <label for="">Stock</label>
+                                    <input type="text" name="" id="variant_form_stock">
+                                </div>
+                            </div>
+                            <div class="variant_file">
+                                <img src="../assets/tmp.png" alt="" class="variant_img">
+                                <input type="file" name="variant_form_img" id="add_variant_type_img">
+                            </div>  
+                        </div>
+                            <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" id="add_variant_type">Add</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            
+            <!-- Upload Image Section -->
+            <div class="section" id="upload-image-section">
+                <span>Upload Images</span>
+                <input type="file" id="upload-images" accept="image/*" multiple onchange="previewImages(event)">
+                <div id="image-preview-container"></div>
+            </div>
+            <!-- Save and Publish Buttons -->
+            <div class="buttons">
+                <input type="submit" name="" id="" value="Add Item">
             </div>
         </div>
-
-        <!-- Stock Section -->
-        <div class="section" id="stock-section">
-            <span>Stock</span>
-            <input type="text" id="stock" placeholder="Set">
-        </div>
-
-        <!-- Wholesale Section -->
-        <div class="section" id="wholesale-section">
-            <span>Wholesale</span>
-            <a href="#" class="clickable-arrow">...</a>
-        </div>
-
-        <!-- Shipping Fee Section -->
-        <div class="section" id="shipping-fee-section">
-            <span>Shipping Fee</span>
-            <div class="price-input">
-                <input type="text" id="shipping-fee" placeholder="0.00" readonly>
-            </div>
-        </div>
-
-        <!-- Condition Section -->
-        <div class="section" id="condition-section">
-            <span>Condition</span>
-            <a href="#" class="clickable-arrow">...</a>
-        </div>
-
-        <!-- Upload Image Section -->
-        <div class="section" id="upload-image-section">
-            <span>Upload Images</span>
-            <input type="file" id="upload-images" accept="image/*" multiple onchange="previewImages(event)">
-            <div id="image-preview-container"></div>
-        </div>
-
-        <!-- Save and Publish Buttons -->
-        <div class="buttons">
-            <button id="save-btn">Save</button>
-            <button id="publish-btn">Publish</button>
-        </div>
-
-    </div>
-
-    <script>
-        // Update the character counter
-        function updateCounter(inputId, counterId, maxLength) {
-            const input = document.getElementById(inputId);
-            const counter = document.getElementById(counterId);
-            counter.innerText = `${input.value.length}/${maxLength}`;
-        }
-
-        // Preview multiple images and add remove functionality
-        function previewImages(event) {
-            const files = event.target.files;
-            const container = document.getElementById('image-preview-container');
-            container.innerHTML = ''; 
-            if (files) {
-                Array.from(files).forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const imgWrapper = document.createElement('div');
-                        imgWrapper.className = 'image-preview-wrapper';
-
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.className = 'image-preview';
-
-                        const removeBtn = document.createElement('button');
-                        removeBtn.className = 'remove-image-btn';
-                        removeBtn.textContent = '×';
-                        removeBtn.onclick = function() {
-                            imgWrapper.remove();
-                        };
-
-                        imgWrapper.appendChild(img);
-                        imgWrapper.appendChild(removeBtn);
-                        container.appendChild(imgWrapper);
-                    }
-                    reader.readAsDataURL(file);
-                });
-            }
-        }
-
-        // Dummy function to calculate shipping fee (replace with real calculation)
-        function calculateShippingFee(weight, location) {
-            // Example logic, replace with real calculation
-            let fee = 100; 
-            if (weight > 5) {
-                fee += (weight - 5) * 10; 
-            }
-            if (location === 'remote') {
-                fee += 50;
-            }
-            return fee;
-        }
-
-        // Example usage to update shipping fee (replace with real values)
-        const shippingFee = calculateShippingFee(10, 'remote');
-        document.getElementById('shipping-fee').value = ` ${shippingFee.toFixed(2)}`;
-    </script>
+    </form>
+    <script src="../js/seller_prod.js"></script>
 </body>
 </html>

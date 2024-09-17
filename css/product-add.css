@@ -1,3 +1,4 @@
+@import url(root.css);
 
 body {
     font-family: 'Roboto', sans-serif;
@@ -179,4 +180,164 @@ button#publish-btn:hover {
 
 .remove-image-btn:hover {
     background: rgba(0, 0, 0, 0.8);
+}
+
+#category-section{
+    display: flex;
+    flex-direction: column;
+}
+
+#categ_chev{
+    height: fit-content;
+    align-self: center;
+    cursor: pointer;
+    position: relative;
+}
+
+#toggle_splitter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#div_collapse div{
+    display: flex;
+    flex-direction: row;
+}
+
+#div_collapse input{
+    margin-right: 0.5rem;
+}
+
+#div_collapse label{
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+#add_variant_btn{
+    cursor: pointer;
+}
+
+#variant_form{
+    min-height: 65%;
+}
+
+.variant{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.added_varaint_container *{
+    background-color: white;
+}
+
+
+.variant_type_info label{
+    font-size: 0.75rem;
+}
+
+.variant_type_info input{
+    height: 2rem;
+    min-width: 90%;
+    max-width: 90%;
+}
+
+.variant_img{
+    width: 8rem;
+    height: 8rem;
+    aspect-ratio: 1/1;
+    align-self: center;
+    border-radius: 0.5rem;
+}
+
+.variant_type_info{
+    width: 100%;
+}
+
+.variant_info_container, .variant_type_info{
+    display: flex;
+    flex-direction: column;
+}
+
+#variant_splitter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.added_variant_contents input{
+    border: none;
+}
+
+.var_contents{
+    display: flex;
+    flex-direction: row;   
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.var_img{
+    width: 8rem;
+    height: 8rem;
+    aspect-ratio: 1/1;
+}
+
+.added_varaint{
+    display: flex;
+    flex-direction: column;
+}
+
+.var_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.var_buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.var_button{
+    width: 2.375rem;
+    height: 1.125rem;
+    border: none;
+    color: white;
+    font-size: 0.5rem;
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    background-color: #40A578;
+}
+
+.var_name{
+    font-weight: 700;
+}
+
+#add_variant_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+#add_varaint_btn_canvas{
+    border: 1px solid black;
+    color: black;
+    width: 70%;
+    justify-self: center;
+}
+
+#add_variant_field{
+    margin-bottom: 1rem;
+}
+
+#add_variant{
+    height: 40%;
 }

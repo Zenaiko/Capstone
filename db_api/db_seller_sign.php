@@ -58,7 +58,6 @@
     } 
 }
 
-
 class class_shop_sign_info{
     public $name;
     public $img;
