@@ -7,34 +7,46 @@
     <link rel="stylesheet" href="../css/product-add.css">
 </head>
 <body>
-    <?php require_once('../utilities/initialize.php'); ?>
+    <?php require_once('../utilities/initialize.php');
+            require_once('../db_api/db_get.php');
+    ?>
 
-    <form action="../db_api/db.conn.php" enctype="multipart/form-data">
+    <form action="../db_api/db_add_item.php" method="post" enctype="multipart/form-data">
         <div class="form-container">
             <!-- Product Name Section -->
             <div class="section" id="product-name-section">
                 <label for="product-name">Product Name</label>
                 <span id="product-name-counter">0/100</span>
-                <input type="text" id="product-name" placeholder="Product name" maxlength="100" oninput="updateCounter('product-name', 'product-name-counter', 100)">
+                <input type="text" id="product-name" name="product_name" placeholder="Product name" maxlength="100" oninput="updateCounter('product-name', 'product-name-counter', 100)">
             </div>
             <!-- Product Description Section -->
             <div class="section" id="description-section">
                 <label for="description">Product Description</label>
                 <span id="description-counter">0/500</span>
-                <textarea id="description" placeholder="Product description" maxlength="500" oninput="updateCounter('description', 'description-counter', 500)"></textarea>
+                <textarea id="description" placeholder="Product description" name="product_desc" maxlength="500" oninput="updateCounter('description', 'description-counter', 500)"></textarea>
             </div>
             <!-- Category Section -->
             <div class="section" id="category-section">
                 <div id="toggle_splitter">
                     <div id="category">
                         <span>Category</span>
-                        <p>Meat</p>
+                        <p id="category_shown" >Meat</p>
                     </div>
                     <i class="bi bi-chevron-right" id="categ_chev" data-bs-toggle="collapse" data-bs-target="#div_collapse" aria-expanded="false" aria-controls="div_collapse"></i>
                 </div>
                 <div class="collapse" id="div_collapse">
                     <hr>
-                    <div class="category">
+                   
+                    <?php 
+                        foreach ($category_array as $category){?>
+                         <div class="category">
+                            <input type="radio" name="category" value="<?=$category['category']?>" id="<?=$category['category']?>">
+                            <label for="<?=$category['category']?>"><?=ucfirst($category['category'])?></label>
+                        </div>
+                    <?php }
+                    ?>
+
+                    <!-- <div class="category">
                         <input type="radio" name="categ" id="categ_meat">
                         <label for="categ_meat">Meat</label>
                     </div>
@@ -53,7 +65,7 @@
                     <div class="category">
                         <input type="radio" name="categ" id="categ_ku">
                         <label for="categ_ku">Kitchenware and Utensils</label>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- Price Section -->
