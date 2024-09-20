@@ -341,3 +341,7 @@ button#publish-btn:hover {
 #add_variant{
     height: 40%;
 }
+
+#category_shown{
+    text-transform: capitalize;
+}

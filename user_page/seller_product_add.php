@@ -30,7 +30,7 @@
                 <div id="toggle_splitter">
                     <div id="category">
                         <span>Category</span>
-                        <p id="category_shown" >Meat</p>
+                        <p id="category_shown" ></p>
                     </div>
                     <i class="bi bi-chevron-right" id="categ_chev" data-bs-toggle="collapse" data-bs-target="#div_collapse" aria-expanded="false" aria-controls="div_collapse"></i>
                 </div>
@@ -40,7 +40,7 @@
                     <?php 
                         foreach ($category_array as $category){?>
                          <div class="category">
-                            <input type="radio" name="category" value="<?=$category['category']?>" id="<?=$category['category']?>">
+                            <input type="radio" class="radio_ary" name="category"data-bs-toggle="collapse" data-bs-target="#div_collapse" aria-expanded="false" aria-controls="div_collapse" value="<?=$category['category']?>" id="<?=$category['category']?>">
                             <label for="<?=$category['category']?>"><?=ucfirst($category['category'])?></label>
                         </div>
                     <?php }
@@ -84,7 +84,7 @@
             <div class="section" id="stock-section">
                 <div id="variant_splitter">
                     <span>Variant</span>
-                    <i class="bi bi-plus-lg"  id="add_variant_btn" data-bs-toggle="offcanvas" data-bs-target="#add_variant" aria-controls="add_variant"></i>
+                    <i class="bi bi-plus-lg"  id="add_variant_btn" data-bs-toggle="offcanvas" data-bs-target="#variant_form" aria-controls="variant_form"></i>
                 </div>
 
                 <!-- Variants -->
@@ -146,7 +146,7 @@
                 </div>
 
                 <!-- Add a variant type canvas -->
-                <div class="offcanvas offcanvas-bottom"  data-bs-scroll="true" tabindex="-1" aria-labelledby="offcanvasBottomLabel" id="add_variant">
+                <!-- <div class="offcanvas offcanvas-bottom"  data-bs-scroll="true" tabindex="-1" aria-labelledby="offcanvasBottomLabel" id="add_variant">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="">Variant Name</h5>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -156,7 +156,7 @@
                         <input type="text" name="" id="add_variant_field" >
                         <button type="button" id="add_varaint_btn_canvas" data-bs-dismiss="offcanvas" aria-label="Close">Add Variant</button>
                     </div>
-                </div>
+                </div> -->
                 
                 <!-- Add Variants -->
                 <div class="offcanvas offcanvas-bottom" id="variant_form" data-bs-scroll="false" tabindex="-1" aria-labelledby="offcanvasBottomLabel">
@@ -169,7 +169,7 @@
                         <div class="variant">
                             <div class="variant_info_container">
                                 <div class="variant_type_info">
-                                    <label for="">Type</label>
+                                    <label for="">Name</label>
                                     <input type="text" name="" id="variant_form_type">
                                 </div>
                                 <div class="variant_type_info">
@@ -196,10 +196,10 @@
             <!-- Upload Image Section -->
             <div class="section" id="upload-image-section">
                 <span>Upload Images</span>
-                <input type="file" id="upload-images" accept="image/*" multiple onchange="previewImages(event)">
+                <input type="file" id="upload-images" name="add_item_img[]"  multiple onchange="previewImages(event)">
                 <div id="image-preview-container"></div>
             </div>
-            <!-- Save and Publish Buttons -->
+
             <div class="buttons">
                 <input type="submit" name="" id="" value="Add Item">
             </div>
