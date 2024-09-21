@@ -37,7 +37,7 @@
             </select>
         </div>
         
-        <!-- Product Cards Section (AJAX will replace this content dynamically) -->
+        <!-- Product Cards Section -->
         <div id="items-section">
             <!-- Content will be loaded here via AJAX -->
         </div>
