@@ -24,7 +24,7 @@
 
     <!-- Search Bar -->
     <section class="search-bar">
-        <input type="text" placeholder="Search items...">
+        <input type="text" id="search-input" placeholder="Search items...">
     </section>
 
     <!-- Items Section with Dropdown -->
@@ -37,11 +37,11 @@
             </select>
         </div>
         
-    <!-- Product Cards Section -->
-    <section class="items-section">
-       <?php include('seller_item_inventory_history.php') ?>
+        <!-- Product Cards Section (AJAX will replace this content dynamically) -->
+        <div id="items-section">
+            <!-- Content will be loaded here via AJAX -->
+        </div>
     </section>
-
 
     <script src="../js/seller_item_inventory.js"></script>
 </body>
