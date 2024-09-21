@@ -242,3 +242,20 @@ body{
     color: var(--login_bg);
     cursor: pointer;
 }
+
+.bi-eye{
+    position: absolute;
+    right: 1rem;
+    cursor: pointer;
+    align-self: center;
+}
+
+.password_container{
+    display: flex;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+#sign_up_form .password_container input{
+    margin-bottom: 0;
+}

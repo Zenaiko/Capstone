@@ -20,13 +20,13 @@
                                 <p class="h5 text-uppercase">Sign Up</p>
                                 <div id="sign_up_form">
                     
-                                    <input type="text" name="fname_sign_up" id="fname_sign_up" placeholder="First Name">
+                                    <input type="text" name="fname_sign_up" id="fname_sign_up" placeholder="First Name" required>
                                     <input type="text" name="mname_sign_up" id="mname_sign_up" placeholder="Middle Name (*Optional*)">
-                                    <input type="text" name="lname_sign_up" id="lname_sign_up" placeholder="Last Name">
-                                    <input type="text" name="username_sign_up" id="username_sign_up" placeholder="Username">
-                                    <input type="email" name="email_sign_up" id="email_sign_up" placeholder="Email Address">
-                                    <div class="password_container"><input type="password" name="password_sign_up" id="password_sign_up" placeholder="Password"></div>
-                                    <div class="password_container"><input type="password" name="password_conform_sign_up" id="password_conform_sign_up" placeholder="Confirm Password"></div>
+                                    <input type="text" name="lname_sign_up" id="lname_sign_up" placeholder="Last Name" required>
+                                    <input type="text" name="username_sign_up" id="username_sign_up" placeholder="Username" required>
+                                    <input type="email" name="email_sign_up" id="email_sign_up" placeholder="Email Address" required>
+                                    <div class="password_container"><input type="password" name="password_sign_up" id="password_sign_up" placeholder="Password" required> <i class="bi bi-eye"></i></div>
+                                    <div class="password_container"><input type="password" name="password_conform_sign_up" id="password_conform_sign_up" placeholder="Confirm Password" required> <i class="bi bi-eye"></i></div>
                     
                                 </div>
                                                         
@@ -45,5 +45,7 @@
         </div>
     </div>
 </section>
+
+<script src="js/sign_up.js"></script>
 </body>
 </html>

@@ -28,6 +28,7 @@ require_once('db_get.php');
 
             // Insert into tbl_item_img
             foreach($this->item->get_img_array()['name'] as $key => $indiv_img){
+                // Uploads the file
                 move_uploaded_file($this->item->get_img_array()['tmp_name'][$key] ,$this->item->get_cus_dir() . $indiv_img);
                 $insert_tbl_item_img = $this->pdo->prepare("INSERT INTO tbl_item_img (itemID, item_img, item_img_location) 
                 VALUES (:item_id, :img, :loc)");
@@ -101,9 +102,8 @@ require_once('db_get.php');
         }
 
         public function set_cus_dir($dir) {
-            $this->seller_folder = $dir . '/market_asset';
+            $this->seller_folder = $dir . '/market_asset/';
         }
-
 
         // Gets the item info
         public function get_item_id() {

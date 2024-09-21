@@ -10,7 +10,9 @@
     <link href="../css/home.css" rel="stylesheet">
 </head>
 <?php require_once('../utilities/initialize.php');
-        require_once('../utilities/nav.php');?>
+        require_once('../utilities/nav.php');
+        require_once('../db_api/db_get.php');
+        ?>
 <body>
 
 <!-- Carousel Section -->
@@ -50,10 +52,31 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="fw-bold">Top Shops</h2>
-            <a href="#" class="view-more" style="color: #878787;">View More</a>
         </div>
         <div class="featured-shop-contents-row d-flex overflow-auto">
-            <div class="featured-shop-contents">
+
+            <?php  foreach($get_db->get_top_shop() as $shop){ ?>
+                <div class="featured-shop-contents">
+                    <img class="feature_img" src="<?=$shop['market_image']??'../assets/tmp.png'?>" alt="">
+                    <div class="featured-info">
+                        <p class="featured-name"><?=$shop['market_name']?></p>
+                        <div class="feature_shop_rate">
+                            <div class="feature_shop_stars">
+                                <i class="bi bi-star-fill feature_seller_star"></i>
+                                <i class="bi bi-star-fill feature_seller_star"></i>
+                                <i class="bi bi-star-fill feature_seller_star"></i>
+                                <i class="bi bi-star-fill feature_seller_star"></i>
+                                <i class="bi bi-star-fill feature_seller_star"></i>
+                            </div>
+                            <span class="star_splitter feature_star_splitter"></span>
+                            <p class="feature_rate_respondents">10K Respondents</p>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+      
+
+            <!-- <div class="featured-shop-contents">
                 <img class="feature_img" src="https://via.placeholder.com/100" alt="Shop 1">
             <div class="featured-info">
                 <p class="featured-name">Featured Shop</p>
@@ -110,19 +133,19 @@
                 <img class="feature_img" src="https://via.placeholder.com/100" alt="Shop 4">
                 <div class="featured-info">
                 <p class="featured-name">Featured Shop</p>
-                <div class="feature_shop_rate">
-                    <div class="feature_shop_stars">
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
+                    <div class="feature_shop_rate">
+                        <div class="feature_shop_stars">
+                            <i class="bi bi-star-fill feature_seller_star"></i>
+                            <i class="bi bi-star-fill feature_seller_star"></i>
+                            <i class="bi bi-star-fill feature_seller_star"></i>
+                            <i class="bi bi-star-fill feature_seller_star"></i>
+                            <i class="bi bi-star-fill feature_seller_star"></i>
+                        </div>
+                        <span class="star_splitter feature_star_splitter"></span>
+                        <p class="feature_rate_respondents">10K Respondents</p>
                     </div>
-                    <span class="star_splitter feature_star_splitter"></span>
-                    <p class="feature_rate_respondents">10K Respondents</p>
-                </div>
-            </div>   
-            </div>
+                </div>   
+            </div> -->
         </div>
     </div>
 </section>
@@ -178,7 +201,14 @@
             <h2 class="fw-bold">Sale</h2>
             <a href="#" class="view-more" style="color: #878787;">View More</a>
         </div>
-        <div class="item_loop"><?php require_once('../utilities/item_loop.php') ?></div>
+        <div class="item_loop">
+        <?php
+            foreach($get_db->get_item_info_home() as $item){
+
+                include('../utilities/item_loop.php');
+            }
+        ?>
+        </div>
     </div>
 </section>
 

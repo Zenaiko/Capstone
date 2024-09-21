@@ -8,7 +8,7 @@
 <body>
     <?php 
     require_once('utilities/initialize.php'); 
-    header("location: user_page/seller_product_add.php") ;
+    header("location: user_page/home.php") ;
     session_start();
     $_SESSION['user'] = 'visitor';
     ?>

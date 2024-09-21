@@ -18,9 +18,9 @@
                     <form id="login_form" action="db_api/db_cus_login.php" method="post">
                         <div id="login_container">
                             <div id="login_field">
-                                <input type="text" name="cus_log_user" id="" placeholder="Username/Email">
+                                <input type="text" name="cus_log_user" required id="" placeholder="Username/Email">
                                 <div>
-                                    <input type="password" name="cus_log_pass" id="" placeholder="Password">
+                                    <input type="password" name="cus_log_pass" required id="" placeholder="Password">
                                     <span id="show_password"><i class="bi bi-eye"></i></span>
                                 </div>
                             </div>

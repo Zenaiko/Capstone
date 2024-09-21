@@ -1,16 +1,12 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="stylesheet" href="../css/item.css">
-
-<?php require_once('../utilities/initialize.php') ?>
 
     <div class="item_wrapper">
         <div class="item_container">
             <div class="item_contents">
-                <img src="../assets/tmp.png" alt="" class="item_img">
+                <img src="<?=$item['item_img_location']??'../assets/tmp.png'?>" alt="" class="item_img">
                 <div class="item_info">
-                    <p class="item_name">Chicken Hotdog</p>
-                    <p class="item_price">P12</p>
+                    <p class="item_name"><?=$item['item_name']?></>
+                    <p class="item_price">₱<?=$item['min_price']?></p>
                     <div class="item_stars">
                             <ul>
                                 <li><i class="bi bi-star-fill"></i></li>

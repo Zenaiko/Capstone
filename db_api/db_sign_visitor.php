@@ -1,7 +1,5 @@
 <?php 
-    $visitor_pass = $_POST["password_sign_up"];
-    $visitor_pass_conf = $_POST["password_conform_sign_up"];
-    if($visitor_pass == $visitor_pass_conf){
+
         require_once('db_visitor_sign_up_conn.php');
         session_start();
         class class_visitor_info{
@@ -80,7 +78,7 @@
         mkdir($cus_folder_name);
 
         $conn->query("COMMIT");
+        unset($_SESSION['visitor_sign_num']);
         header('location ../login.php');
-    }   
 
 ?>
