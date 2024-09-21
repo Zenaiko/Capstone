@@ -31,8 +31,8 @@
                                 </div>
                                                         
                                 <div id="terms_conditions_container">
-                                    <input id="terms_conditions_checkbox" type="checkbox">
-                                    <label for="terms_conditions_checkbox">I agree with the <a href=""> terms & services</a></label>
+                                    <input id="terms_conditions_radio" name="terms_conditions_radio" type="radio">
+                                    <label for="terms_conditions_radio">I agree with the <a href=""> terms & services</a></label>
                                 </div>
                     
                                 <input type="submit" name="" id="sign_up_submit" value="Sign In">

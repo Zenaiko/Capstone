@@ -10,20 +10,20 @@
         }
 
         public function cus_login(){
-            $get_login = $this->query("SELECT cus.customerID
+            $get_login = $this->query("SELECT cus.customer_id
             FROM tbl_contact con, tbl_user user, tbl_username username, tbl_login log, tbl_password pswd, tbl_customer cus
-            WHERE con.contactID = user.contactID AND user.userID = username.userID 
-            AND username.usernameID = log.usernameID AND log.passwordID = pswd.passwordID 
-            AND cus.usernameID = username.usernameID AND (username.username = :credentials OR con.contact = :credentials 
+            WHERE con.contact_id = user.contact_id AND user.user_id = username.user_id 
+            AND username.username_id = log.username_id AND log.password_id = pswd.password_id 
+            AND cus.username_id = username.username_id AND (username.username = :credentials OR con.contact = :credentials 
             AND pswd.password = :pswd)" ,[
             ':credentials' => $this->login_form->get_credentials(), 
             ':pswd' => $this->login_form->get_password()
             ]);
-            $this->login_form->set_cus_id($get_login->fetchAll(PDO::FETCH_ASSOC)[0]['customerID']);
+            $this->login_form->set_cus_id($get_login->fetchAll(PDO::FETCH_ASSOC)[0]['customer_id']);
             if(!empty($this->login_form->get_cus_id())){
                 session_start();
-                $_SESSION['cus_id'] = $this->login_form->get_cus_id();
                 $_SESSION['user'] = 'customer';
+                $_SESSION['cus_id'] = $this->login_form->get_cus_id();
                 header('location: ../user_page/home.php');   
             }else{
                 header('location: ../login.php');
@@ -74,21 +74,21 @@
     // $log_credentials->user = $_POST["cus_log_user"];
     // $log_credentials->password = hash('sha256', $_POST["cus_log_pass"]);
 
-    // $get_username = $conn->query("SELECT log.usernameID, log.passwordID ,cus.customerID FROM tbl_username usname, tbl_login log, tbl_customer cus
-    // WHERE usname.usernameID = log.usernameID AND cus.usernameID = usname.usernameID AND usname.username ='$log_credentials->user'");
+    // $get_username = $conn->query("SELECT log.username_id, log.password_id ,cus.customerID FROM tbl_username usname, tbl_login log, tbl_customer cus
+    // WHERE usname.username_id = log.username_id AND cus.username_id = usname.username_id AND usname.username ='$log_credentials->user'");
     // $username_validation = $get_username->fetch_assoc();
 
-    // $get_contact = $conn->query("SELECT log.usernameID, log.passwordID, cus.customerID FROM tbl_contact con , tbl_user user, tbl_username usrnm, tbl_login log,  tbl_customer cus
-    // WHERE con.contactID = user.contactID AND user.userID = usrnm.userID AND usrnm.usernameID = log.usernameID AND cus.usernameID = usrnm.usernameID AND con.contact ='$log_credentials->user'");
+    // $get_contact = $conn->query("SELECT log.username_id, log.password_id, cus.customerID FROM tbl_contact con , tbl_user user, tbl_username usrnm, tbl_login log,  tbl_customer cus
+    // WHERE con.contact_id = user.contact_id AND user.user_id = usrnm.user_id AND usrnm.username_id = log.username_id AND cus.username_id = usrnm.username_id AND con.contact ='$log_credentials->user'");
     // $contact_validation = $get_contact->fetch_assoc();
         
     // $credential = $username_validation??$contact_validation??null;
-    // $username_id = $credential['usernameID'] ?? null;
-    // $pass_id = $credential['passwordID']??null;
+    // $username_id = $credential['username_id'] ?? null;
+    // $pass_id = $credential['password_id']??null;
     // $cus_id = $credential['customerID']??null; 
 
     // if(isset($pass_id) && isset($username_id)){
-    //     $get_pass = $conn->query("SELECT pswd.password FROM tbl_password pswd, tbl_login log WHERE log.passwordID = pswd.passwordID AND log.usernameID = '$username_id' AND pswd.password = '$log_credentials->password'");
+    //     $get_pass = $conn->query("SELECT pswd.password FROM tbl_password pswd, tbl_login log WHERE log.password_id = pswd.password_id AND log.username_id = '$username_id' AND pswd.password = '$log_credentials->password'");
     //     $pass_qry = $get_pass->fetch_assoc();
         
 

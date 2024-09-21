@@ -1,5 +1,5 @@
 <?php require_once('db_root_conn.php');
-
+session_start();
 class class_get_database extends class_database{
     public function __construct()
     {
@@ -24,8 +24,8 @@ class class_get_database extends class_database{
     public function get_item_info_home(){
         $get_item = $this->query("SELECT itm.item_name, img.item_img_location, MIN(vari.vairation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
         LEFT JOIN tbl_market mrkt ON mrkt.marketID = itm.market_id
-        LEFT JOIN tbl_item_img img ON itm.item_id = img.itemID 
-        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.itemID = itm.item_id
+        LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
+        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
         LEFT JOIN tbl_variation vari ON vari.item_id = itm.item_id
         GROUP BY itm.item_id");
         return $get_item->fetchAll(PDO::FETCH_ASSOC);
@@ -42,23 +42,38 @@ class class_get_database extends class_database{
         $get_contact = $this->query("SELECT contact FROM tbl_contact WHERE contact = ?", [$contact]);
         return $get_contact->fetchAll(PDO::FETCH_ASSOC)[0]['contact']??null;
     }
+
+    public function get_is_seller($cus_id){
+        $get_is_seller = $this->query("SELECT market.is_verified FROM tbl_market market, tbl_customer cus WHERE market.customer_id = cus.customer_id AND cus.customer_id = ?", [$cus_id]);
+        return $get_is_seller->fetchAll(PDO::FETCH_ASSOC)[0]['is_verified']??null;
+    }
 }
 
 $get_db = new class_get_database();
 $category_array = $get_db->get_category();
 
     $data = json_decode(file_get_contents("php://input"), true);
-    if(isset($data['otp_number'])){
+
+    if(isset($data['otp_number']) && $data['action'] == 'get_number'){
         $verify_otp = $get_db->get_contact($data['otp_number']);
         if(!empty($verify_otp)){
             $exist_json = ['exists' => true];
         }elseif(empty($verify_otp)){
             session_start();
-            $_SESSION['visitor_sign_num'] = $verify_otp;
-            $exist_json = ['exists' => false];
+            $_SESSION['visitor_sign_num'] = $data['otp_number'];
+            $exist_json = ['exists' => false ];
         }
         echo json_encode($exist_json);
     }
 
+    if($data['action'] === 'get_is_seller'){
+        $verify_seller = $get_db->get_is_seller($_SESSION['cus_id']);
+        if($verify_seller === 1){
+            $result = ['is_seller' => true];
+        }else{
+            $result = ['is_seller' => false];
+        }
+        echo json_encode($result);
+    }
 
 ?>

@@ -10,17 +10,17 @@
         }
 
         public function get_cus_info(){
-            $customer_info = $this->query("SELECT usname.username, cus.user_img FROM tbl_username usname ,tbl_customer cus WHERE usname.usernameID = cus.usernameID AND cus.customerID = ?" , [$this->customer_id]);
+            $customer_info = $this->query("SELECT usname.username, cus.user_img FROM tbl_username usname ,tbl_customer cus WHERE usname.username_id = cus.username_id AND cus.customer_id = ?" , [$this->customer_id]);
             return $customer_info->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function get_cus_like(){
-            $cus_like = $this->query("SELECT COUNT(itm_rel.is_liked) AS item_liked FROM tbl_customer_item_relationship itm_rel, tbl_customer cus WHERE cus.customerID = itm_rel.customerID AND itm_rel.is_liked = 1 AND cus.customerID = ?", [$this->customer_id]);
+            $cus_like = $this->query("SELECT COUNT(itm_rel.is_liked) AS item_liked FROM tbl_customer_item_relationship itm_rel, tbl_customer cus WHERE cus.customer_id = itm_rel.customer_id AND itm_rel.is_liked = 1 AND cus.customer_id = ?", [$this->customer_id]);
             return $cus_like->fetchAll(PDO::FETCH_ASSOC);
         }
 
         public function get_cus_follow(){
-            $cus_follow = $this->query("SELECT COUNT(mrkt_rel.is_followed) AS shop_follow FROM tbl_customer_market_relationship mrkt_rel, tbl_customer cus WHERE cus.customerID = mrkt_rel.customerID AND mrkt_rel.is_followed = 1 AND cus.customerID = ?", [$this->customer_id]);
+            $cus_follow = $this->query("SELECT COUNT(mrkt_rel.is_followed) AS shop_follow FROM tbl_customer_market_relationship mrkt_rel, tbl_customer cus WHERE cus.customer_id = mrkt_rel.customer_id AND mrkt_rel.is_followed = 1 AND cus.customer_id = ?", [$this->customer_id]);
             return $cus_follow->fetchAll(PDO::FETCH_ASSOC);
         }
     }
