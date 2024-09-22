@@ -9,7 +9,7 @@ otp_send_code.addEventListener('click' , function(){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ otp_number: opt_phone, action: 'get_number'}) // Sending the variable
+        body: JSON.stringify({ otp_number: opt_phone, action:'get_number'}) // Sending the variable
     }).then(contact_json => contact_json.json())
     .then(contact_info => {
         if (contact_info.exists !== true){

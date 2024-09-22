@@ -93,7 +93,7 @@ div.cus_edit_field{
     display: flex;
     min-width: 100%;
     justify-content: center;
-    
+    cursor: pointer;
 }
 
 #edit_save{
@@ -108,4 +108,5 @@ div.cus_edit_field{
     font-weight: 700;
     border: none;
     background-image: var(--orange_fill_gradient);
+    cursor: pointer;
 }
