@@ -1,0 +1,79 @@
+body {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.shop-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px; /* Increased spacing */
+}
+
+.shop-header img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
+}
+
+.shop-name {
+    font-size: 20px; /* Smaller text */
+    font-weight: bold;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px; /* Increased spacing */
+}
+
+.card {
+    padding: 10px;
+    margin-bottom: 30px; /* Increased spacing */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.card h5 {
+    font-size: 14px; /* Smaller text for revenue and items sold */
+}
+
+.product-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px; /* Increased spacing */
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    position: relative;
+}
+
+.product-card span.rank {
+    position: absolute;
+    left: -35px;
+    font-size: 18px; /* Smaller text */
+    font-weight: bold;
+}
+
+.product-card img {
+    width: 70px; /* Square image */
+    height: 70px; /* Square image */
+    margin-right: 15px;
+}
+
+.product-info {
+    flex-grow: 1;
+}
+
+.product-info div {
+    margin-bottom: 5px;
+    font-size: 14px; /* Smaller text */
+}
+
+#topSellingProducts {
+    padding-left: 35px;
+}
