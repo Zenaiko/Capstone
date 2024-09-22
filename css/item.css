@@ -4,7 +4,7 @@
 #loop div{ margin: auto;}
 
 .item_wrapper{
-    max-width: 100%;
+    cursor: pointer;
 }
 
 .item_contents{
@@ -31,6 +31,7 @@
     max-width: 90%;
     height: fit-content;
     position: relative;
+    margin-left: 0.3rem;
 }
 
 .item_info *{

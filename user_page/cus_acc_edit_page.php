@@ -12,14 +12,15 @@
      ?>
     <section id="cus_acc_edit_section">
         <div id="cus_acc_edit_wrapper">
-
+   
             <form action="../db_api/db_edit_cus.php" id="cus_acc_edit_form" method="post" enctype="multipart/form-data">
                 <header id="cus_acc_edit_header">
                     <div id="cus_edit_header_contents">
                         <div id="cus_img_edit">
-                            <img src="<?php if(!is_null($cus_info->get_img())){ echo $cus_info->get_img();}
+                            <img src="<?php if(!is_null($cus_info->get_img())&& $cus_info->get_img() !== '' && $cus_info->get_img() !== '/'){ echo $cus_info->get_img();}
                             else{ echo '../assets/tmp.png';} ?>" alt="" id="cus_image_edit" class="rounded-circle">
                             <i class="bi bi-pencil"></i>
+                            <input type="file" name="cus_img" id="cus_img" value="<?php if(!is_null($cus_info->get_img()) && $cus_info->get_img() !== '' && $cus_info->get_img() !== '/'){ echo $cus_info->get_img();}?>">
                         </div>
                     </div>
                     <p class="text-center" id="profile_photo_title">Profile Photo</p>

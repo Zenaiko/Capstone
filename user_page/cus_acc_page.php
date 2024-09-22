@@ -7,17 +7,18 @@
     <title></title>
 </head>
 
-<?php require_once('../utilities/initialize.php');
-        require_once('../utilities/nav.php');
-        require_once('../db_api/db_cus_info.php');
-        ?>
-
 <body>
+<?php require_once('../utilities/initialize.php');
+require_once('../utilities/nav.php');
+require_once('../db_api/db_cus_info.php');
+require_once('../db_api/db_get.php');
+?>
+
     <section id="cus_acc_section">
         <div id="cus_acc_wrapper">
             <header id="cus_acc_header">
                 <div id="cus_acc_header_contents">
-                    <img id="cus_acc_img"  src="<?php if(isset($cus_info->user_img)){echo $cus_info->user_img;}else{echo '../assets/tmp.png';}?>" alt="">
+                    <img id="cus_acc_img"  src="<?php if(isset($cus_info->user_img)){echo $cus_info->customer_img;}else{echo '../assets/tmp.png';}?>" alt="">
                     <div id="cus_acc_info">
                         <p id="cus_username"> <?=$cus_info->username?> </p>
                         <p id="cus_liked_items" class="cus_info_relation">  <?=$cus_info->like?> Liked Items</p>
@@ -92,9 +93,17 @@
     
     <p class="text-center text-capitalize">You may also like</p>
 
-    <div class="item_loop"><?php require_once('../utilities/item_loop.php') ?></div>
+    <div class="item_loop_contaner">
+        <div class="item_loop">
+            <?php foreach($get_db->get_item_info_home() as $item){
+                include('../utilities/item_loop.php');
+            }?>
+        </div>
+    </div>
 
     <script src="../js/cus_acc.js"></script>
+    <script src="../js/item_loop.js"></script>
+
 
 </body>
 </html>

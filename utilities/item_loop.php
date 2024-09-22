@@ -1,6 +1,4 @@
-<link rel="stylesheet" href="../css/item.css">
-
-    <div class="item_wrapper">
+    <div class="item_wrapper" id="<?=$item["item_id"]?>">
         <div class="item_container">
             <div class="item_contents">
                 <img src="<?=$item['item_img_location']??'../assets/tmp.png'?>" alt="" class="item_img">
@@ -24,4 +22,3 @@
             </div>
         </div>
     </div>
-    

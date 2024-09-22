@@ -55,7 +55,7 @@
         </div>
         <div class="featured-shop-contents-row d-flex overflow-auto">
 
-            <?php  foreach($get_db->get_top_shop() as $shop){ ?>
+            <?php foreach($get_db->get_top_shop() as $shop){ ?>
                 <div class="featured-shop-contents">
                     <img class="feature_img" src="<?=$shop['market_image']??'../assets/tmp.png'?>" alt="">
                     <div class="featured-info">
@@ -201,13 +201,15 @@
             <h2 class="fw-bold">Sale</h2>
             <a href="#" class="view-more" style="color: #878787;">View More</a>
         </div>
-        <div class="item_loop">
-        <?php
-            foreach($get_db->get_item_info_home() as $item){
 
-                include('../utilities/item_loop.php');
-            }
-        ?>
+        <div class="item_loop_contaner">
+            <div class="item_loop">
+            <?php
+                foreach($get_db->get_item_info_home() as $item){
+                    include('../utilities/item_loop.php');
+                }
+            ?>
+            </div>
         </div>
     </div>
 </section>
@@ -249,5 +251,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/item_loop.js"></script>
 </body>
 </html>

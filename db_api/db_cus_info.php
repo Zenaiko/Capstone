@@ -10,7 +10,7 @@
         }
 
         public function get_cus_info(){
-            $customer_info = $this->query("SELECT usname.username, cus.user_img FROM tbl_username usname ,tbl_customer cus WHERE usname.username_id = cus.username_id AND cus.customer_id = ?" , [$this->customer_id]);
+            $customer_info = $this->query("SELECT usname.username, cus.customer_img FROM tbl_username usname ,tbl_customer cus WHERE usname.username_id = cus.username_id AND cus.customer_id = ?" , [$this->customer_id]);
             return $customer_info->fetchAll(PDO::FETCH_ASSOC);
         }
 
@@ -33,7 +33,7 @@
 
     class class_cus_info{
         public $username;
-        public $user_img;
+        public $customer_img;
         public $follow;
         public $like;
     }
@@ -41,7 +41,7 @@
     $cus_info = new class_cus_info();
 
     $cus_info->username =  $cus_info_array['username']; 
-    $cus_info->user_img =  $cus_info_array['user_img'];
+    $cus_info->customer_img =  $cus_info_array['customer_img'];
     $cus_info->follow =  $cus_like_array['item_liked'];
     $cus_info->like =  $cus_follow_array['shop_follow'];
 

@@ -14,8 +14,9 @@
             $this->cus_id = $_SESSION['cus_id'];
         }
 
+        // Gets the customers information
         public function get_cus_info(){
-            $get_cus_info =  $this->query("SELECT cus.user_img, username.username, con.contact, email.email, person.l_name, person.m_name, person.f_name, person.birthdate, person.gender
+            $get_cus_info =  $this->query("SELECT cus.customer_img, cus.cus_asset_folder,username.username, con.contact, email.email, person.l_name, person.m_name, person.f_name, person.birthdate, person.gender
             FROM tbl_customer cus, tbl_username username, tbl_user user ,  tbl_person person, tbl_contact con, tbl_email email
             WHERE username.username_id = cus.username_id 
             AND user.user_id = username.user_id
@@ -24,6 +25,48 @@
             AND user.email_id = email.emailID 
             AND cus.customer_id = ? " ,[$this->cus_id]);
             return $get_cus_info->fetchAll(PDO::FETCH_ASSOC)[0];
+        }
+
+        // Updates the customers information
+        public function update_customer_info(){
+            $this->query("START TRANSACTION");
+            try{
+            
+            if(!is_null($this->cus_info->get_img())){
+                $new_profile_dir = $this->cus_info->get_cus_folder() . "/" .basename($this->cus_info->get_img()['name']);
+                if(is_null($this->cus_info->get_orig_img())){
+                    move_uploaded_file($this->cus_info->get_img()['tmp_name'] , $new_profile_dir);
+                }else{
+                    $new_profile_dir = $this->cus_info->get_cus_folder() . "/" .basename($this->cus_info->get_img());
+                    rename($this->cus_info->get_orig_img(), $new_profile_dir);
+                }
+            }
+         
+            $edit_customer_info = $this->pdo->prepare("UPDATE tbl_customer cus, tbl_username username, tbl_user user, tbl_person person, tbl_contact con, tbl_email email 
+            SET cus.customer_img = :img, username.username = :username, con.contact = :contact, email.email = :email, person.l_name = :l_name, person.m_name = :m_name, person.f_name = :f_name, person.birthdate = :bday
+            WHERE username.username_id = cus.username_id 
+            AND user.user_id = username.user_id
+            AND person.personID = user.person_id
+            AND user.contact_id = con.contact_id
+            AND user.email_id = email.emailID 
+            AND cus.customer_id = :cus_id ");
+            $edit_customer_info->execute([
+                ':img' => $new_profile_dir??null,
+                ':username' => $this->cus_info->get_username(),
+                ':contact' => $this->cus_info->get_contact(),
+                ':email' => $this->cus_info->get_email(),
+                ':l_name' => $this->cus_info->get_l_name(),
+                ':m_name' => $this->cus_info->get_m_name(),
+                ':f_name' => $this->cus_info->get_f_name(),
+                ':bday' => $this->cus_info->get_bday(),
+                ':cus_id' => $this->cus_id
+            ]);
+            $this->query('COMMIT');
+            header('location: ../user_page/cus_acc_edit_page.php');
+            }catch(Exception $error){
+                echo "Failed: " . $error->getMessage();
+                $this->query("ROLLBACK");
+            }
         }
     }
 
@@ -37,6 +80,8 @@
         private $f_name;
         private $bday;
         private $gender;
+        private $cus_folder;
+        private $original_img;
 
         // Set customer info
         public function set_img($img){
@@ -75,6 +120,14 @@
             $this->gender =$gender;
         }
 
+        public function set_cus_folder($dir){
+            $this->cus_folder =$dir;
+        }
+
+        public function set_orig_img($og_img){
+            $this->original_img =$og_img;
+        }
+
         // Gets the customer info
         public function get_img(){
             return $this->img;
@@ -111,13 +164,38 @@
         public function get_gender(){
             return $this->gender;
         }
+
+        public function get_cus_folder(){
+            return $this->cus_folder;
+        }
+
+        public function get_orig_img(){
+            return $this->original_img;
+        }
     }
 
     $cus_info = new class_cus_info();
     $cus_edit_db = new class_cus_edit_database($cus_info);
 
+    // Sends the data for updating
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_save'])) {
+        $cus_info->set_img($_FILES['cus_img']??null);
+        $cus_info->set_username($_POST['cus_username_edit']);
+        $cus_info->set_contact($_POST['cus_contact_edit']);
+        $cus_info->set_email($_POST['cus_email_edit']??null);
+        $cus_info->set_l_name($_POST['cus_l_name_edit']??null);
+        $cus_info->set_m_name($_POST['cus_m_name_edit']??null);
+        $cus_info->set_f_name($_POST['cus_f_name_edit']??null);
+        $cus_info->set_bday($_POST['cus_edit_bday']??null);
+        $cus_info->set_gender($_POST['']??null);
+
+        $cus_edit_db->update_customer_info();
+    }
+
+    // Gets the data once when the page loads
     $cus_info_start = $cus_edit_db->get_cus_info();
-    $cus_info->set_img($cus_info_start["user_img"]);
+    $cus_info->set_img($cus_info_start["customer_img"]);
+    $cus_info->set_orig_img($cus_info_start["customer_img"]);
     $cus_info->set_username($cus_info_start["username"]);
     $cus_info->set_contact($cus_info_start["contact"]);
     $cus_info->set_email($cus_info_start["email"]);
@@ -126,5 +204,6 @@
     $cus_info->set_f_name($cus_info_start["f_name"]);
     $cus_info->set_bday($cus_info_start["birthdate"]);
     $cus_info->set_gender($cus_info_start["gender"]);
+    $cus_info->set_cus_folder($cus_info_start["cus_asset_folder"]);
 
 ?>

@@ -7,7 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <?php require_once('../utilities/initialize.php'); require_once('../utilities/nav.php') ?>
+    <?php require_once('../utilities/initialize.php');
+     require_once('../utilities/nav.php');
+     require_once('../db_api/db_item_info.php'); ?>
     <section id="solo_item_section">
         <div id="solo_item_wrapper">
             <div id="solo_item_container">
@@ -15,7 +17,12 @@
                     <div id="item_img_container">
                             <div id="carouselExample" class="carousel slide">
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
+                                    <?php foreach(){  ?> 
+                                        <div class="carousel-item">
+                                        <img src="../assets/tmp.png" class="d-block w-100" alt="...">
+                                        </div>
+                                    <?php } ?>
+                                    <!-- <div class="carousel-item active">
                                     <img src="../assets/tmp.png" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
@@ -23,7 +30,7 @@
                                     </div>
                                     <div class="carousel-item">
                                     <img src="../assets/tmp.png" class="d-block w-100" alt="...">
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -88,7 +95,7 @@
                                 <div id="see_all_container">
                                     <p id="see_all_preview">See all <i class="bi bi-arrow-right" id="see_all_arrow"></i></p>
                                 </div>
-                                <div id="items_preview_container"><?php require_once('../utilities/item_loop.php') ?></div>
+                                <!-- <div id="items_preview_container"><?php require_once('../utilities/item_loop.php') ?></div> -->
                             </div>
                         </div>
                     </div>

@@ -169,3 +169,12 @@
 .cus_acc_body_content{
     cursor: pointer;
 }
+
+.item_loop_contaner{
+    width: 100%;
+    justify-content: center;
+}
+
+.item_loop{
+    width: 95%;
+}

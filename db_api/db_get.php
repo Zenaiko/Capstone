@@ -25,7 +25,7 @@ class class_get_database extends class_database{
     } 
 
     public function get_item_info_home(){
-        $get_item = $this->query("SELECT itm.item_name, img.item_img_location, MIN(vari.vairation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
+        $get_item = $this->query("SELECT itm.item_id, itm.item_name, img.item_img_location, MIN(vari.vairation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
         LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
         LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
         LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
@@ -51,17 +51,6 @@ class class_get_database extends class_database{
         return $get_is_seller->fetchAll(PDO::FETCH_ASSOC)[0]['is_verified']??null;
     }
 
-    public function get_cus_info($cus_id){
-        $get_cus_info =  $this->query("SELECT cus.user_img, username.username, con.contact, email.email, person.l_name, person.m_name, person.f_name, person.birthdate, person.gender
-        FROM tbl_customer cus, tbl_username username, tbl_user user ,  tbl_person person, tbl_contact con, tbl_email email
-        WHERE username.username_id = cus.username_id 
-        AND user.user_id = username.user_id
-        AND person.personID = user.person_id
-        AND user.contact_id = con.contact_id
-        AND user.email_id = email.emailID 
-        AND cus.customer_id = ? ");
-        return $get_cus_info->fetchAll(PDO::FETCH_ASSOC)[0]['is_verified'];
-    }
 }
 
 $get_db = new class_get_database();

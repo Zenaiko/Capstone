@@ -1,3 +1,5 @@
+@import url(root.css);
+
 /* Carousel Styles */
 .carousel-item img {
     width: 100%; /* Full width of the carousel */
@@ -156,6 +158,7 @@ span.feature_star_splitter{
     margin-bottom: 0.25rem; /* Space between contact items */
 }
 
+
 /* Mobile Responsiveness */
 /* Styles for mobile view adjustments */
 @media (max-width: 768px) {
@@ -214,3 +217,5 @@ span.feature_star_splitter{
         margin-bottom: 0.5rem; /* Reduce space between contact items */
     }
 }
+
+

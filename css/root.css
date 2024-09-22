@@ -1,3 +1,5 @@
+@import url(item.css);
+
 body, html{
     margin: 0;
     padding: 0;
@@ -76,4 +78,21 @@ body{
     background: var(--price_linear);
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
+}
+
+.item_loop_contaner{
+    display: flex;justify-content: center;
+}
+
+.item_loop{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+
+}
+
+.item_wrapper{
+    max-width: fit-content;
+    flex: 1 1;
 }
