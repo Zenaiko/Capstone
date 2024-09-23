@@ -127,7 +127,6 @@
     </section>
 
     <?php require_once('../utilities/item_interaction.php'); ?>
-    <script src="../js/item_interaction.js"></script>
 
 </body>
 </html>

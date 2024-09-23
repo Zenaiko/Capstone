@@ -72,13 +72,13 @@
             <div class="section" id="price-section">
                 <span>Price</span>
                 <div class="price-input">
-                    <input type="text" id="price" placeholder="0.00">
+                    <input type="text" id="price" name="price" placeholder="0.00">
                 </div>
             </div>
             <!-- Stock Section -->
             <div class="section" id="stock-section">
                 <span>Stock</span>
-                <input type="text" id="stock" placeholder="Set">
+                <input type="text" id="stock" name="stock" placeholder="Set">
             </div>  
        
             <div class="section" id="stock-section">
