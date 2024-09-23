@@ -25,7 +25,7 @@ class class_get_database extends class_database{
     } 
 
     public function get_item_info_home(){
-        $get_item = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.vairation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
+        $get_item = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
         LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
         LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
         LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id

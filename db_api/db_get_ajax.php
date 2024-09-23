@@ -8,7 +8,7 @@ require_once('db_root_conn.php');
         }
 
         public function get_indiv_variant($variant_id){
-            $get_indiv_variant = $this->query("SELECT vari.variation_name, vari.vairation_price, vari.vairation_stock, itm_img.item_img 
+            $get_indiv_variant = $this->query("SELECT vari.variation_name, vari.variation_price, vari.variation_stock, itm_img.item_img 
             FROM tbl_variation vari 
             LEFT JOIN  tbl_item_img itm_img ON vari.variation_id = itm_img.item_id
             WHERE vari.variation_id = :vari_id" , [":vari_id" => $variant_id]);

@@ -1,7 +1,6 @@
 let $lastClicked;
 const v_price = document.getElementById('v_price');
-const variant_stock = document.getElementById('variant_stock');
-
+const v_stock = document.getElementById('variant_stock');
 
 $('.variant').on('click', function() {
 
@@ -21,7 +20,7 @@ $('.variant').on('click', function() {
     }
     
     $lastClicked = $(this);
-    $lastClicked.css('border', '2px solid black');
+    $lastClicked.css('border', '1px solid black');
     $order_id =  $(this).attr('id');
 
     $.ajax({
@@ -30,8 +29,8 @@ $('.variant').on('click', function() {
         data: {var_id: $order_id},
         success: function(order_json){
             const order_array = JSON.parse(order_json);
-            v_price.innerHTML = '₱' + order_array.vairation_price;
-            // item_stock.innerHTML = order_array["variation_stock"]
+            v_price.innerHTML = '₱' + order_array.variation_price;
+            v_stock.innerHTML = 'Stock: ' + order_array.variation_stock;
 
         }
     })
