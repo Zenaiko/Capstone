@@ -20,9 +20,8 @@
         <section class="section">
             <h2 class="section-title">Shipping Address</h2>
             <div class="section-content">
-                <p>John Doe</p>
-                <p>1234 Street Name, City, Philippines</p>
-                <button class="edit-btn">Edit</button>
+                <p>The Hotdog Seller</p>
+                <p>1234 Street Name, City</p>
             </div>
         </section>
 
