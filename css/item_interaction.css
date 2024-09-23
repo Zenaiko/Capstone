@@ -19,6 +19,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 #item_interaction_container div:not(:last-child){
@@ -64,4 +65,73 @@
     flex:1;
     background-image: var(--orange_fill_gradient);
     font-size: 0.75rem;
+}
+
+.offcanvas{
+    min-height: 70vh;
+}
+
+#img_feature{
+    width: 8rem;
+    aspect-ratio: 1/1;
+    border-radius: 0.3rem;
+}
+
+#close_order{
+    align-self: flex-start;
+}
+
+.order_information{
+    display: flex;
+    flex-direction: row;
+}
+
+.price_stock{
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    gap: 0.7rem;
+}
+
+.offcanvas-body{
+    overflow-y: scroll;
+}
+
+.price_stock *{
+    margin: 0;
+}
+
+#item_contents{
+    display: flex;
+    gap: 0.8rem;
+}
+
+.variant{
+    display: grid;
+    flex-direction: column;
+    text-align: center;
+    background-color: var(--cus_edit_inp_border);
+    justify-content: center;
+    justify-items: center;
+    cursor: pointer;
+    padding: 0 0.8rem;
+    border-radius: 0.3rem;
+
+}
+
+.offcanvas-footer{
+    display: flex;
+    justify-content: center;
+}
+
+#buy_button{
+    width: 80vw;
+    height: 2rem;
+    align-content: center;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    background-image: var(--orange_fill_gradient);
+    color: white;
 }

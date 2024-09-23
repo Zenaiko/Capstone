@@ -1,4 +1,9 @@
 @import url(root.css);
+
+#solo_item_section{
+    min-height: 100vh;
+}
+
 #item_img_container{
     border-bottom: 1px solid var(--solo_item_img_border);
 }

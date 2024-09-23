@@ -15,23 +15,32 @@
             <div id="solo_item_container">
                 <header id="solo_item_head">
                     <div id="item_img_container">
-                            <div id="carouselExample" class="carousel slide">
-                                <div class="carousel-inner">
-                                    <?php foreach(){  ?> 
-                                        <div class="carousel-item">
+                        <div id="carouselExample" class="carousel slide">
+                            <div class="carousel-inner">
+                                <?php 
+                                if(empty($item_info->get_img())){ ?>
+
+                                    <div class="carousel-item active">
                                         <img src="../assets/tmp.png" class="d-block w-100" alt="...">
-                                        </div>
-                                    <?php } ?>
-                                    <!-- <div class="carousel-item active">
-                                    <img src="../assets/tmp.png" class="d-block w-100" alt="...">
                                     </div>
+                                          
+                                <?php } else{ foreach($item_info->get_img() as $img){ ?> 
                                     <div class="carousel-item">
-                                    <img src="../assets/tmp.png" class="d-block w-100" alt="...">
+                                        <img src="<?=$img?>" class="d-block w-100" alt="...">
                                     </div>
-                                    <div class="carousel-item">
-                                    <img src="../assets/tmp.png" class="d-block w-100" alt="...">
-                                    </div> -->
-                                </div>
+                                <?php }} ?>
+
+                                
+                                            <!-- <div class="carousel-item active">
+                                                <img src="../assets/tmp.png" class="d-block w-100" alt="...">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="../assets/tmp.png" class="d-block w-100" alt="...">
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="../assets/tmp.png" class="d-block w-100" alt="...">
+                                            </div> -->
+                            </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
@@ -42,10 +51,11 @@
                                 </button>
                         </div>
                     </div>
+                
                     <div id="item_info_wrapper">
                         <div id="item_info_container">
-                            <p id="item_price" class="item_price">₱ 12</p>
-                            <p id="item_name">Beef Hotdog fresh from Milkakrem per kilo</p>
+                            <p id="item_price" class="item_price">₱ <?=$item_info->get_min_price()?></p>
+                            <p id="item_name"><?=$item_info->get_name()?></p>
                             <p id="item_sold">10k sold</p>
                             <div id="item_star_container">
                                 <i id="item_star" class="bi bi-star-fill"></i>
@@ -64,10 +74,10 @@
                 <div id="item_seller_info_wrapper">
                     <div id="item_seller_info_container">
                         <div id="seller_info_contents">
-                            <div id="seller_item_img_container"><img src="../assets/tmp.png" alt="" id="seller_item_img"></div>
+                            <div id="seller_item_img_container"><img src="<?=$seller_info->get_img()??' ../assets/tmp.png'?>" alt="" id="seller_item_img"></div>
                             <div id="seller_info">
-                                <p id="seller_name">Hotdog selelr</p>
-                                <p id="seller_location"><i class="bi bi-geo-alt"></i>Burgos, Sangitan, Cabanatuan CIty</p>
+                                <p id="seller_name"><?=$seller_info->get_name()?></p>
+                                <p id="seller_location"><i class="bi bi-geo-alt"></i><?=$seller_info->get_brngy() . ' ,' . $seller_info->get_street() . ' ,' . $seller_info->get_city()?></p>
                                 <p id="seller_star"><i class="bi bi-star-fill"></i> 4.5 Seller Rating</p>
                             </div>
                             <p id="follow_seller">Follow</p>
@@ -107,7 +117,7 @@
                     <div id="item_description_container">
                         <p>Item Description</p>
                         <p id="item_description">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis tempore animi ducimus assumenda voluptate ab veniam optio fugiat possimus odit accusantium et excepturi rerum recusandae molestias, minus deserunt ipsam quidem, placeat sequi eum temporibus necessitatibus cum doloribus. Doloribus, unde optio a reiciendis quasi debitis sint! Alias reprehenderit quas facilis nostrum!
+                        <?=$item_info->get_desc()?>
                         </p>
                     </div>
                 </div>
@@ -116,7 +126,8 @@
         </div>
     </section>
 
-    <?php require_once('../utilities/item_interaction.php') ?>
+    <?php require_once('../utilities/item_interaction.php'); ?>
+    <script src="../js/item_interaction.js"></script>
 
 </body>
 </html>
