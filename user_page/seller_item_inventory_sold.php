@@ -1,6 +1,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/seller_item_inventory.css">
 
+
+<?php require_once("../db_api/db_get.php");
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+        $sold_items = $get_db->get_item_sold_out($_SESSION['seller_id']);
+        if(!is_null($sold_items[0]["item_name"])){
+        foreach($sold_items as $item){ ?> 
+
         <div class="items-list">
             <div class="item-card">
                 <div class="product-content">
@@ -32,7 +41,10 @@
                     </div>
                 </div>
             </div>
-            <div class="items-list">
+        </div>
+
+    <?php }} ?>
+            <!-- <div class="items-list">
                 <div class="item-card">
                     <div class="product-content">
                         <div class="product-image">
@@ -94,7 +106,7 @@
                             </div>
                         </div>
                     </div>
-        </div>
+        </div> -->
 
         <!-- Add Item Button -->
         <input type="button" class="add-item-btn" value="Delist">

@@ -57,6 +57,21 @@ class class_get_database extends class_database{
         return $get_market_requests->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function get_item_live($market_id){
+        $get_item_live =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
+LEFT JOIN tbl_market market ON item.market_id = market.market_id 
+LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
+        return $get_item_live->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+    public function get_item_sold_out($market_id){
+        $get_item_live =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
+LEFT JOIN tbl_market market ON item.market_id = market.market_id 
+LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
+        return $get_item_live->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
 }
 
 $get_db = new class_get_database();
@@ -79,6 +94,7 @@ $category_array = $get_db->get_category();
         $verify_seller = $get_db->get_is_seller($_SESSION['cus_id']);
         if(!is_null($verify_seller)){
             $result = ['is_seller' => true , 'market_id' => $verify_seller['market_id']];
+            $_SESSION['seller_id'] = $verify_seller['market_id'];
         }else{
             $result = ['is_seller' => false];
         }
