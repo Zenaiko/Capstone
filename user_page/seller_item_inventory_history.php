@@ -96,5 +96,3 @@
                     </div>
         </div>
 
-        <!-- Add Item Button -->
-        <input type="button" class="add-item-btn" value="Add Item">

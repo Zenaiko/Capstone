@@ -252,6 +252,19 @@ body {
 .add-item-btn:hover {
     background-color: var(--primary-hover-color);
 }
+.fixed-button-container {
+    position: fixed; 
+    bottom: 0; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background-color: white; 
+    padding: 1rem 2rem; 
+    box-shadow: 0 0.4rem 0.8rem var(--shadow-color); 
+    z-index: 1000; 
+    width: calc(100% - 0rem); 
+    max-width: 700px; 
+}
+
 
 #live-page .item-card {
 .items-list {
