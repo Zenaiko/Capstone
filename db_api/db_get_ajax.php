@@ -14,6 +14,13 @@ require_once('db_root_conn.php');
             WHERE vari.variation_id = :vari_id" , [":vari_id" => $variant_id]);
             return $get_indiv_variant->fetchAll(PDO::FETCH_ASSOC)[0];
         }
+
+        public function update_market_request($req_id){
+            $update_req = $this->pdo->prepare("UPDATE tbl_market_request mrkt_req, tbl_market mrkt SET mrkt_req.market_req_status = 'accepted' , mrkt.is_verified = '1' WHERE mrkt_req.market_id = mrkt.market_id AND mrkt_req.market_request_id = :id");
+            $update_req->execute([
+                ":id" => $req_id
+            ]);
+        }
     }
 
     $ajax = new class_ajax_database();
@@ -22,4 +29,9 @@ require_once('db_root_conn.php');
         $variant = $ajax->get_indiv_variant($_POST['var_id']);
         echo json_encode($variant);
     }
+
+    if(isset($_POST['req_id'])){
+        $ajax->update_market_request($_POST['req_id']);
+    }
+
 ?>

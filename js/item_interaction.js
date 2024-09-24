@@ -38,11 +38,15 @@ $('.variant').on('click', function() {
 
 });
 
+var order_dir = 'cus_checkout.php';
+
 $('#buy_button').on('click' , function(){
     if ($order_id === null){
         Swal.fire({
             icon: "error",
             title: "Please Select an item",
           });
+    }else{
+        window.location.assign(order_dir);
     }
 });
