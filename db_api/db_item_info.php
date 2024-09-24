@@ -41,7 +41,7 @@
             $this->seller->set_img($seller_info["market_image"]);
             $this->seller->set_rating($seller_info["rating"]);
 
-            $get_variants = $this->query("SELECT vari.variation_id, vari.variation_name, vari.vairation_price, vari.vairation_stock, itm_img.item_img 
+            $get_variants = $this->query("SELECT vari.variation_id, vari.variation_name, vari.variation_price, vari.variation_stock, itm_img.item_img 
             FROM tbl_variation vari
             LEFT JOIN tbl_item itm ON itm.item_id = vari.item_id
             LEFT JOIN tbl_item_img itm_img ON itm_img.item_id = vari.variation_id
@@ -49,12 +49,7 @@
             $this->item->set_variant_info($get_variants->fetchAll(PDO::FETCH_ASSOC));
         }
 
-        public function get_indiv_variant($variant_id){
-            $get_indiv_variant = $this->query("SELECT vari.variation_name, vari.vairation_price, vari.vairation_stock, itm_img.item_img 
-            FROM tbl_variation vari, tbl_item_img itm_img 
-            WHERE vari.variation_id = :vari_id" , [":vari_id" => $variant_id]);
-            return $get_indiv_variant->fetchAll(PDO::FETCH_ASSOC)[0]??null;
-        }
+     
     }
 
     class class_item_info{
@@ -241,11 +236,6 @@
     $item_info = new class_item_info();
     $seller_info = new class_seller_info();
     $item_info_db = new class_item_info_database($item_info, $seller_info);
-
-    if(isset($_POST['var_id'])){
-        $variant = $item_info_db->get_indiv_variant($_POST['var_id']);
-        echo json_encode($variant);
-    }
 
     $item_info->set_item_id($_GET['id']);
     $item_info_db->get_item_info();

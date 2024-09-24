@@ -25,7 +25,7 @@ class class_get_database extends class_database{
     } 
 
     public function get_item_info_home(){
-        $get_item = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.vairation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
+        $get_item = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
         LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
         LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
         LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
@@ -47,8 +47,14 @@ class class_get_database extends class_database{
     }
 
     public function get_is_seller($cus_id){
-        $get_is_seller = $this->query("SELECT market.is_verified FROM tbl_market market, tbl_customer cus WHERE market.customer_id = cus.customer_id AND cus.customer_id = ?", [$cus_id]);
-        return $get_is_seller->fetchAll(PDO::FETCH_ASSOC)[0]['is_verified']??null;
+        $get_is_seller = $this->query("SELECT market.is_verified, market.market_id FROM tbl_market market, tbl_customer cus WHERE market.customer_id = cus.customer_id AND market.is_verified = '1' AND cus.customer_id = ?", [$cus_id]);
+        return $get_is_seller->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+    }
+
+    public function get_market_requests(){
+        $get_market_requests = $this->query("SELECT * FROM tbl_market_request mrkt_req 
+        LEFT JOIN tbl_market mrkt ON mrkt.market_id = mrkt_req.market_id WHERE 	mrkt_req.market_req_status = 'waiting_for_approval' OR mrkt.is_verified = 0");
+        return $get_market_requests->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
@@ -71,8 +77,8 @@ $category_array = $get_db->get_category();
 
     if(isset($data) && $data['action'] === 'get_is_seller'){
         $verify_seller = $get_db->get_is_seller($_SESSION['cus_id']);
-        if($verify_seller === 1){
-            $result = ['is_seller' => true];
+        if(!is_null($verify_seller)){
+            $result = ['is_seller' => true , 'market_id' => $verify_seller['market_id']];
         }else{
             $result = ['is_seller' => false];
         }

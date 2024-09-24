@@ -19,7 +19,7 @@
             <img id="img_feature" src="../assets/tmp.png" alt="">
             <div class="price_stock">
                 <p class="item_price" id="v_price"></p>
-                <p id="variant_stock">Stock: </p>
+                <p id="variant_stock"> </p>
             </div>
         </div>
         <button type="button" id="close_order" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
