@@ -97,6 +97,7 @@
         </div>
 
         <!-- Add Item Button -->
-        <input type="button" class="add-item-btn" value="Delist">
-
+        <div class="fixed-button-container">
+    <input type="button" class="add-item-btn" value="Add Item">
+</div>
 
