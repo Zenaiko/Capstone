@@ -29,6 +29,12 @@ body {
     margin-bottom: 30px; /* Increased spacing */
 }
 
+.dashboard-header h4{
+    margin: 0;
+    display: flex;
+    align-self: end;
+}
+
 .card {
     padding: 10px;
     margin-bottom: 30px; /* Increased spacing */
@@ -76,4 +82,36 @@ body {
 
 #topSellingProducts {
     padding-left: 35px;
+}
+
+
+#statistics_info{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.stats_card{
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.stats_card *{
+    box-sizing: border-box;
+    width: auto;
+    margin: 0;
+}
+
+.stats_card h5{
+    font-size: 0.875rem;
+}
+
+.stats_card p{
+    font-size: 1rem;
+    font-weight: 700;
 }

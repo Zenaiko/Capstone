@@ -12,6 +12,7 @@
 <?php require_once('../utilities/initialize.php');
         require_once('../utilities/nav.php');
         require_once('../db_api/db_get.php');
+        
         ?>
 <body>
 
@@ -56,7 +57,7 @@
         <div class="featured-shop-contents-row d-flex overflow-auto">
 
             <?php foreach($get_db->get_top_shop() as $shop){ ?>
-                <div class="featured-shop-contents">
+                <div class="featured-shop-contents" id="<?=$shop["market_id"]?>">
                     <img class="feature_img" src="<?=$shop['market_image']??'../assets/tmp.png'?>" alt="">
                     <div class="featured-info">
                         <p class="featured-name"><?=$shop['market_name']?></p>
@@ -158,7 +159,15 @@
             <h2>Categories</h2>
         </div>
         <div class="category-row">
-            <div class="category-item">
+
+            <?php foreach($get_db->get_category() as $category){ ?>
+                <div class="category-item">
+                    <a href="search.php?category=<?=$category["category_id"]?>"><img src="" alt=""></a>
+                    <p class="category"><?=$category["category"]?></p>
+                </div>
+            <?php } ?>
+
+            <!-- <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 1"></a>
                 <p>Vegetables</p>
             </div>
@@ -189,7 +198,7 @@
             <div class="category-item">
                 <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
                 <p>Others</p>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -249,8 +258,7 @@
 </footer>
 
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/home.js"></script> 
 <script src="../js/item_loop.js"></script>
 </body>
 </html>

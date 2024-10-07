@@ -14,11 +14,7 @@
 
                 <div id="top_store_wrapper">
                     <div id="top_store_container" class="d-flex overflow-auto">
-                        <?php include('../utilities/item_loop.php') ?>
-                        <?php include('../utilities/item_loop.php') ?>
-                        <?php include('../utilities/item_loop.php') ?>
-                        <?php include('../utilities/item_loop.php') ?>
-                        <?php include('../utilities/item_loop.php') ?>
+                     
                     </div>
                 </div>
       

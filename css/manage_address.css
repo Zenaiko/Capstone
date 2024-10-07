@@ -1,0 +1,71 @@
+@import url(root.css);
+
+#address_section{
+    width: 100%;
+    justify-content: center;
+}
+
+#address_container{
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 0.75rem;
+}
+
+a{
+    list-style: none;
+}
+
+#address_container *{
+    margin: 0;
+}
+
+.address_container{
+    width: 95%;
+    margin: auto;
+}
+
+.address_header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.address_header a{
+    border: none;
+    background-color: white;
+}
+
+.address_contact{
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+}
+
+.adr_splitter{
+    height: relative;
+    width: 0.08rem;
+    background-color: black;
+}
+
+#adr_footer{
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#add_address{
+    display: flex;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    height: 2.5rem;
+    width: 12.5rem;
+    border-radius: 3rem;
+    background-image: var(--orange_fill_gradient);
+    justify-content: center;
+    align-items: center;
+}

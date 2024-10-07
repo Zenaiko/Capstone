@@ -282,6 +282,10 @@ if(isset($_POST['submit_shop_info'])){
         'seller_folder' => $shop_info->get_seller_folder()
     ];
     
+    if(isset($_POST['shop_sell_food'])){
+        header('location: ../user_page/sign_up_seller.php?business_information&food_seller');
+    }
+
     header('location: ../user_page/sign_up_seller.php?business_information');
     exit();
 

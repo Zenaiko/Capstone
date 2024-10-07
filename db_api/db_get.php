@@ -10,7 +10,7 @@ class class_get_database extends class_database{
     }
 
     public function get_category(){
-        $get_all_category = $this->query("SELECT category FROM tbl_category"); 
+        $get_all_category = $this->query("SELECT * FROM tbl_category"); 
         return $get_all_category->fetchAll(PDO::FETCH_ASSOC);
     }
     
@@ -37,7 +37,7 @@ class class_get_database extends class_database{
     public function get_top_shop(){
         $get_top_shop = $this->query("SELECT * FROM tbl_market market 
         LEFT JOIN tbl_market_image img ON market.market_id = img.market_id
-        GROUP BY market.market_id");
+        GROUP BY market.market_id LIMIT 10");
         return $get_top_shop->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -48,7 +48,9 @@ class class_get_database extends class_database{
 
     public function get_is_seller($cus_id){
         $get_is_seller = $this->query("SELECT market.is_verified, market.market_id FROM tbl_market market, tbl_customer cus WHERE market.customer_id = cus.customer_id AND market.is_verified = '1' AND cus.customer_id = ?", [$cus_id]);
-        return $get_is_seller->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+        $seller_id = $get_is_seller->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+        $_SESSION['seller_id'] = $seller_id['market_id']??null;
+        return $seller_id??null;
     }
 
     public function get_market_requests(){
@@ -59,17 +61,17 @@ class class_get_database extends class_database{
 
     public function get_item_live($market_id){
         $get_item_live =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
-LEFT JOIN tbl_market market ON item.market_id = market.market_id 
-LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
+        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
         return $get_item_live->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
     public function get_item_sold_out($market_id){
         $get_item_live =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
-LEFT JOIN tbl_market market ON item.market_id = market.market_id 
-LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
+        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
         return $get_item_live->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 }

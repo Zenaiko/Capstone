@@ -25,9 +25,15 @@
     </section>
 
     <!-- Total Revenue and Items Sold -->
-    <div class="card">
-        <h5>Total Revenue: ₱<span id="totalRevenue">50,000.00</span></h5>
-        <h5>Items Sold: <span id="itemsSold">150</span></h5>
+    <div id="statistics_info">
+        <div class="card stats_card">
+            <p>₱50,000.00</p>
+            <h5>Total Revenue</h5>
+        </div>
+        <div class="card stats_card">
+            <p>150</p>
+            <h5>Total Items Sold</h5>
+        </div>
     </div>
 
     <!-- Top Selling Products -->

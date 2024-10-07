@@ -7,7 +7,7 @@ $('.cus_acc_body_content').click(function(){
             redirect = 'cus_acc_edit_page.php';
             break;
         case 'address':
-            redirect = '';
+            redirect = 'manage_address.php';
             break;
         case 'liked':
             redirect = '';
@@ -29,7 +29,7 @@ $('.cus_acc_body_content').click(function(){
                 // Check if customer is a seller
                 .then(seller_info => {
                     if(seller_info.is_seller !== false){
-                        redirect = 'seller_item_page.php?' + seller_info.market_id;
+                        redirect = 'seller_item_page.php';
                     }else{
                         redirect = 'sign_up_seller.php';
                     }

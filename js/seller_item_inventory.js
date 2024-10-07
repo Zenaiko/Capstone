@@ -74,3 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateIndicatorPosition(activeTab);
     loadContent('live');  
 });
+
+
+

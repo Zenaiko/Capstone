@@ -9,7 +9,9 @@
 <body>
 <section class="main_section">
     <div class="main_container">
-    <?php require_once('header.php'); ?>
+    <?php
+    require_once('arrow_header.php');
+    require_once('header.php'); ?>
         <div class="main_contents_wrapper">
             <div class="main_contents_container">
                 <div class="main_content">

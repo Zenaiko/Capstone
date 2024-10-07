@@ -218,4 +218,7 @@ span.feature_star_splitter{
     }
 }
 
+.category{
+    text-transform: capitalize;
+}
 

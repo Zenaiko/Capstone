@@ -5,7 +5,7 @@
         private $login_form;
         public function __construct(class_log_credentials $creds)
         {
-            parent::__construct('cab_mart_cus_login' , '');
+            parent::__construct('root' , '');
             $this->login_form = $creds;
         }
 

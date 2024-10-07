@@ -237,7 +237,7 @@
     $seller_info = new class_seller_info();
     $item_info_db = new class_item_info_database($item_info, $seller_info);
 
-    $item_info->set_item_id($_GET['id']);
+    $item_info->set_item_id($_GET['id']??$_POST['item_order']);
     $item_info_db->get_item_info();
 
   

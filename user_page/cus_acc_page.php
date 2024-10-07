@@ -12,6 +12,7 @@
 require_once('../utilities/nav.php');
 require_once('../db_api/db_cus_info.php');
 require_once('../db_api/db_get.php');
+
 ?>
 
     <section id="cus_acc_section">

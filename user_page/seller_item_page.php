@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Inventory</title>
     <link rel="stylesheet" href="../css/seller_item_inventory.css">
+    
 </head>
 <body>
+    <?php require_once("../utilities/initialize.php");?>
     <!-- Header Selector -->
     <header class="header">
         <nav class="selector">
@@ -44,5 +46,8 @@
     </section>
 
     <script src="../js/seller_item_inventory.js"></script>
+
+
+
 </body>
 </html>

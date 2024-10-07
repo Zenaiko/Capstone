@@ -28,21 +28,27 @@ if (session_status() === PHP_SESSION_NONE) {
             $this->item->set_item_id($this->pdo->lastInsertId());
 
             // Insert into tbl_item_img
+                // Creates the folder for the images
+            $seller_image_dir = $this->item->get_seller_dir() . 'item_images/';
+            if (!is_dir($seller_image_dir)) {
+                mkdir($seller_image_dir, 0755, true);
+            }
+
             foreach($this->item->get_img_array()['name'] as $key => $indiv_img){
                 // Uploads the file
-                move_uploaded_file($this->item->get_img_array()['tmp_name'][$key] ,$this->item->get_seller_dir() . $indiv_img);
-                $insert_tbl_item_img = $this->pdo->prepare("INSERT INTO tbl_item_img (itemID, item_img, item_img_location) 
-                VALUES (:item_id, :img, :loc)");
+                move_uploaded_file($this->item->get_img_array()['tmp_name'][$key] ,$seller_image_dir . $indiv_img);
+                $insert_tbl_item_img = $this->pdo->prepare("INSERT INTO tbl_item_img (item_id, seller_id,item_img) 
+                VALUES (:item_id, :seller_id ,:img)");
                 $insert_tbl_item_img->execute([
                     ':item_id' => $this->item->get_item_id(),
-                    ':img' => $indiv_img,
-                    ':loc' => $this->item->get_seller_dir() . $indiv_img
+                    ':seller_id' => $_SESSION['seller_id'],
+                    ':img' => $this->item->get_seller_dir() . $indiv_img
                 ]);
             }
 
             // Inserts into tbl_variation
-            $insert_tbl_variation = $this->pdo->prepare("INSERT INTO tbl_variation (item_id, variation_name, vairation_price,vairation_stock) \
-            VALUES (:item_id, :vari_name, :vari_price, :vari_stock)");
+            $insert_tbl_variation = $this->pdo->prepare("INSERT INTO tbl_variation (item_id, variation_name, variation_price)
+            VALUES (:item_id, :vari_name, :vari_price)");
             // Inserts into tbl_stocks and records in tbl_stock_movement
             $insert_tbl_stocks = $this->pdo->prepare("INSERT INTO tbl_stock (item_id, variation_id)
             VALUES (:item_id, :vari_id)");
@@ -94,6 +100,7 @@ if (session_status() === PHP_SESSION_NONE) {
             }
 
             $this->query('COMMIT');
+            header('location: ../user_page/seller_item_page.php');
         }
     }
 
@@ -154,7 +161,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         public function set_seller_dir($dir) {
-            $this->seller_folder = $dir . '/market_asset/';
+            $this->seller_folder = $dir . '/market/';
         }
 
         // Gets the item info
@@ -209,16 +216,11 @@ if (session_status() === PHP_SESSION_NONE) {
     $item_info->set_item_desc(($_POST['product_desc'])??null)  ;
     $item_info->set_category((htmlspecialchars($_POST['category'])));
     $item_info->set_image_array($_FILES['add_item_img']);
-    $item_info->set_seller_dir($get_db->get_cus_dir_by_seller($_SESSION['user_id'])[0]['cus_asset_folder']);
+    $item_info->set_seller_dir($get_db->get_cus_dir_by_seller($_SESSION['cus_id'])[0]['cus_asset_folder']);
 
     $item_info->set_variant_array($_POST['variant_name']??null);
 
 
-    $asset_fol = $get_db->get_cus_dir_by_seller(18)[0]['cus_asset_folder'];
-    $mr = $asset_fol . '/market_asset';
-    if (!is_dir($mr)) {
-        mkdir($mr, 0755, true);
-    }
 
     $add_item_db->add_item();
 

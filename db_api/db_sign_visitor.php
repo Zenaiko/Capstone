@@ -6,7 +6,7 @@
         private $visitor_info;
 
         public function __construct(class_visitor_info $info) {
-            parent::__construct('cab_mart_visitor_sign_up', '');
+            parent::__construct('root', '');
             $this->visitor_info = $info;
         }
 
