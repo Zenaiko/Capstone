@@ -32,7 +32,7 @@
 
             $get_seller_info = $this->query("SELECT market.market_name, address.city, address.street, address.brngy , market_img.market_image, market.rating
             FROM tbl_market market, tbl_address address, tbl_market_image market_img
-            WHERE market.address_id = address.addressID AND market_img.market_id = market.market_id AND market.market_id = :market_id", ([":market_id" =>$this->seller->get_seller_id()]));
+            WHERE market.address_id = address.address_id AND market_img.market_id = market.market_id AND market.market_id = :market_id", ([":market_id" =>$this->seller->get_seller_id()]));
             $seller_info = $get_seller_info->fetchAll(PDO::FETCH_ASSOC)[0];
             $this->seller->set_name($seller_info["market_name"]);
             $this->seller->set_city($seller_info["city"]);

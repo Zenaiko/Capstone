@@ -1,0 +1,37 @@
+@import url(root.css);
+
+#add_adr_section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#add_adr_container{
+    width: 90%;
+}
+
+#add_adr_container div{
+    display: flex;
+    flex-direction: column;
+}
+
+#add_adr_container #default_adr_div{
+    display: flex;
+    flex-direction: row;
+}
+
+#default_adr_div *{
+    width: fit-content;
+
+}
+
+#default{
+}
+
+#manage_adress_container{
+    position: absolute;
+    bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
