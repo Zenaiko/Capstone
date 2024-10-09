@@ -1,0 +1,142 @@
+:root {
+    --primary-color: #40A578; /* Primary theme color */
+    --reject: #BF4444;
+    --abort: #B7B7B7;
+    --secondary-color: #D3D3D3; /* Light grey secondary color */
+    --text-color: #111; /* Darker text color for better readability */
+    --button-text-color: #fff; /* Button text color */
+    --button-spacing: 1.5rem; /* Space between sections and buttons */
+    --font-size-lg: 1.6rem; /* Large font size */
+    --font-size-md: 1.4rem; /* Medium font size */
+    --font-size-sm: 1.2rem; /* Small font size */
+    --separator-thickness: 0.2rem; /* Separator thickness */
+    --border-radius: 0.8rem; /* Border radius for cards and images */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #FAFAFA; /* Light grey background */
+    margin: 0;
+    padding: 1.5rem; /* Padding for content spacing */
+}
+
+.transaction-card {
+    border: 0.1rem solid var(--secondary-color); /* Subtle border for card */
+    border-radius: var(--border-radius); /* Consistent border radius */
+    padding: 2rem; /* Adequate padding for content spacing */
+    margin: 1.5rem 0; /* Margin between cards */
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1); /* Light shadow for emphasis */
+    font-size: var(--font-size-md); /* Default font size */
+}
+
+.buyer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem; /* Spacing below buyer info */
+}
+
+.buyer-pic {
+    width: 5rem; /* Circular image size */
+    height: 5rem; /* Circular image size */
+    border-radius: 50%; /* Circular shape */
+    margin-right: 1rem; /* Space between image and name */
+}
+
+.buyer-name {
+    font-size: var(--font-size-lg); /* Larger font size for name */
+    font-weight: bold;
+}
+
+.order-info {
+    margin-bottom: 1.5rem; /* Spacing below order info */
+}
+
+.product-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-text {
+    width: 55%; /* Adjusted width to fit text properly */
+}
+
+.product-name {
+    font-size: var(--font-size-lg); /* Increased font size */
+    font-weight: bold;
+    margin-bottom: 0.5rem; /* Smaller margin */
+}
+
+.quantity, .price {
+    font-size: var(--font-size-md); /* Increased size for quantity and price */
+}
+
+.product-pic {
+    width: 9rem; /* Consistent product image size */
+    height: 9rem;
+    border-radius: var(--border-radius); /* Slightly rounded corners */
+}
+
+.order-time {
+    font-size: var(--font-size-sm); /* Smaller font size for timestamp */
+    margin-bottom: 1.5rem; /* Space below timestamp */
+}
+
+.separator {
+    width: 100%;
+    height: var(--separator-thickness);
+    background-color: var(--secondary-color);
+    margin: 1.5rem 0; /* Spacing above and below separator */
+}
+
+.action-buttons {
+    text-align: center;
+    margin-top: var(--button-spacing); /* Space above buttons */
+}
+
+.accept-btn {
+    background-color: var(--primary-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 1rem 10rem; /* Increased horizontal padding for wider buttons */
+    border-radius: var(--border-radius); /* Rounded corners */
+    margin: 0.5rem; /* Space between buttons */
+    cursor: pointer;
+    font-size: var(--font-size-lg); /* Larger button text */
+}
+.reject-btn {
+    background-color: var(--reject);
+    color: var(--button-text-color);
+    border: none;
+    padding: 1rem 10rem; /* Increased horizontal padding for wider buttons */
+    border-radius: var(--border-radius); /* Rounded corners */
+    margin: 0.5rem; /* Space between buttons */
+    cursor: pointer;
+    font-size: var(--font-size-lg); /* Larger button text */
+}
+.abort-btn {
+    background-color: var(--abort);
+    color: var(--button-text-color);
+    border: none;
+    padding: 1rem 15rem; /* Increased horizontal padding for wider buttons */
+    border-radius: var(--border-radius); /* Rounded corners */
+    margin: 0.5rem; /* Space between buttons */
+    cursor: pointer;
+    font-size: var(--font-size-lg); /* Larger button text */
+}
+
+.reject-btn:hover, .accept-btn:hover, .abort-btn:hover {
+    background-color: #508d4e; /* Hover color change */
+}
+
+.status-text.centered, .action-buttons.centered {
+    text-align: center;
+    font-size: var(--font-size-lg); /* Larger text */
+    color: var(--text-color);
+}
+
+/* Additional adjustments for better visibility */
+.transaction-card, .buyer-info, .order-info, .order-time, .rider-info, .completed-time {
+    padding-left: 1rem; /* Padding for better spacing */
+    padding-right: 1rem; /* Padding for better spacing */
+}
