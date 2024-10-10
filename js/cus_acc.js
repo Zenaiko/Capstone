@@ -29,7 +29,7 @@ $('.cus_acc_body_content').click(function(){
                 // Check if customer is a seller
                 .then(seller_info => {
                     if(seller_info.is_seller !== false){
-                        redirect = 'seller_item_page.php';
+                        redirect = 'seller_dashboard.php';
                     }else{
                         redirect = 'sign_up_seller.php';
                     }

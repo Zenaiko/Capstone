@@ -9,6 +9,11 @@
     <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>
+
+    <?php require_once("../utilities/initialize.php");
+        require_once("../utilities/seller_nav.php");
+    ?>
+
     <!-- Sales Statistics Header -->
     <section class="dashboard-header">
         <h4>Sales Statistics</h4>
