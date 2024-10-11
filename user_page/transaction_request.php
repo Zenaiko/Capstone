@@ -1,3 +1,5 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/transaction.css">
 
 <div class="transaction-card">
     <div class="buyer-info">
@@ -25,4 +27,3 @@
       <input type="button" class="reject-btn" value="Reject">
     </div>
   </div>
-  
