@@ -63,16 +63,16 @@ class class_get_database extends class_database{
         $get_item_live =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
         LEFT JOIN tbl_market market ON item.market_id = market.market_id 
         LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-        WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
+        WHERE item.item_status = 'live' AND market.market_id = ?  GROUP BY item.item_id" , [$market_id]);
         return $get_item_live->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
     public function get_item_sold_out($market_id){
-        $get_item_live =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
+        $get_item_sold =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
         LEFT JOIN tbl_market market ON item.market_id = market.market_id 
         LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
         WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
-        return $get_item_live->fetchAll(PDO::FETCH_ASSOC)??null;
+        return $get_item_sold->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 }
 

@@ -8,7 +8,9 @@
     
 </head>
 <body>
-    <?php require_once("../utilities/initialize.php");?>
+    <?php require_once("../utilities/initialize.php");
+        require_once("../utilities/seller_nav.php");
+    ?>
     <!-- Header Selector -->
     <header class="header">
         <nav class="selector">

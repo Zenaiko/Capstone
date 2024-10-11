@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/transaction.css">
+    <link rel="stylesheet" href="../css/seller_item_inventory.css">
+    <title>Document</title>
+</head>
+<body>
+    <?php require_once("../utilities/initialize.php");
+        require_once("../utilities/seller_nav.php");
+    ?>
+
+    <header class="header">
+        <nav class="selector">
+            <ul class="scrollable-tabs">
+                <li class="transac_tab tab" id="Requesting">Requesting</li>
+                <li class="transac_tab tab" id="Processing">Processing</li>
+                <li class="transac_tab tab" id="Shipping">Shipping</li>
+                <li class="transac_tab tab" id="Failed_Delivery">Failed Delivery</li>
+                <li class="transac_tab tab" id="Completed">Completed</li>
+                <li class="transac_tab tab" id="Canceled">Canceled</li>
+                <li class="transac_tab tab" id="Cancel_Request">Cancel Request</li>
+            </ul>
+            <div class="tab-indicator"></div>
+        </nav>
+    </header>
+
+    <section id="transaction_section">
+        <div id="transaction_loader">
+            
+        </div>
+    </section>
+
+    <script src="../js/transaction.js"></script>
+</body>
+</html>

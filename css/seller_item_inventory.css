@@ -36,7 +36,7 @@ body {
     padding: 1rem 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 9;
     overflow: hidden;
     border-bottom: 1px solid #ddd;
 }
@@ -213,7 +213,7 @@ body {
     top: 100%;
     right: 0;
     box-shadow: 0 0.4rem 0.8rem var(--shadow-color);
-    z-index: 1000;
+    z-index: 9;
 }
 
 .more-options-dropdown ul {
@@ -264,7 +264,7 @@ body {
     background-color: white; 
     padding: 1rem 2rem; 
     box-shadow: 0 0.4rem 0.8rem var(--shadow-color); 
-    z-index: 1000; 
+    z-index: 9; 
     width: calc(100% - 0rem); 
     max-width: 700px; 
 }

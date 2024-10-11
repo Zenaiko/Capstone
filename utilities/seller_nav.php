@@ -22,7 +22,7 @@
             <hr>
             <li><a href=""><span class="material-symbols-outlined">storefront</span> Profile</a></li>
             <hr>
-            <li><a href=""><span class="material-symbols-outlined">receipt</span> Transaction</a></li>
+            <li><a href="../user_page/seller_transaction.php"><span class="material-symbols-outlined">receipt</span> Transaction</a></li>
             <hr>
             <li><a href=""><span class="material-symbols-outlined">redeem</span> Voucher</a></li>
         </ul>

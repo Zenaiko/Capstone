@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../css/transaction.css">
 
 <div class="transaction-card">
   <div class="buyer-info">
