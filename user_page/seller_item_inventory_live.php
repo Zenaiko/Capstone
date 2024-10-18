@@ -6,7 +6,7 @@
         session_start();
     }
         $live_items = $get_db->get_item_live($_SESSION['seller_id']);
-        if(!is_null($live_items[0]["item_name"])){
+        if(!is_null($live_items)){
         foreach($live_items as $item){ ?> 
 
             
@@ -19,7 +19,7 @@
                     <div class="product-details">
                         <span class="product-name"><?=$item['item_name']?></span>
                         <div class="product-info">
-                            <span class="product-price"><?=$item['min_price']?></span>
+                            <span class="product-price">₱<?=$item['min_price']?></span>
                         </div>
                     <div class="product-info">
                         <span class="product-quantity">Stock: <?=$item['total_stocks']?> pcs</span>

@@ -34,7 +34,7 @@
 
     <section id="transaction_section">
         <div id="transaction_loader">
-            
+            <?php include_once("transaction_request.php"); ?>
         </div>
     </section>
 

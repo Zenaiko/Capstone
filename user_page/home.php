@@ -70,7 +70,7 @@
                                 <i class="bi bi-star-fill feature_seller_star"></i>
                             </div>
                             <span class="star_splitter feature_star_splitter"></span>
-                            <p class="feature_rate_respondents">10K Respondents</p>
+                            <p class="feature_rate_respondents"><?=$shop["respondents"]?> Respondents</p>
                         </div>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
 
             <?php foreach($get_db->get_category() as $category){ ?>
                 <div class="category-item">
-                    <a class="categ_link" href="search.php?category=<?=$category["category_id"]?>"><img src="<?=$category["category_img"]??"../assets/tmp.png"?>" alt=""></a>
+                    <a class="categ_link" href="search.php?category=<?=$category["category"]?>"><img src="<?=$category["category_img"]??"../assets/tmp.png"?>" alt=""></a>
                     <p class="category"><?=$category["category"]?></p>
                 </div>
             <?php } ?>

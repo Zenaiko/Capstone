@@ -27,18 +27,30 @@ class class_get_database extends class_database{
     } 
 
     public function get_item_info_home(){
-        $get_item = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate FROM tbl_item itm
-        LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
-        LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
-        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
-        LEFT JOIN tbl_variation vari ON vari.item_id = itm.item_id
-        GROUP BY itm.item_id");
+        $get_item = $this->query("SELECT 
+        item.item_id, 
+        item.item_name, 
+        img.item_img, 
+        MIN(variation.variation_price) AS min_price,
+        AVG(item_rel.rating) AS avg_rate,
+        SUM(odr.order_qty) AS order_qty, 
+        COUNT(item_rel.rating) AS rate_count
+        FROM tbl_item item
+        LEFT JOIN tbl_market mrkt ON mrkt.market_id = item.market_id
+        LEFT JOIN tbl_item_img img ON item.item_id = img.item_id AND img.item_img = (SELECT img.item_img FROM tbl_item_img img, tbl_item item WHERE img.item_id = item.item_id LIMIT 1)
+        LEFT JOIN tbl_variation variation ON variation.item_id = item.item_id
+        LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id 
+        LEFT JOIN tbl_order odr ON odr.variation_id = variation.variation_id AND odr.order_status = 'completed'
+        GROUP BY item.item_id");
         return $get_item->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function get_top_shop(){
-        $get_top_shop = $this->query("SELECT * FROM tbl_market market 
+        $get_top_shop = $this->query("SELECT *, COUNT(item_rel.rating) AS respondents FROM tbl_market market 
         LEFT JOIN tbl_market_image img ON market.market_id = img.market_id
+        LEFT JOIN tbl_item item ON  item.market_id = market.market_id
+        LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id
+        LEFT JOIN tbl_customer_market_relationship market_rel ON market_rel.market_id = market.market_id
         GROUP BY market.market_id LIMIT 10");
         return $get_top_shop->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -73,8 +85,16 @@ class class_get_database extends class_database{
         $get_item_sold =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
         LEFT JOIN tbl_market market ON item.market_id = market.market_id 
         LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-        WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
+        WHERE item.item_status = 'sold out' AND market.market_id = ? GROUP BY item.item_id" , [$market_id]);
         return $get_item_sold->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+    public function get_item_delisted($selelr_id){
+        $get_item_delisted =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
+        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        WHERE item.item_status = 'delisted' AND market.market_id = ? GROUP BY item.item_id" , [$selelr_id]);
+        return $get_item_delisted->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
     public function get_shop_info($selelr_id){
@@ -113,6 +133,18 @@ class class_get_database extends class_database{
         return $get_seller_items->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
+    public function get_category_item($category){
+        $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+        FROM tbl_item item
+        LEFT JOIN tbl_category category ON category.category_id = item.category_id
+        LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        WHERE category.category = ?", [$category]);
+        return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
+
+
+    }
 
 }
 
@@ -143,4 +175,14 @@ $category_array = $get_db->get_category();
         echo json_encode($result);
     }
 
+
+    // Get top order
+    // SELECT COUNT(odr.order_id) AS odr_count FROM tbl_item item 
+    // LEFT JOIN tbl_variation variation ON variation.item_id = item.item_id
+    // LEFT JOIN tbl_order odr ON odr.variation_id = variation.variation_id
+    // WHERE odr.order_status = "completed"
+    // GROUP BY item.item_id
+    // ORDER BY odr_count 
+
 ?>
+

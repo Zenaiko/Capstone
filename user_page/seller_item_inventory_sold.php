@@ -7,25 +7,22 @@
         session_start();
     }
         $sold_items = $get_db->get_item_sold_out($_SESSION['seller_id']);
-        if(!is_null($sold_items[0]["item_name"])){
+        if(!is_null($sold_items)){
         foreach($sold_items as $item){ ?> 
 
-        <div class="items-list">
+<div class="items-list">
             <div class="item-card">
                 <div class="product-content">
                     <div class="product-image">
-                        <img src="placeholder.jpg">
+                        <img src="<?=$item['']??"../assets/tmp.png" ?>">
                     </div>
                     <div class="product-details">
-                        <span class="product-name">Product Name</span>
+                        <span class="product-name"><?=$item['item_name']?></span>
                         <div class="product-info">
-                            <span class="product-price">₱1000</span>
+                            <span class="product-price">₱<?=$item['min_price']?></span>
                         </div>
-                        <div class="product-info">
-                        <span class="product-views">50 views</span>
-                    </div>
                     <div class="product-info">
-                        <span class="product-quantity">Stock: 10 pcs</span>
+                        <span class="product-quantity">Stock: <?=$item['total_stocks']?> pcs</span>
                     </div>
                     </div>
                 </div>

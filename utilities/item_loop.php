@@ -14,9 +14,9 @@
                                 <li><i class="bi bi-star-fill"></i></li>
                             </ul>
                         <span class="star_splitter"></span>
-                        <p class="item_respondents">(500)</p>
+                        <p class="item_respondents">(<?=$item["rate_count"]??0?>)</p>
                     </div>
-                    <p class="item_sold">5k Sold</p>
+                    <p class="item_sold"><?=$item["order_qty"]??0?> Sold</p>
                     <i class="bi bi-cart2 item_cart"></i>
                 </div>
             </div>

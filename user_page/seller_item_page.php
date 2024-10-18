@@ -19,7 +19,7 @@
                 <li class="tab" data-tab="sold-out">Sold Out</li>
                 <li class="tab" data-tab="reviewing">Reviewing</li>
                 <li class="tab" data-tab="violation">Violation</li>
-                <li class="tab" data-tab="unpublished">Unpublished</li>
+                <li class="tab" data-tab="unpublished">Delisted</li>
                 <li class="tab" data-tab="history">History</li>
             </ul>
             <div class="tab-indicator"></div>

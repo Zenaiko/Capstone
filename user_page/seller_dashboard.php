@@ -48,7 +48,10 @@
 
     <!-- Product Cards -->
     <div id="topSellingProducts">
-        <div class="product-card">
+
+        
+
+        <!-- <div class="product-card">
             <span class="rank">1</span>
             <img src="product1.jpg" alt="Product 1">
             <div class="product-info">
@@ -74,7 +77,7 @@
                 <div>Total Orders: 50</div>
                 <div>Total Income: ₱3,000.00</div>
             </div>
-        </div>
+        </div> -->
     </div>
 <script>
     // Chart.js configuration

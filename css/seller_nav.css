@@ -30,3 +30,7 @@
     text-decoration: none;
     color: black;
 }
+
+#back_arrow{
+    cursor: pointer;
+}
