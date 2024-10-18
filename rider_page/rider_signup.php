@@ -4,196 +4,217 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Step Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hidden { display: none; }
+        .form-step { display: none; }
+        .form-step-active { display: block; }
+        .error { color: red; font-size: 0.9em; }
+        .button-group {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .next-btn, .prev-btn, .submit-btn {
+            width: 150px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 40px; 
+}
+
+    </style>
 </head>
-<body class="bg-gray-100 p-6">
-    <div class="flex justify-center items-center min-h-screen bg-gray-100 p-6">
-        <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
-            <h2 class="text-xl font-semibold mb-6">Multi-Step Registration Form</h2>
-            <form id="multi-step-form">
+<body>
+    <div class="container mt-5">
+        <form id="multiStepForm">
+            <!-- Form 1: Personal Information -->
+            <div class="form-step form-step-active">
+                <h4 class="mb-4">Personal Information</h4>
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Re-enter Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
+                </div>
+                <div class="error hidden" id="passwordError">Passwords do not match.</div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-primary next-btn" disabled>Next</button>
+                </div>
+            </div>
 
-                <!-- Form 1: Personal Information -->
-                <div class="step">
-                    <h3 class="text-lg font-semibold mb-4">Form 1: Personal Information</h3>
-                    <label class="block mb-2">First Name</label>
-                    <input type="text" name="first_name" class="border rounded w-full px-3 py-2 mb-4" required>
+            <!-- Form 2: Rider Info -->
+            <div class="form-step">
+                <h4 class="mb-4">Rider Info</h4>
+                <div class="mb-3">
+                    <label for="nbiClearance" class="form-label">NBI or Police Clearance</label>
+                    <input type="file" class="form-control" id="nbiClearance" required>
+                </div>
+                <div class="mb-3">
+                    <label for="brgyClearance" class="form-label">Brgy Clearance</label>
+                    <input type="file" class="form-control" id="brgyClearance" required>
+                </div>
+                <div class="mb-3">
+                    <label for="drugTest" class="form-label">Drug Test</label>
+                    <input type="file" class="form-control" id="drugTest" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ridersLicense" class="form-label">Rider's License</label>
+                    <input type="file" class="form-control" id="ridersLicense" required>
+                </div>
+                <div class="mb-3">
+                    <label for="selfie" class="form-label">Selfie</label>
+                    <input type="file" class="form-control" id="selfie" required>
+                </div>
+                <div class="mb-3">
+                    <label for="eSignature" class="form-label">Electronic Signature</label>
+                    <input type="file" class="form-control" id="eSignature" required>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                    <button type="button" class="btn btn-primary next-btn">Next</button>
+                </div>
+            </div>
 
-                    <label class="block mb-2">Last Name</label>
-                    <input type="text" name="last_name" class="border rounded w-full px-3 py-2 mb-4" required>
+            <!-- Form 3: Vehicle Info -->
+            <div class="form-step">
+                <h4 class="mb-4">Vehicle Info</h4>
+                <div class="mb-3">
+                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                    <input type="text" class="form-control" id="vehicleType" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registrationPhoto" class="form-label">Registration Photo</label>
+                    <input type="file" class="form-control" id="registrationPhoto" required>
+                </div>
+                <div class="mb-3">
+                    <label for="orCr" class="form-label">OR or CR</label>
+                    <input type="file" class="form-control" id="orCr" required>
+                </div>
+                <div class="mb-3">
+                    <label for="vehiclePlate" class="form-label">Vehicle Coding or Plate Number</label>
+                    <input type="text" class="form-control" id="vehiclePlate" required>
+                </div>
+                <div class="mb-3">
+                    <label for="dealerCert" class="form-label">Dealer Certificate</label>
+                    <input type="file" class="form-control" id="dealerCert" required>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="isOwner">
+                    <label class="form-check-label" for="isOwner">I am the owner of the vehicle</label>
+                </div>
+                <div id="supportingDocs" class="hidden">
+                    <div class="mb-3">
+                    <label for="supportingDocuments" class="form-label">Upload Supporting Documents</label>
+                    <input type="file" class="form-control" id="supportingDocuments">
+                </div>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                    <button type="button" class="btn btn-primary next-btn">Next</button>
+                </div>
+            </div>
 
-                    <label class="block mb-2">Email</label>
-                    <input type="email" name="email" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Username</label>
-                    <input type="text" name="username" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Password</label>
-                    <input type="password" id="password" name="password" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Re-enter Password</label>
-                    <input type="password" id="reenter-password" name="reenter_password" class="border rounded w-full px-3 py-2 mb-4" required>
-                    <p id="password-error" class="text-red-500 hidden">Passwords do not match.</p><br>
-
-                    <div class="flex justify-between">
-                        <button type="button" class="hidden"></button>
-                        <button type="button" id="next-button" class="bg-green-500 text-white py-2 px-4 rounded next" disabled>Next</button>
+            <!-- Form 4: Health Documents -->
+            <div class="form-step">
+                <h4 class="mb-4">Health Documents</h4>
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="isSenior">
+                    <label class="form-check-label" for="isSenior">I am a senior</label>
+                </div>
+                <div id="seniorDocs" class="hidden">
+                    <div class="mb-3">
+                        <label for="certID" class="form-label">Certificate ID</label>
+                        <input type="text" class="form-control" id="certID">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fitToWork" class="form-label">Certificate Photo (Fit to Work)</label>
+                        <input type="file" class="form-control" id="fitToWork">
                     </div>
                 </div>
-
-                <!-- Form 2: Rider Info -->
-                <div class="step hidden">
-                    <h3 class="text-lg font-semibold mb-4">Form 2: Rider Info</h3>
-                    <label class="block mb-2">NBI or Police Clearance</label>
-                    <input type="file" name="nbi_clearance" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Brgy Clearance</label>
-                    <input type="file" name="brgy_clearance" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Drug Test</label>
-                    <input type="file" name="drug_test" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Rider's License</label>
-                    <input type="file" name="riders_license" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Selfie</label>
-                    <input type="file" name="selfie" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Electronic Signature</label>
-                    <input type="file" name="electronic_signature" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <div class="flex justify-between">
-                        <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded prev">Previous</button>
-                        <button type="button" class="bg-green-500 text-white py-2 px-4 rounded next">Next</button>
-                    </div>
+                <div class="mb-3">
+                    <label for="disabilityInfo" class="form-label">Disability (Optional)</label>
+                    <input type="text" class="form-control" id="disabilityInfo">
                 </div>
-
-                <!-- Form 3: Vehicle Info -->
-                <div class="step hidden">
-                    <h3 class="text-lg font-semibold mb-4">Form 3: Vehicle Info</h3>
-                    <label class="block mb-2">Vehicle Type</label>
-                    <input type="text" name="vehicle_type" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Registration Photo</label>
-                    <input type="file" name="registration_photo" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">OR or CR</label>
-                    <input type="file" name="or_cr" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Vehicle Coding or Plate Number</label>
-                    <input type="text" name="plate_number" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <label class="block mb-2">Dealer Certificate</label>
-                    <input type="file" name="dealer_certificate" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <input type="checkbox" class="mr-2" id="is-owner" name="is_owner">
-                    <label for="is-owner">Owner</label><br><br>
-
-                    <!-- Supporting Documents Section -->
-                    <div id="owner-documents" class="hidden mt-4">
-                        <label class="block mb-2">Upload Supporting Documents</label>
-                        <input type="file" name="supporting_documents" class="border rounded w-full px-3 py-2 mb-4" required>
-                    </div>
-                    <div class="flex justify-between">
-                        <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded prev">Previous</button>
-                        <button type="button" class="bg-green-500 text-white py-2 px-4 rounded next">Next</button>
-                    </div>
+                <div class="mb-3">
+                    <label for="medicalAssurance" class="form-label">Medical Assurance</label>
+                    <input type="file" class="form-control" id="medicalAssurance">
                 </div>
-
-                <!-- Form 4: Health Documents -->
-                <div class="step hidden">
-                    <h3 class="text-lg font-semibold mb-4">Form 4: Health Documents</h3>
-                    <input type="checkbox" class="mr-2" id="is-senior" name="is_senior">
-                    <label for="is-senior">Senior</label>
-
-                    <div id="senior-documents" class="hidden mt-4">
-                        <label class="block mb-2">Certificate ID</label>
-                        <input type="text" name="certificate_id" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                        <label class="block mb-2">Certificate Photo (Fit to Work)</label>
-                        <input type="file" name="certificate_photo" class="border rounded w-full px-3 py-2 mb-4" required>
-                    </div>
-
-                    <div class="mt-6">
-                        <label class="block mb-2 font-bold">Disability (If non leave blank)</label>
-                        <input type="text" name="disability" class="border rounded w-full px-3 py-2 mb-4">
-                    </div>
-
-                    <label class="block mb-2">Medical Assurance</label>
-                    <input type="file" name="medical_assurance" class="border rounded w-full px-3 py-2 mb-4" required>
-
-                    <div class="flex justify-between">
-                        <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded prev">Previous</button>
-                        <input type="submit" class="bg-green-500 text-white py-2 px-4 rounded" value="Sign Up">
-                    </div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary prev-btn">Previous</button>
+                    <input type="submit" class="btn btn-success submit-btn">
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
     <script>
-        // Handle the multi-step form navigation
-        const form = document.getElementById('multi-step-form');
-        const steps = document.querySelectorAll('.step');
-        let currentStep = 0;
+        document.addEventListener('DOMContentLoaded', function () {
+            const nextButtons = document.querySelectorAll('.next-btn');
+            const prevButtons = document.querySelectorAll('.prev-btn');
+            const steps = document.querySelectorAll('.form-step');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const passwordError = document.getElementById('passwordError');
+            const isOwner = document.getElementById('isOwner');
+            const supportingDocs = document.getElementById('supportingDocs');
+            const isSenior = document.getElementById('isSenior');
+            const seniorDocs = document.getElementById('seniorDocs');
 
-        function showStep(step) {
-            steps.forEach((s, index) => {
-                s.classList.toggle('hidden', index !== step);
-            });
-        }
+            let currentStep = 0;
 
-        document.querySelectorAll('.next').forEach((button) => {
-            button.addEventListener('click', () => {
-                if (currentStep < steps.length - 1) {
+            nextButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    steps[currentStep].classList.remove('form-step-active');
                     currentStep++;
-                    showStep(currentStep);
-                }
+                    steps[currentStep].classList.add('form-step-active');
+                });
             });
-        });
 
-        document.querySelectorAll('.prev').forEach((button) => {
-            button.addEventListener('click', () => {
-                if (currentStep > 0) {
+            prevButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    steps[currentStep].classList.remove('form-step-active');
                     currentStep--;
-                    showStep(currentStep);
-                }
+                    steps[currentStep].classList.add('form-step-active');
+                });
             });
-        });
 
-        // Password validation
-        const passwordInput = document.getElementById('password');
-        const rePasswordInput = document.getElementById('reenter-password');
-        const nextButton = document.getElementById('next-button');
-        const passwordError = document.getElementById('password-error');
+            password.addEventListener('input', validatePasswords);
+            confirmPassword.addEventListener('input', validatePasswords);
 
-        rePasswordInput.addEventListener('input', () => {
-            if (passwordInput.value !== rePasswordInput.value) {
-                passwordError.classList.remove('hidden');
-                nextButton.disabled = true;
-            } else {
-                passwordError.classList.add('hidden');
-                nextButton.disabled = false;
+            isOwner.addEventListener('change', function () {
+                supportingDocs.classList.toggle('hidden', !isOwner.checked);
+            });
+
+            isSenior.addEventListener('change', function () {
+                seniorDocs.classList.toggle('hidden', !isSenior.checked);
+            });
+
+            function validatePasswords() {
+                const isMatch = password.value === confirmPassword.value;
+                passwordError.classList.toggle('hidden', isMatch);
+                nextButtons[0].disabled = !isMatch;
             }
         });
-
-        // Show/Hide supporting documents section based on owner checkbox
-        const ownerCheckbox = document.getElementById('is-owner');
-        const ownerDocuments = document.getElementById('owner-documents');
-
-        ownerCheckbox.addEventListener('change', () => {
-            ownerDocuments.classList.toggle('hidden', !ownerCheckbox.checked);
-        });
-
-        // Show/Hide senior documents section based on senior checkbox
-        const seniorCheckbox = document.getElementById('is-senior');
-        const seniorDocuments = document.getElementById('senior-documents');
-
-        seniorCheckbox.addEventListener('change', () => {
-            seniorDocuments.classList.toggle('hidden', !seniorCheckbox.checked);
-        });
-
-        // Initialize the first step
-        showStep(currentStep);
     </script>
 </body>
 </html>
