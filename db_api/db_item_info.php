@@ -20,15 +20,18 @@
                 $this->item->set_img($img['item_img']);
             }
 
-            $get_item_info = $this->query("SELECT itm.market_id, itm.item_name, itm.average_rating, itm.item_desc, categ.category
-            FROM tbl_item itm, tbl_category categ
-            WHERE itm.category_id = categ.category_id AND itm.item_id = :item_id" , [":item_id" => $this->item->get_item_id()]);
+            $get_item_info = $this->query("SELECT itm.market_id, itm.item_name, itm.average_rating, itm.item_desc, categ.category, MIN(vari.variation_price) AS min_price, max(vari.variation_price) AS max_price
+            FROM tbl_item itm, tbl_category categ, tbl_variation vari
+            WHERE itm.category_id = categ.category_id AND vari.item_id = itm.item_id
+            AND itm.item_id = :item_id" , [":item_id" => $this->item->get_item_id()]);
             $item_info = $get_item_info->fetchAll(PDO::FETCH_ASSOC)[0];
             $this->seller->set_seller_id($item_info["market_id"]);
             $this->item->set_name($item_info["item_name"]);
             $this->item->set_rating($item_info["average_rating"]);
             $this->item->set_desc($item_info["item_desc"]);
             $this->item->set_category($item_info["category"]);
+            $this->item->set_min_price($item_info["min_price"]);
+            $this->item->set_max_price($item_info["max_price"]);
 
             $get_seller_info = $this->query("SELECT market.market_name, address.city, address.street, address.brngy , market_img.market_image, market.rating
             FROM tbl_market market, tbl_address address, tbl_market_image market_img
@@ -49,8 +52,21 @@
             $this->item->set_variant_info($get_variants->fetchAll(PDO::FETCH_ASSOC));
         }
 
-     
+        
+        public function get_top_items_solo(){
+            $get_top_items_solo = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+            FROM tbl_item itm
+            LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
+            LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
+            LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
+            LEFT JOIN tbl_variation vari ON vari.item_id = itm.item_id
+            WHERE mrkt.market_id = ?
+            GROUP BY itm.item_id
+            ORDER BY AVG(cus_r.rating) LIMIT 2", [$this->seller->get_seller_id()]);
+            return $get_top_items_solo->fetchAll(PDO::FETCH_ASSOC)??null;
+        }
     }
+    
 
     class class_item_info{
         private $item_id;
@@ -237,8 +253,7 @@
     $seller_info = new class_seller_info();
     $item_info_db = new class_item_info_database($item_info, $seller_info);
 
-    $item_info->set_item_id($_GET['id']??$_POST['item_order']);
+    $item_info->set_item_id($_GET['item']??$_POST['item_order']??null);
     $item_info_db->get_item_info();
-
-  
+    $get_top_items_solo = $item_info_db->get_top_items_solo();
 ?>

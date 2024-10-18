@@ -48,11 +48,3 @@
         </div>
 
 
-
-<script>
-    console.log($('#add_item'));
-
-$('#add_item').on('click', function(){
-    console.log('a');
-})
-</script>

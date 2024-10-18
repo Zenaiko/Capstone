@@ -41,10 +41,15 @@
     background-color: white ;
     min-width: 7.188rem;
     min-height: 9.063rem;
+    cursor: pointer;
+}
+
+.categ_link{
+    background-color: var(--lighter_green);
+    border-radius: 50%;
 }
 
 .featured-shop-contents img {
-    border-radius: 50%; /* Circular images */
     width:6.25rem; /* Fixed size for consistency */
     aspect-ratio: 1/1;
     object-fit: cover; /* Ensure the image covers the container without distortion */

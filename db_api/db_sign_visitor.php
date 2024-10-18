@@ -1,6 +1,10 @@
 <?php 
     require_once('db_root_conn.php');
+ 
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
+}
+
 
     class class_visitor_sign_up_database extends class_database{
         private $visitor_info;

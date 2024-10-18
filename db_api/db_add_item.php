@@ -34,17 +34,19 @@ if (session_status() === PHP_SESSION_NONE) {
                 mkdir($seller_image_dir, 0755, true);
             }
 
+            $insert_tbl_item_img = $this->pdo->prepare("INSERT INTO tbl_item_img (item_id,item_img, is_variant) 
+            VALUES (:item_id ,:img, :is_vari)");
+
             foreach($this->item->get_img_array()['name'] as $key => $indiv_img){
                 // Uploads the file
                 move_uploaded_file($this->item->get_img_array()['tmp_name'][$key] ,$seller_image_dir . $indiv_img);
-                $insert_tbl_item_img = $this->pdo->prepare("INSERT INTO tbl_item_img (item_id, seller_id,item_img) 
-                VALUES (:item_id, :seller_id ,:img)");
                 $insert_tbl_item_img->execute([
                     ':item_id' => $this->item->get_item_id(),
-                    ':seller_id' => $_SESSION['seller_id'],
-                    ':img' => $this->item->get_seller_dir() . $indiv_img
+                    ':img' => $seller_image_dir . $indiv_img,
+                    ":is_vari" => false
                 ]);
             }
+
 
             // Inserts into tbl_variation
             $insert_tbl_variation = $this->pdo->prepare("INSERT INTO tbl_variation (item_id, variation_name, variation_price)
@@ -75,7 +77,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     ":date" => date('Y-m-d H:i:s')
                 ]);
 
-            }else{
+            }else{ 
                 foreach ($this->item->get_variant_array() as $vairant_type => $type_info){
                     $insert_tbl_variation->execute([
                         ':item_id' => $this->item->get_item_id(),
@@ -96,7 +98,20 @@ if (session_status() === PHP_SESSION_NONE) {
                         ":qty" => $type_info['stock'],
                         ":date" => date('Y-m-d H:i:s')
                     ]);
+
+                    // Uploads the file
+                    $img_file = $_FILES["variant_name"];
+                    $tmp_dir = $img_file["tmp_name"][$vairant_type]["img"];
+                    $name_dir = $img_file["name"][$vairant_type]["img"];
+
+                    move_uploaded_file($tmp_dir, $seller_image_dir . $name_dir);
+                    $insert_tbl_item_img->execute([
+                        ':item_id' => $this->item->get_item_id(),
+                        ':img' => $seller_image_dir . $name_dir,
+                        ":is_vari" => true
+                    ]);
                 }
+
             }
 
             $this->query('COMMIT');
@@ -149,7 +164,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
     
         public function set_variant_array($variant_array) {
-            $this->variant_array= $variant_array; 
+            $this->variant_array = $variant_array; 
         }
     
         public function set_date($date) {
@@ -214,9 +229,9 @@ if (session_status() === PHP_SESSION_NONE) {
     $item_info->set_item_price(($_POST['price']));
     $item_info->set_item_stock(($_POST['stock']));
     $item_info->set_item_desc(($_POST['product_desc'])??null)  ;
-    $item_info->set_category((htmlspecialchars($_POST['category'])));
+    $item_info->set_category((htmlspecialchars($_POST['category']??"others")));
     $item_info->set_image_array($_FILES['add_item_img']);
-    $item_info->set_seller_dir($get_db->get_cus_dir_by_seller($_SESSION['cus_id'])[0]['cus_asset_folder']);
+    $item_info->set_seller_dir($get_db->get_cus_dir_by_seller($_SESSION['cus_id']));
 
     $item_info->set_variant_array($_POST['variant_name']??null);
 

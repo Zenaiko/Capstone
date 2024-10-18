@@ -1,8 +1,15 @@
+<?php require_once("../db_api/db_get_orders.php");?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/transaction.css">
 
 <div class="transaction-card">
-  <div class="buyer-info">
+
+  
+
+
+
+
+  <!-- <div class="buyer-info">
     <img src="buyer-image.jpg" alt="Buyer Profile Picture" class="buyer-pic">
     <span class="buyer-name">Jemboss</span>
   </div>
@@ -29,5 +36,5 @@
   <div class="separator"></div>
   <div class="action-buttons centered"> 
     <input type="button" class="abort-btn" value="Abort">
-  </div>
+  </div> -->
 </div>

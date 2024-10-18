@@ -55,7 +55,7 @@
         </div>
 
         <input type="text" name="shop_order" id="shop_order" value="<?=$seller_info->get_seller_id()?>" hidden readonly>
-        <input type="text" name="item_order" id="item_order" value="<?=$_GET["id"]?>" hidden readonly>
+        <input type="text" name="item_order" id="item_order" value="<?=$_GET["item"]?>" hidden readonly>
         <input type="text" name="variant_order[]" id="variant_order" hidden >
     
         <div class="offcanvas-footer">

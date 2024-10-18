@@ -162,7 +162,7 @@
 
             <?php foreach($get_db->get_category() as $category){ ?>
                 <div class="category-item">
-                    <a href="search.php?category=<?=$category["category_id"]?>"><img src="" alt=""></a>
+                    <a class="categ_link" href="search.php?category=<?=$category["category_id"]?>"><img src="<?=$category["category_img"]??"../assets/tmp.png"?>" alt=""></a>
                     <p class="category"><?=$category["category"]?></p>
                 </div>
             <?php } ?>

@@ -128,3 +128,7 @@
 .seller_carousel_img{
     aspect-ratio: 21/9;
 }
+
+.seller_tabs{
+    cursor: pointer;
+}

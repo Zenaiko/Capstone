@@ -57,7 +57,7 @@ class class_order_database extends class_database {
             $insert_tbl_order->execute([
                 ":var_id" => $variant["id"],
                 ":qty" => $qty_array[$variant["id"]],
-                ":price" => $variant["price"],
+                ":price" => ($variant["price"] * $qty_array[$variant["id"]]),
                 ":customer_id" => $_SESSION["cus_id"]
             ]);
         }

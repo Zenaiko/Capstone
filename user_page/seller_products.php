@@ -1,3 +1,8 @@
+<?php 
+    require_once("../db_api/db_get.php");
+    $seller_items =  $get_db->get_seller_items($_GET["seller"]); 
+
+?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/seller_products.css">
 
@@ -14,11 +19,9 @@
 
         <div id="products_wrapper">
             <div id="products_container">
-                <?php include('../utilities/item_loop.php') ?>
-                <?php include('../utilities/item_loop.php') ?>
-                <?php include('../utilities/item_loop.php') ?>
-                <?php include('../utilities/item_loop.php') ?>
-                <?php include('../utilities/item_loop.php') ?>
+                <?php foreach($seller_items as $item){
+                    include("../utilities/item_loop.php");
+                } ?>
             </div>
         </div>
 

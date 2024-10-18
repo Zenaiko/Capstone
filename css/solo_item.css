@@ -66,6 +66,7 @@
 #solo_item_like, #rate_item{
     position: absolute;
     right: 0;
+    cursor: pointer;
 }
 
 #solo_item_like{
@@ -229,6 +230,13 @@
     font-size: 0.5rem;
     text-align: justify;
     font-weight: 400;
+}
+
+#items_preview_container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
 

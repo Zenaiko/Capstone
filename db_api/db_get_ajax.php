@@ -34,4 +34,6 @@ require_once('db_root_conn.php');
         $ajax->update_market_request($_POST['req_id']);
     }
 
+  
+
 ?>

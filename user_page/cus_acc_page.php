@@ -12,7 +12,6 @@
 require_once('../utilities/nav.php');
 require_once('../db_api/db_cus_info.php');
 require_once('../db_api/db_get.php');
-
 ?>
 
     <section id="cus_acc_section">
@@ -75,17 +74,17 @@ require_once('../db_api/db_get.php');
                         <i class="bi bi-heart"></i>
                         <figcaption>Liked Items</figcaption>
                     </figure>
-                    <figure id="followed" class="cus_acc_body_content">
-                        <i class="bi bi-person-check"></i>
-                        <figcaption>Followed Store</figcaption>
+                    <figure id="store" class="cus_acc_body_content">
+                        <i class="bi bi-basket"></i>
+                        <figcaption>My Store</figcaption>
                     </figure>
                     <figure id="help" class="cus_acc_body_content">
                         <i class="bi bi-question-circle"></i>
                         <figcaption>Help Center</figcaption>
-                    </figure>
-                    <figure id="store" class="cus_acc_body_content">
-                        <i class="bi bi-basket"></i>
-                        <figcaption>My Store</figcaption>
+                    </figure>                  
+                    <figure id="logout" class="cus_acc_body_content">
+                        <i class="bi bi-box-arrow-left"></i>
+                        <figcaption>Logout</figcaption>
                     </figure>
                 </div>
             </div>

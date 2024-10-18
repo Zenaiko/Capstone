@@ -1,3 +1,7 @@
+<?php 
+    require_once("../db_api/db_get.php");
+    $top_items =  $get_db->get_top_items($_GET["seller"]); 
+?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/seller_landing.css">
 
@@ -8,13 +12,15 @@
                 <header id="store_top_products_header">
                     <div id="store_top_products_header_container">
                         <p>Top Products</p>
-                        <p id="top_products_view">View More <i class="bi bi-chevron-right"></i></p>
+
                     </div>
                 </header>
 
                 <div id="top_store_wrapper">
-                    <div id="top_store_container" class="d-flex overflow-auto">
-                     
+                    <div id="top_prod_container" class="d-flex overflow-auto">
+                        <?php foreach($top_items as $item){
+                            include("../utilities/item_loop.php");
+                        } ?>
                     </div>
                 </div>
       

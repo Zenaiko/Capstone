@@ -12,8 +12,8 @@ $('.cus_acc_body_content').click(function(){
         case 'liked':
             redirect = '';
             break;
-        case 'followed':
-            redirect = '';
+        case 'logout':
+            redirect = '../db_api/db_logout.php';
             break;
         case 'help':
             redirect = '';

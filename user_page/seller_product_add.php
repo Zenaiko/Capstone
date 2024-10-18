@@ -170,7 +170,7 @@
                             <div class="variant_info_container">
                                 <div class="variant_type_info">
                                     <label for="">Name</label>
-                                    <input type="text" name="" id="variant_form_type">
+                                    <input type="text" name="" id="variant_form_type" required>
                                 </div>
                                 <div class="variant_type_info">
                                     <label for="">Price</label>
@@ -181,10 +181,7 @@
                                     <input type="text" name="" id="variant_form_stock">
                                 </div>
                             </div>
-                            <div class="variant_file">
-                                <img src="../assets/tmp.png" alt="" class="variant_img">
-                                <input type="file" name="variant_form_img" id="add_variant_type_img">
-                            </div>  
+                            
                         </div>
                             <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" id="add_variant_type">Add</button>
                         </div>

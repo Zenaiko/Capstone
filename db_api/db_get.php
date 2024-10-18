@@ -20,8 +20,10 @@ class class_get_database extends class_database{
     }
 
     public function get_cus_dir_by_seller($seller_id){
-        $get_dir = $this->query("SELECT cus.cus_asset_folder FROM tbl_customer cus, tbl_market mark WHERE mark.customer_id = cus.customer_id AND mark.market_id = ?", [$seller_id]);
-        return $get_dir->fetchAll(PDO::FETCH_ASSOC);
+        $get_dir = $this->query("SELECT customer.cus_asset_folder FROM tbl_customer customer
+        LEFT JOIN  tbl_market market ON market.customer_id = customer.customer_id 
+        WHERE customer.customer_id = ?", [$seller_id]);
+        return $get_dir->fetchAll(PDO::FETCH_ASSOC)[0]['cus_asset_folder'];
     } 
 
     public function get_item_info_home(){
@@ -74,6 +76,44 @@ class class_get_database extends class_database{
         WHERE item.item_status = 'live' AND market.market_id = ?" , [$market_id]);
         return $get_item_sold->fetchAll(PDO::FETCH_ASSOC)??null;
     }
+
+    public function get_shop_info($selelr_id){
+        $get_shop_info = $this->query("SELECT market.market_name,  market_img.market_image, SUM(market_rel.is_followed) AS follows, AVG(item_rel.rating) AS rate
+        FROM tbl_market market 
+        LEFT JOIN tbl_customer_market_relationship market_rel ON market_rel.market_id = market.market_id
+        LEFT JOIN tbl_market_image market_img ON market_img.market_id = market.market_id
+        LEFT JOIN tbl_item item ON item.market_id = market.market_id
+        LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id
+        WHERE market.market_id = ?", [$selelr_id]);
+        return $get_shop_info->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+    }
+
+    public function get_top_items($seller_id){
+        $get_top_items = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+        FROM tbl_item itm
+        LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
+        LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
+        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
+        LEFT JOIN tbl_variation vari ON vari.item_id = itm.item_id
+        WHERE mrkt.market_id = ?
+        GROUP BY itm.item_id
+        ORDER BY AVG(cus_r.rating) LIMIT 10", [$seller_id]);
+        return $get_top_items->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+    public function get_seller_items($seller_id){
+        $get_seller_items = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+        FROM tbl_item itm
+        LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
+        LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
+        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
+        LEFT JOIN tbl_variation vari ON vari.item_id = itm.item_id
+        WHERE mrkt.market_id = ?
+        GROUP BY itm.item_id", [$seller_id]);
+        return $get_seller_items->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+
 }
 
 $get_db = new class_get_database();
