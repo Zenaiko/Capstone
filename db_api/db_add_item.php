@@ -113,7 +113,6 @@ if (session_status() === PHP_SESSION_NONE) {
                 }
 
             }
-
             $this->query('COMMIT');
             header('location: ../user_page/seller_item_page.php');
         }

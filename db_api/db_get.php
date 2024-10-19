@@ -37,7 +37,7 @@ class class_get_database extends class_database{
         COUNT(item_rel.rating) AS rate_count
         FROM tbl_item item
         LEFT JOIN tbl_market mrkt ON mrkt.market_id = item.market_id
-        LEFT JOIN tbl_item_img img ON item.item_id = img.item_id AND img.item_img = (SELECT img.item_img FROM tbl_item_img img, tbl_item item WHERE img.item_id = item.item_id LIMIT 1)
+        LEFT JOIN tbl_item_img img ON item.item_id = img.item_id
         LEFT JOIN tbl_variation variation ON variation.item_id = item.item_id
         LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id 
         LEFT JOIN tbl_order odr ON odr.variation_id = variation.variation_id AND odr.order_status = 'completed'
@@ -46,7 +46,8 @@ class class_get_database extends class_database{
     }
 
     public function get_top_shop(){
-        $get_top_shop = $this->query("SELECT *, COUNT(item_rel.rating) AS respondents FROM tbl_market market 
+        $get_top_shop = $this->query("SELECT market.market_id, market.market_name, img.market_image, COUNT(item_rel.rating) AS respondents 
+        FROM tbl_market market 
         LEFT JOIN tbl_market_image img ON market.market_id = img.market_id
         LEFT JOIN tbl_item item ON  item.market_id = market.market_id
         LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id
@@ -142,8 +143,19 @@ class class_get_database extends class_database{
         LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
         WHERE category.category = ?", [$category]);
         return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
 
-
+    public function get_top_selling_items($seller_id){
+        $get_top_selling_items = $this->query("SELECT item.item_name, img.item_img, SUM(odr.order_qty) AS total_sold, SUM(odr.order_price) AS total_income FROM tbl_item item 
+        LEFT JOIN tbl_market market ON market.market_id = item.market_id
+        LEFT JOIN tbl_variation variation ON variation.item_id = item.item_id
+        LEFT JOIN tbl_order odr ON odr.variation_id = variation.variation_id
+        LEFT JOIN tbl_item_img img ON img.item_id = item.item_id
+        WHERE market.market_id = ? 
+        GROUP BY item.item_id
+        ORDER BY total_income DESC
+        LIMIT 10", [$seller_id]);
+        return $get_top_selling_items->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
 }

@@ -76,77 +76,6 @@
                 </div>
             <?php } ?>
       
-
-            <!-- <div class="featured-shop-contents">
-                <img class="feature_img" src="https://via.placeholder.com/100" alt="Shop 1">
-            <div class="featured-info">
-                <p class="featured-name">Featured Shop</p>
-                <div class="feature_shop_rate">
-                    <div class="feature_shop_stars">
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                    </div>
-                    <span class="star_splitter feature_star_splitter"></span>
-                    <p class="feature_rate_respondents">10K Respondents</p>
-                </div>
-            </div>
-                
-            </div>
-            <div class="featured-shop-contents">
-                <img class="feature_img" src="https://via.placeholder.com/100" alt="Shop 2">
-                <div class="featured-info">
-                <p class="featured-name">Featured Shop</p>
-                <div class="feature_shop_rate">
-                    <div class="feature_shop_stars">
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                    </div>
-                    <span class="star_splitter feature_star_splitter"></span>
-                    <p class="feature_rate_respondents">10K Respondents</p>
-                </div>
-            </div>    
-                
-            </div>
-            <div class="featured-shop-contents">
-                <img class="feature_img" src="https://via.placeholder.com/100" alt="Shop 3">
-                <div class="featured-info">
-                <p class="featured-name">Featured Shop</p>
-                <div class="feature_shop_rate">
-                    <div class="feature_shop_stars">
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                        <i class="bi bi-star-fill feature_seller_star"></i>
-                    </div>
-                    <span class="star_splitter feature_star_splitter"></span>
-                    <p class="feature_rate_respondents">10K Respondents</p>
-                </div>
-            </div>   
-            </div>
-            <div class="featured-shop-contents">
-                <img class="feature_img" src="https://via.placeholder.com/100" alt="Shop 4">
-                <div class="featured-info">
-                <p class="featured-name">Featured Shop</p>
-                    <div class="feature_shop_rate">
-                        <div class="feature_shop_stars">
-                            <i class="bi bi-star-fill feature_seller_star"></i>
-                            <i class="bi bi-star-fill feature_seller_star"></i>
-                            <i class="bi bi-star-fill feature_seller_star"></i>
-                            <i class="bi bi-star-fill feature_seller_star"></i>
-                            <i class="bi bi-star-fill feature_seller_star"></i>
-                        </div>
-                        <span class="star_splitter feature_star_splitter"></span>
-                        <p class="feature_rate_respondents">10K Respondents</p>
-                    </div>
-                </div>   
-            </div> -->
         </div>
     </div>
 </section>
@@ -167,38 +96,6 @@
                 </div>
             <?php } ?>
 
-            <!-- <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 1"></a>
-                <p>Vegetables</p>
-            </div>
-            <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 2"></a>
-                <p>Fruits</p>
-            </div>
-            <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 3"></a>
-                <p>Meat</p>
-            </div>
-            <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Fish</p>
-            </div>
-            <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Dairy</p>
-            </div>
-            <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Condiments</p>
-            </div>
-            <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Utensils and Kitchenware</p>
-            </div>
-            <div class="category-item">
-                <a href="#"><img src="https://via.placeholder.com/100" alt="Category 4"></a>
-                <p>Others</p>
-            </div> -->
         </div>
     </div>
 </section>
@@ -224,7 +121,7 @@
 </section>
 
 <!-- Footer Section -->
-<footer class="footer mt-5 py-4">
+<!-- <footer class="footer mt-5 py-4">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-3">
@@ -255,7 +152,7 @@
             <p class="text-white mb-0">&copy; 2024 Shop. All Rights Reserved.</p>
         </div>
     </div>
-</footer>
+</footer> -->
 
 
 <script src="../js/home.js"></script> 

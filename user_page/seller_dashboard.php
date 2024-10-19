@@ -12,6 +12,7 @@
 
     <?php require_once("../utilities/initialize.php");
         require_once("../utilities/seller_nav.php");
+        require_once("../db_api/db_get.php");
     ?>
 
     <!-- Sales Statistics Header -->
@@ -49,7 +50,18 @@
     <!-- Product Cards -->
     <div id="topSellingProducts">
 
-        
+        <?php foreach($get_db->get_top_selling_items($_SESSION["seller_id"]) as $key => $item){ ?> 
+            <div class="product-card">
+                <span class="rank"><?=$key+1?></span>
+                <img src="<?=$item["item_img"]??"../assets/tmp.png"?>" alt="Product 1">
+                <div class="product-info">
+                    <div class="product-name"><?=$item["item_name"]?></div>
+                    <div>Total Orders: <?=$item["total_sold"]?></div>
+                    <div>Total Income: ₱<?=$item["total_income"]?></div>
+                </div>
+            </div>
+            
+        <?php } ?>
 
         <!-- <div class="product-card">
             <span class="rank">1</span>
