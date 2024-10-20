@@ -21,6 +21,15 @@ require_once('db_root_conn.php');
                 ":id" => $req_id
             ]);
         }
+
+        public function change_item_stats($item_id, $status){
+            $delist_item = $this->pdo->prepare("UPDATE tbl_item SET item_status = :status WHERE item_id = :item_id ");
+            // echo $item_id;
+            $delist_item->execute([
+                ":item_id" => $item_id,
+                ":status" =>$status
+            ]);
+        }
     }
 
     $ajax = new class_ajax_database();
@@ -34,6 +43,7 @@ require_once('db_root_conn.php');
         $ajax->update_market_request($_POST['req_id']);
     }
 
-  
-
+    if(isset($_POST['item_id']) && isset($_POST["action"])){
+        $ajax->change_item_stats($_POST['item_id'], $_POST["action"]);
+    }
 ?>

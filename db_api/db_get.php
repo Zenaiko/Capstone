@@ -74,30 +74,6 @@ class class_get_database extends class_database{
         return $get_market_requests->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function get_item_live($market_id){
-        $get_item_live =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
-        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
-        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-        WHERE item.item_status = 'live' AND market.market_id = ?  GROUP BY item.item_id" , [$market_id]);
-        return $get_item_live->fetchAll(PDO::FETCH_ASSOC)??null;
-    }
-
-    public function get_item_sold_out($market_id){
-        $get_item_sold =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
-        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
-        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-        WHERE item.item_status = 'sold out' AND market.market_id = ? GROUP BY item.item_id" , [$market_id]);
-        return $get_item_sold->fetchAll(PDO::FETCH_ASSOC)??null;
-    }
-
-    public function get_item_delisted($selelr_id){
-        $get_item_delisted =  $this->query("SELECT item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
-        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
-        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-        WHERE item.item_status = 'delisted' AND market.market_id = ? GROUP BY item.item_id" , [$selelr_id]);
-        return $get_item_delisted->fetchAll(PDO::FETCH_ASSOC)??null;
-    }
-
     public function get_shop_info($selelr_id){
         $get_shop_info = $this->query("SELECT market.market_name,  market_img.market_image, SUM(market_rel.is_followed) AS follows, AVG(item_rel.rating) AS rate
         FROM tbl_market market 
@@ -156,6 +132,18 @@ class class_get_database extends class_database{
         ORDER BY total_income DESC
         LIMIT 10", [$seller_id]);
         return $get_top_selling_items->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+    public function get_item_status($seller_id, $status){
+        $get_item_status =  $this->query("SELECT item.item_id, item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks FROM tbl_item item
+        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        WHERE item.item_status = :status AND market.market_id = :market_id  GROUP BY item.item_id" , 
+        [
+            ":status" => $status, 
+            ":market_id" => $seller_id
+        ]);
+        return $get_item_status->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
 }

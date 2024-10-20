@@ -34,3 +34,7 @@
 #back_arrow{
     cursor: pointer;
 }
+
+#nav_menu, #menu_container{
+    height: 100vh;
+}

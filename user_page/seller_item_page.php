@@ -8,19 +8,23 @@
     
 </head>
 <body>
-    <?php require_once("../utilities/initialize.php");
+    <?php 
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    require_once("../utilities/initialize.php");
         require_once("../utilities/seller_nav.php");
     ?>
     <!-- Header Selector -->
     <header class="header">
         <nav class="selector">
             <ul class="scrollable-tabs">
-                <li class="tab active" data-tab="live">Live</li>
-                <li class="tab" data-tab="sold-out">Sold Out</li>
-                <li class="tab" data-tab="reviewing">Reviewing</li>
-                <li class="tab" data-tab="violation">Violation</li>
-                <li class="tab" data-tab="unpublished">Delisted</li>
-                <li class="tab" data-tab="history">History</li>
+                <li class="tab" id="live">Live</li>
+                <li class="tab" id="sold_out">Sold Out</li>
+                <li class="tab" id="reviewing">Reviewing</li>
+                <li class="tab" id="violation">Violation</li>
+                <li class="tab" id="delisted">Delisted</li>
+                <li class="tab" id="history">History</li>
             </ul>
             <div class="tab-indicator"></div>
         </nav>
@@ -44,12 +48,15 @@
         <!-- Product Cards Section -->
         <div id="items-section">
             <!-- Content will be loaded here via AJAX -->
+             <?php include("seller_item_status.php"); ?>
         </div>
     </section>
 
+    <div class="fixed-button-container">
+            <a href="seller_product_add.php" class="add-item-btn" id="add_item" value="">Add Item</a>
+    </div>
+
     <script src="../js/seller_item_inventory.js"></script>
-
-
 
 </body>
 </html>
