@@ -1,7 +1,4 @@
-<?php 
-    require_once("../db_api/db_get.php");
-    $top_items =  $get_db->get_top_items($_GET["seller"]); 
-?>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/seller_landing.css">
 
@@ -18,9 +15,7 @@
 
                 <div id="top_store_wrapper">
                     <div id="top_prod_container" class="d-flex overflow-auto">
-                        <?php foreach($top_items as $item){
-                            include("../utilities/item_loop.php");
-                        } ?>
+                       
                     </div>
                 </div>
       
@@ -33,7 +28,7 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="https://via.placeholder.com/360x154" class="d-block w-100 seller_carousel_img" alt="...">
+                        <img src="CABMART.png" class="d-block w-100 seller_carousel_img" alt="...">
                     </div>
                     <div class="carousel-item">
                         <img src="https://via.placeholder.com/360x154" class="d-block w-100 seller_carousel_img" alt="...">
