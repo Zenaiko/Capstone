@@ -24,23 +24,29 @@
                 ":geo"=>$this->adr->get_geo()
             ]);
             $latest_adr_id = $this->pdo->lastInsertId();
+
+            $insert_tbl_contact = $this->pdo->prepare("INSERT INTO tbl_contact (contact) VALUES (:contact)");
+            $insert_tbl_contact ->execute([":contact"=>$this->adr->get_contact()]);
+            $contact_id = $this->pdo->lastInsertId();
             
-            $insert_tbl_cus_pickup = $this->pdo->prepare("INSERT INTO tbl_customer_pickup (customer_id,address_id,pickup_name,recipient_name,is_default) 
-            VALUES (:cus_id,:adr_id,:adr_name,:recepient_name,:def)");
+            $insert_tbl_cus_pickup = $this->pdo->prepare("INSERT INTO tbl_customer_pickup (customer_id,address_id,pickup_name,recipient_name,is_default,contact_id) 
+            VALUES (:cus_id,:adr_id,:adr_name,:recepient_name,:def,:contact_id)");
             $insert_tbl_cus_pickup ->execute([
                 ":cus_id" => $_SESSION["cus_id"],
                 ":adr_id" => $latest_adr_id,
                 ":adr_name" => $this->adr->get_adr_name(),
                 ":recepient_name" => $this->adr->get_recepient_name(),
-                ":def" => $this->adr->get_is_default()
+                ":def" => $this->adr->get_is_default(),
+                ":contact_id" => $contact_id
             ]);
             $this->query("COMMIT");
-
+            header("location: ../user_page/manage_address.php");
         }
     }
 
     class class_address_info{
         private $adr_name;
+        private $contact;
         private $recepient_name;
         private $street;
         private $brngy;
@@ -110,6 +116,15 @@
         public function get_is_default() {
             return $this->is_default;
         }
+
+        // Getter and Setter for contact
+        public function set_contact($contact) {
+            $this->contact = $contact;
+        }
+    
+        public function get_contact() {
+            return $this->contact;
+        }
     }
 
     $address_info = new class_address_info();
@@ -120,7 +135,8 @@
     $address_info->set_street($_POST["street"]);
     $address_info->set_brngy($_POST["brngy"]);
     $address_info->set_house_num($_POST["hosue_num"]);
-    $address_info->set_is_default($_POST["default"]);
+    $address_info->set_is_default($_POST["default"]??0);
+    $address_info->set_contact($_POST["contact"]);
 
     $address_db->insert_tbl_address();    
 ?>

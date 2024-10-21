@@ -22,5 +22,7 @@
             </div>
         </div>
     </section>
+    <script src="../js/arrow..js"></script>
+    <script src="../js/sign_up_seller.js"></script>
 </body>
 </html>

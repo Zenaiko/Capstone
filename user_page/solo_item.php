@@ -27,7 +27,7 @@
                                           
                                 <?php } else{ foreach($item_info->get_img() as $img){ ?> 
                                     <div class="carousel-item">
-                                        <img src="<?=$img?>" class="d-block w-100" alt="...">
+                                        <img src="<?=file_exists($img)? $img : "../assets/tmp.png" ?>" class="d-block w-100" alt="">
                                     </div>
                                 <?php }} ?>
 
@@ -64,8 +64,8 @@
                                 <span class="star_splitter"></span>
                                 <p id="star_respondents">Respondents (500)</p>
                             </div>
-                            <i class="bi bi-hand-thumbs-up" id="solo_item_like"></i>
-                            <p id="rate_item">Rate</p>
+                            <i class="bi bi-hand-thumbs-up cus_rel" id="like_item"></i>
+                            <p id="rate_item" class="cus_rel">Rate</p>
                         </div>
                     </div>
                 </header>
@@ -81,7 +81,7 @@
                                 <p id="seller_location"><i class="bi bi-geo-alt"></i><?=$seller_info->get_brngy() . ' ,' . $seller_info->get_street() . ' ,' . $seller_info->get_city()?></p>
                                 <p id="seller_star"><i class="bi bi-star-fill"></i> Seller Rating</p>
                             </div>
-                            <p id="follow_seller">Follow</p>
+                            <p id="follow_seller" class="cus_rel" data-seller-id="<?=$seller_info->get_seller_id()?>">Follow</p>
                         </div>
                         <div id="visit_seller_container">
                             <a href="seller_page.php?seller=<?=$seller_info->get_seller_id()?>" id="visit_seller">Visit Store</a>

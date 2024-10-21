@@ -37,3 +37,5 @@ $(".seller_tabs").on("click", function() {
         }
     });
 });
+
+

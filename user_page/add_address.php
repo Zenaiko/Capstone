@@ -9,11 +9,12 @@
 <body>
     <?php require_once("../utilities/initialize.php") ?>
 
-<form action="../db_api//db_address.php" method="post">
+<form action="../db_api/db_address.php" method="post">
     <section id="add_adr_section">
         <div id="add_adr_container">
                 <div class="adr_field"><label for="">Address Name</label><input name="adr_name" type="text"></div>
                 <div class="adr_field"><label for="">Recipient Name</label><input name="recepient_name" type="text"></div>
+                <div class="adr_field"><label for="">Contact</label><input name="contact" type="text"></div>
 
                 <p>Address</p>
                 <button>Use Current Location<i class="bi bi-geo-alt"></i></button>

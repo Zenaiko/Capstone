@@ -30,7 +30,7 @@
                     <img src="../assets/cab_mart_welcome.png" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="...">
+                    <img src="../assets/cabmart_slider.png" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
                     <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="...">
@@ -105,7 +105,6 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="fw-bold">Sale</h2>
-            <a href="#" class="view-more" style="color: #878787;">View More</a>
         </div>
 
         <div class="item_loop_contaner">

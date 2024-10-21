@@ -96,3 +96,7 @@ body{
     max-width: fit-content;
     flex: 1 1;
 }
+
+.item_cart{
+    cursor: pointer;
+}

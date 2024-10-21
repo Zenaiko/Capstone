@@ -26,7 +26,7 @@
                             <p id="seller_average"><?=$seller_info["rate"]??0?>/5</p>
                         </div>
                     </div>
-                    <p id="seller_page_follow">Follow</p>
+                    <p id="follow_seller" class="cus_rel" data-seller-id="<?=$seller_info["market_id"]?>">Follow</p>
                     <div id="seller_page_follower">
                         <p id="seller_follower_Count"><?=$seller_info["follows"]??0?></p>
                         <p id="follower">Followers</p>
@@ -52,6 +52,7 @@
     </section>
 
     <script src="../js/seller_page.js"></script>
+    <script src="../js/solo_item.js"></script>
     <script src="../js/item_loop.js"></script>
 </body>
 </html>

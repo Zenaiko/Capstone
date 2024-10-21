@@ -31,4 +31,4 @@
     </div>
 </div>
 
-<script src="../js/seller_nav.js"></script>
+<script src="../js/arrow..js"></script>

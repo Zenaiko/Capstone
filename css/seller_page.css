@@ -27,7 +27,7 @@
     margin-right: 0.3rem;
 }
 
-#seller_page_info *,#seller_page_follow, #seller_page_follower *{
+#seller_page_info *,#follow_seller, #seller_page_follower *{
     margin: 0;
 }
 
@@ -45,7 +45,7 @@
     font-size: 0.5rem;
 }
 
-#seller_page_follow{
+#follow_seller{
     font-size: 0.5rem;
     position:absolute;
     right: 0;
@@ -57,6 +57,7 @@
     text-align: center;
     color: white;
     border-radius: 1rem;
+    cursor: pointer;
 }
 
 #seller_page_follower{

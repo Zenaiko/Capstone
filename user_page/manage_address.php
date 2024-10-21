@@ -7,11 +7,32 @@
     <title>Document</title>
 </head>
 <body>
-    <?php require_once("../utilities/initialize.php"); ?>
+    <?php require_once("../utilities/initialize.php");
+        require_once("../db_api/db_get.php");
+    ?>
 
     <section id="address_section">
         <div id="address_container">
-            <div class="address_container">
+            
+            <?php if(!is_null($get_db->get_address($_SESSION["cus_id"]))){
+                foreach($get_db->get_address($_SESSION["cus_id"]) as $address){?>
+                     <div class="address_container">
+                        <div class="address_header">
+                            <p><?=$address["pickup_name"]?></p>
+                            <a id="<?=$address["customer_pickup_id"]?>">Edit</a>
+                        </div>
+                        <div class="address_contact">
+                            <p><?=$address["recipient_name"]?></p>
+                            <span class="adr_splitter"></span>
+                            <p class="con_num"><?=$address["contact"]?></p>
+                        </div>
+                        <div class="adr_info"><p><i class="bi bi-geo-alt"></i><?=$address["full_addres"]?></p></div>
+                        <p><?=($address["is_default"])?"Default":null ?></p>
+                    </div>
+                    <hr>
+            <?php }}?>
+
+            <!-- <div class="address_container">
                 <div class="address_header">
                     <p>Home</p>
                     <a>Edit</a>
@@ -37,7 +58,7 @@
                 </div>
                 <div class="adr_info"><p><i class="bi bi-geo-alt"></i>Purok Aguinaldo, Cabu, Cabanatuan City</p></div>
             </div>
-            <hr>
+            <hr> -->
         </div>
     </section>
 

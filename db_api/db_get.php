@@ -75,12 +75,18 @@ class class_get_database extends class_database{
     }
 
     public function get_shop_info($selelr_id){
-        $get_shop_info = $this->query("SELECT market.market_name,  market_img.market_image, SUM(market_rel.is_followed) AS follows, AVG(item_rel.rating) AS rate
+        $get_shop_info = $this->query("WITH market_follows AS (SELECT market_id, SUM(is_followed) AS follows FROM tbl_customer_market_relationship),
+        item_ratings AS (SELECT market_id, AVG(rating) AS rate FROM tbl_item JOIN tbl_customer_item_relationship ON tbl_item.item_id = tbl_customer_item_relationship.item_id)
+        SELECT 
+        market.market_id, 
+        market.market_name, 
+        market_img.market_image, 
+        COALESCE(follow.follows, 0) AS follows, 
+        COALESCE(rating.rate, 0) AS rate
         FROM tbl_market market 
-        LEFT JOIN tbl_customer_market_relationship market_rel ON market_rel.market_id = market.market_id
+        LEFT JOIN market_follows follow ON follow.market_id = market.market_id
         LEFT JOIN tbl_market_image market_img ON market_img.market_id = market.market_id
-        LEFT JOIN tbl_item item ON item.market_id = market.market_id
-        LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id
+        LEFT JOIN item_ratings rating ON rating.market_id = market.market_id
         WHERE market.market_id = ?", [$selelr_id]);
         return $get_shop_info->fetchAll(PDO::FETCH_ASSOC)[0]??null;
     }
@@ -117,7 +123,8 @@ class class_get_database extends class_database{
         LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
         LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
         LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
-        WHERE category.category = ?", [$category]);
+        WHERE category.category = ?
+        GROUP BY item.item_id", [$category]);
         return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
@@ -144,6 +151,13 @@ class class_get_database extends class_database{
             ":market_id" => $seller_id
         ]);
         return $get_item_status->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+    public function get_address($customer_id){
+        $get_address = $this->query("SELECT pickup.customer_pickup_id, pickup.pickup_name, pickup.recipient_name, contact.contact, pickup.is_default, CONCAT_WS(',' , address.city, address.street, address.brngy, address.house_unit_number) AS 'full_addres'  
+        FROM tbl_address address, tbl_contact contact, tbl_customer_pickup pickup, tbl_customer customer
+        WHERE address.address_id = pickup.address_id AND pickup.customer_id = customer.customer_id AND contact.contact_id = pickup.contact_id AND customer.customer_id = ?", [$customer_id]);
+        return $get_address->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
 }

@@ -79,8 +79,6 @@ $('.radio_ary').on('click', function() {
     
         };
 
- 
-
     add_variant_type.addEventListener('click', function(event) {
         event.preventDefault(); 
         

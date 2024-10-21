@@ -1,11 +1,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php 
+require_once('../arrow_header.php');
+ ?>
 <form action="../db_api/db_seller_sign.php" id="shop_information_form" method="post" enctype="multipart/form-data">
     <p id="shop_info_title" class="m-0 text-uppercase">Shop Information</p>
     <div id="shop_img_sign_wrapper">
         <div id="shop_img_sign_container">
             <p>Shop Image</p>
-            <img src="https://via.placeholder.com/125x125" alt="" id="sign_img_preview">
-            <input type="file" name="sign_upload_shop_image" id="sign_upload_shop_image" value="Upload Image">
+            <img src="../assets/tmp.png" alt="" id="sign_upload_shop_img_prev">
+            <input type="file" class="seller_sign_img" name="sign_upload_shop_image" id="sign_upload_shop" value="Upload Image">
         </div>
     </div>
 
@@ -21,3 +24,5 @@
 
     <input type="submit" value="Next" name="submit_shop_info" id="sign_bs_info_next">
 </form>
+
+<script src=""></script>
