@@ -151,3 +151,13 @@ h1 {
 .checkout-btn:hover {
     background-color: #36885E;
 }
+
+.qty_order_container{
+    display: flex;
+    flex-direction: row;
+}
+
+.order_qty_form{
+    margin-left: 0.5rem;
+    width:  1.8rem;
+}

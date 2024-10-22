@@ -8,8 +8,8 @@
 </head>
 <body>
     <?php require_once('../utilities/initialize.php');
-     require_once('../utilities/nav.php');
      require_once('../db_api/db_item_info.php');
+     require_once('../utilities/nav.php');
      ?>
     <section id="solo_item_section">
         <div id="solo_item_wrapper">

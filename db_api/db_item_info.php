@@ -48,7 +48,7 @@
             FROM tbl_variation vari
             LEFT JOIN tbl_item itm ON itm.item_id = vari.item_id
             LEFT JOIN tbl_item_img itm_img ON itm_img.item_id = vari.variation_id
-            WHERE itm.item_id = :item_id", [":item_id" => $this->item->get_item_id()]);
+            WHERE itm.item_id = :item_id GROUP BY vari.variation_id", [":item_id" => $this->item->get_item_id()]);
             $this->item->set_variant_info($get_variants->fetchAll(PDO::FETCH_ASSOC));
         }
 

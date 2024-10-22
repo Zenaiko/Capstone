@@ -160,6 +160,16 @@ class class_get_database extends class_database{
         return $get_address->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
+    public function get_cart($cus_id){
+        $get_cart = $this->query("SELECT market.market_id, market.market_name, item.item_name, variation.variation_id, variation.variation_name, cart.item_qty, (variation.variation_price * cart.item_qty) AS cart_price FROM
+        tbl_cart cart, tbl_variation variation, tbl_item item, tbl_market market 
+        WHERE cart.variant_id = variation.variation_id 
+        AND variation.item_id = item.item_id 
+        AND item.market_id = market.market_id
+        AND  cart.customer_id = ?
+        ORDER BY market.market_id" , [$cus_id]);
+        return  $get_cart->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
 }
 
 $get_db = new class_get_database();

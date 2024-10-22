@@ -91,12 +91,14 @@ body{
     gap: 1rem;
 
 }
-
 .item_wrapper{
     max-width: fit-content;
     flex: 1 1;
+    position: relative;
 }
 
 .item_cart{
+    z-index: 8;
     cursor: pointer;
+    display: inline;
 }
