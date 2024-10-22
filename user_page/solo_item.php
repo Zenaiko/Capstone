@@ -65,7 +65,6 @@
                                 <p id="star_respondents">Respondents (500)</p>
                             </div>
                             <i class="bi bi-hand-thumbs-up cus_rel" id="like_item"></i>
-                            <p id="rate_item" class="cus_rel">Rate</p>
                         </div>
                     </div>
                 </header>
