@@ -4,26 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delivery Details</title>
-  <style>
-    body {
-      background-color: #f8f9fa;
-      font-family: Arial, sans-serif;
-    }
-
-    .card {
-      border-radius: 10px;
-      border: none;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-  </style>
 </head>
 <body>
-<?php require_once("../utilities/initialize.php"); ?>
+<?php require_once("../utilities/initialize.php");?>
   <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a href="order_history.php" class="btn btn-outline-primary">Back</a>
-      <div></div> 
-    </div>
+    <h4 class="mb-4">Delivery Details</h4>
 
     <!-- Delivery Overview -->
     <div class="card mb-3">
@@ -48,6 +33,9 @@
         <p><strong>Total Amount:</strong> ₱700</p>
       </div>
     </div>
+
+    <!-- Back to Active Deliveries -->
+    <a href="order_history.php" class="btn btn-outline-primary">Back to Active Deliveries</a>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

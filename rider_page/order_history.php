@@ -41,12 +41,9 @@
   </style>
 </head>
 <body>
-<?php require_once("../utilities/initialize.php"); ?>
+<?php require_once("../utilities/initialize.php");?>
   <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a href="rider_landingpage.php" class="btn btn-outline-primary">Back</a>
-      <div></div>
-    </div>
+    <h4 class="mb-4">Order History</h4>
 
     <!-- Sample Order History Item -->
     <div class="card">
@@ -65,6 +62,8 @@
         </div>
       </div>
     </div>
+
+    <a href="rider_landingpage.php" class="btn btn-outline-primary mt-3">Back to Homepage</a>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

@@ -13,16 +13,7 @@
             display: flex;
             justify-content: flex-end;
             gap: 10px;
-        }.button-group {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 20px; 
         }
-        .mb-3 { 
-            margin-bottom: 1.5rem; 
-        }
-
         .next-btn, .prev-btn, .submit-btn {
             width: 150px;
         }
@@ -30,7 +21,8 @@
             display: flex;
             justify-content: flex-end;
             margin-top: 40px; 
-        }   
+}
+
     </style>
 </head>
 <body>
@@ -108,10 +100,7 @@
                 <h4 class="mb-4">Vehicle Info</h4>
                 <div class="mb-3">
                     <label for="vehicleType" class="form-label">Vehicle Type</label>
-                    <select class="form-control" id="vehicleType" required>
-                        <option value="motorcycle">Motorcycle</option>
-                        <option value="bicycle">Car</option>
-                      </select>
+                    <input type="text" class="form-control" id="vehicleType" required>
                 </div>
                 <div class="mb-3">
                     <label for="registrationPhoto" class="form-label">Registration Photo</label>

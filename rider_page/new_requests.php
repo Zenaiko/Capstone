@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delivery Requests</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
       background-color: #f8f9fa;
@@ -25,32 +28,15 @@
   </style>
 </head>
 <body>
-<?php require_once("../utilities/initialize.php"); ?>
   <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a href="rider_landingpage.php" class="btn btn-outline-primary">Back</a>
-      <div></div>
-    </div>
+    <h4 class="mb-4">Delivery Requests</h4>
 
     <!-- Sample Delivery Request -->
-    <div class="card mb-3" id="request-1">
-      <div class="card-body">
-        <h6 class="card-title">Delivery Request from Jollihotdog</h6>
-        <p><strong>Pickup Address:</strong> Cabanatuan</p>
-        <p><strong>Drop-off Address:</strong> Secret</p>
-        <p><strong>Contact:</strong> +63 913 574 1234</p>
-        <div class="d-flex justify-content-between">
-          <button class="btn btn-outline-primary btn-custom" onclick="acceptRequest('request-1')">Accept</button>
-          <button class="btn btn-outline-danger btn-custom" onclick="declineRequest('request-1')">Decline</button>
-        </div>
-      </div>
-    </div>
-
     <div class="card mb-3" id="request-2">
       <div class="card-body">
         <h6 class="card-title">Delivery Request from Jollihotdog</h6>
-        <p><strong>Pickup Address:</strong> Cabanatuan</p>
-        <p><strong>Drop-off Address:</strong> Secret</p>
+        <p><strong>Pickup Address:</strong> cabanatuan</p>
+        <p><strong>Drop-off Address:</strong> secret</p>
         <p><strong>Contact:</strong> +63 913 574 1234</p>
         <div class="d-flex justify-content-between">
           <button class="btn btn-outline-primary btn-custom" onclick="acceptRequest('request-2')">Accept</button>
@@ -58,6 +44,21 @@
         </div>
       </div>
     </div>
+
+    <div class="card mb-3" id="request-2">
+      <div class="card-body">
+        <h6 class="card-title">Delivery Request from Jollihotdog</h6>
+        <p><strong>Pickup Address:</strong> cabanatuan</p>
+        <p><strong>Drop-off Address:</strong> secret</p>
+        <p><strong>Contact:</strong> +63 913 574 1234</p>
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-outline-primary btn-custom" onclick="acceptRequest('request-2')">Accept</button>
+          <button class="btn btn-outline-danger btn-custom" onclick="declineRequest('request-2')">Decline</button>
+        </div>
+      </div>
+    </div>
+    <a href="rider_landingpage.php" class="btn btn-outline-primary">Back to Active Deliveries</a>
+  </div>
 
   <script>
     // Function to handle accepting a request with SweetAlert confirmation
