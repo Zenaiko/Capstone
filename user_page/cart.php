@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/cart.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Cart Page</title>
+    <style>
+        .center-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; 
+        }
+        
+        .btn-primary {
+            padding: 10px 30px; 
+            font-size: 16px;    
+        }
+    </style>
 </head>
 <body>
 
@@ -15,6 +28,7 @@
         <button id="editButton" class="navbar-button">Edit</button>
     </nav>
 
+    <!-- Cart Section -->
     <section id="cart_section">
         <div class="seller_cart_wrapper">
             <div class="seller_cart_contents">
@@ -105,6 +119,11 @@
         </div>
     </section>
 
+    <!-- Center Button Container -->
+    <div class="center-button-container">
+        <button class="btn btn-primary" id="checkoutButton">Checkout</button>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sellerCheckboxes = document.querySelectorAll('.cart_seller_checkbox');
@@ -119,19 +138,19 @@
                 const deleteItemButtons = document.querySelectorAll('.delete-item');
 
                 deleteStoreButtons.forEach(button => {
-                    button.style.display = editMode ? 'inline' : 'none'; // Show/hide delete store button
+                    button.style.display = editMode ? 'inline' : 'none'; 
                 });
                 deleteItemButtons.forEach(button => {
-                    button.style.display = editMode ? 'inline' : 'none'; // Show/hide delete item button
+                    button.style.display = editMode ? 'inline' : 'none'; 
                 });
             });
 
-            // Remove store functionality
+            
             const deleteStoreButtons = document.querySelectorAll('.delete-store');
             deleteStoreButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const storeWrapper = button.closest('.seller_cart_wrapper');
-                    storeWrapper.remove(); // Remove the store wrapper
+                    storeWrapper.remove(); 
                 });
             });
 
@@ -141,12 +160,11 @@
                 button.addEventListener('click', () => {
                     const itemWrapper = button.closest('.seller_item');
                     const storeWrapper = button.closest('.seller_cart_wrapper');
-                    itemWrapper.remove(); // Remove the item
+                    itemWrapper.remove(); 
 
-                    // Check if there are any items left in the store
                     const remainingItems = storeWrapper.querySelectorAll('.seller_item');
                     if (remainingItems.length === 0) {
-                        storeWrapper.remove(); // Remove the store if no items left
+                        storeWrapper.remove(); 
                     }
                 });
             });
@@ -173,6 +191,28 @@
             }
             quantityElement.textContent = quantity;
         }
+
+        // Checkout Button Confirmation
+        document.getElementById('checkoutButton').addEventListener('click', function () {
+            Swal.fire({
+                title: 'Confirm Checkout',
+                text: "Are you sure you want to proceed to checkout?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Checkout'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Success!',
+                        'Your items have been checked out.',
+                        'success'
+                    );
+                    // Redirect to the checkout page or handle checkout logic here
+                }
+            });
+        });
     </script>
 </body>
 </html>
