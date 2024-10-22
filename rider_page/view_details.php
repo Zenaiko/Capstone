@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delivery Details</title>
+
 </head>
 <body>
-<?php require_once("../utilities/initialize.php");?>
+<?php require_once("../utilities/initialize.php"); ?>
   <div class="container mt-4">
-    <h4 class="mb-4">Delivery Details</h4>
+    <a href="rider_landingpage.php" class="btn btn-outline-primary mb-3">Back</a>
 
     <!-- Delivery Overview -->
     <div class="card mb-3">
@@ -34,18 +35,6 @@
       </div>
     </div>
 
-    <!-- Delivery Details -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h6 class="card-title">Delivery Status</h6>
-        <p><strong>Status:</strong> In Transit</p>
-        <p><strong>Pickup Location:</strong> HEHE</p>
-        <p><strong>Estimated Delivery Time:</strong> 15 minutes</p>
-      </div>
-    </div>
-
-    <!-- Back to Active Deliveries -->
-    <a href="rider_landingpage.php" class="btn btn-outline-primary">Back to Active Deliveries</a>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
