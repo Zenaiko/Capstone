@@ -3,12 +3,12 @@
 
 <?php require_once('../utilities/initialize.php');?>
 
-<form action="cus_checkout.php" method="post">
+<form action="cus_checkout.php" id="variant_order_data" method="post">
     <div id="item_interaction_wrapper">
         <div id="item_interaction_container">
            <div id="item_interaction_share"><i class="bi bi-share"></i><p>Share</p></div>
            <div id="item_interaction_message"><i class="bi bi-chat-dots"></i><p>Message</p></div>
-           <div id="item_interaction_cart" ><i class="bi bi-cart2"></i><p>Add to cart</p></div>
+           <div id="item_interaction_cart" data-bs-toggle="offcanvas" data-bs-target="#order" aria-controls="offcanvasBottom"><i class="bi bi-cart2"></i><p>Add to cart</p></div>
            <div id="item_interaction_order" data-bs-toggle="offcanvas" data-bs-target="#order" aria-controls="offcanvasBottom"><p>Order Now</p></div>
         </div>
     </div>
@@ -38,18 +38,6 @@
     
                     <?php } ?>
     
-                    <!-- <figure class="variant">
-                        <img class="variant_img" src="../assets/tmp.png" alt="">
-                        <figcaption>Blue</figcaption>
-                    </figure>
-                    <figure>
-                        <img class="variant_img" src="../assets/tmp.png" alt="">
-                        <figcaption>Black</figcaption>
-                    </figure>
-                    <figure>
-                        <img class="variant_img" src="../assets/tmp.png" alt="">
-                        <figcaption>Green</figcaption>
-                    </figure> -->
                 </div>
             </div>
         </div>
@@ -57,9 +45,10 @@
         <input type="text" name="shop_order" id="shop_order" value="<?=$seller_info->get_seller_id()?>" hidden readonly>
         <input type="text" name="item_order" id="item_order" value="<?=$_GET["item"]?>" hidden readonly>
         <input type="text" name="variant_order[]" id="variant_order" hidden >
+        <input type="text" id="order_qty" value="1" hidden>
     
         <div class="offcanvas-footer">
-            <input type="submit" name="" id="buy_button" value="Buy">
+            <input type="submit" readonly name="interact_button" id="interact_button" value="">
         </div>
     </div>
 </form>

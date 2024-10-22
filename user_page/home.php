@@ -12,7 +12,7 @@
 <?php require_once('../utilities/initialize.php');
         require_once('../utilities/nav.php');
         require_once('../db_api/db_get.php');
-        
+        unset($_SESSION['shop_info']);
         ?>
 <body>
 
@@ -33,7 +33,7 @@
                     <img src="../assets/cabmart_slider.png" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="...">
+                    <img src="../assets/cab_mart_slider1.png" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

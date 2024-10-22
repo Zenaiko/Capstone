@@ -17,7 +17,6 @@
                         <p class="item_respondents">(<?=$item["rate_count"]??0?>)</p>
                     </div>
                     <p class="item_sold"><?=$item["order_qty"]??0?> Sold</p>
-                    <i class="bi bi-cart2 item_cart" data-item-id="<?=$item["item_id"]?>"></i>
                 </div>
             </div>
         </div>

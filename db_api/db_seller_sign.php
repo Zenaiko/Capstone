@@ -87,7 +87,7 @@
         ]);
 
         $this->query('COMMIT');
-        unset( $_SESSION['shop_info']);
+        unset($_SESSION['shop_info']);
         header('location: ../user_page/cus_acc_page.php');
     }catch(Exception $error){
         echo "Failed: " . $error->getMessage();
@@ -271,6 +271,8 @@ if(isset($_POST['submit_shop_info'])){
         $dir_file = $seller_tmp_folder . $_FILES['sign_upload_shop_image']['name'];
         move_uploaded_file($tmp_file_dir, $dir_file);
     }
+
+    echo $dir_file;
 
     $_SESSION['shop_info']= [
         'name' => $_POST['sign_shop_name'] ?? NULL,
