@@ -17,18 +17,18 @@ class class_order_database extends class_database {
         $curr_var_info = $this->order_info->get_variant_info();
         $updated_variants = []; // To store updated variant info
 
-        foreach ($curr_var_info as $variant_info) {
-            $get_variant_info = $this->query("
-                SELECT variation.variation_name, variation.variation_price
-                FROM tbl_variation variation 
-                WHERE variation.variation_id = :var_id", [":var_id" => $variant_info["id"]]);
-
+        foreach ($curr_var_info as $variant_info){
+            $get_variant_info = $this->query("SELECT item.item_name, variation.variation_name, variation.variation_price
+            FROM tbl_variation variation, tbl_item item
+            WHERE variation.item_id = item.item_id
+            AND variation.variation_id = :var_id", [":var_id" => $variant_info["id"]]);
             $indiv_variant_info = $get_variant_info->fetch(PDO::FETCH_ASSOC);
 
             // Check if the variant info was found
             if ($indiv_variant_info) {
                 $updated_variants[] = [
                     "id" => $variant_info["id"],
+                    "item_name" => $indiv_variant_info["item_name"],
                     "name" => $indiv_variant_info["variation_name"],
                     "price" => $indiv_variant_info["variation_price"],
                 ];
@@ -36,6 +36,7 @@ class class_order_database extends class_database {
                 // If not found, retain the original structure with null values
                 $updated_variants[] = [
                     "id" => $variant_info["id"],
+                    "item_name" => $indiv_variant_info["item_name"],
                     "name" => null,
                     "price" => null,
                 ];

@@ -9,7 +9,9 @@
 </head>
 <body>
 
-    <?php require_once('../db_api/db_item_info.php');
+    <?php 
+        require_once('../utilities/initialize.php');
+        require_once('../db_api/db_item_info.php');
         require_once('../db_api/db_checkout.php');
      ?>
 
@@ -39,11 +41,13 @@
             <?php foreach($order_info->get_variant_info() as $var_id => $var_info){  ?>
                 <input type="text" hidden name="variant_order[]" value="<?=$var_info["id"]?>">
                 <div class="cart-item">
-                    <img src="../assets/tmp.png" alt="Item 1" class="item-img">
+                    <img src="../assets/tmp.png" alt="" class="item-img">
                     <div class="item-info">
-                        <p class="item-name"><?=$var_info["name"]?></p>
-                        <p class="item-qty">Qty:</p>
-                        <input type="number" name="order_qty[<?=$var_info["id"]?>]" id="<?=$var_info["id"]?>">
+                        <p class="item-name"><?=$var_info["item_name"]."(".$var_info["name"].")"?></p>
+                        <div class="qty_order_container">
+                            <p class="item-qty">Qty:</p>
+                            <input type="number"value="<?=$var_info["qty"]?>" class="order_qty_form" readonly name="variant_order[<?=$var_info["id"]?>][qty]" id="">
+                        </div>
                     </div>
                     <p class="item-price">₱<?=$var_info["price"]?></p>
                 </div>
@@ -72,16 +76,16 @@
             <section class="section">
                 <h2 class="section-title">Order Summary</h2>
                 <div class="summary-item">
-                    <span>Items Subtotal</span>
-                    <span>₱50.00</span>
+                    <span>Order Subtotal</span>
+                    <span id="order_subtotal"></span>
                 </div>
                 <div class="summary-item">
                     <span>Shipping Fee</span>
-                    <span>₱5.00</span>
+                    <span id="shipping_fee">₱5.10</span>
                 </div>
                 <div class="summary-item total">
-                    <span>Total</span>
-                    <span>₱55.00</span>
+                    <span>Total Payment</span>
+                    <span id="total_payement"></span>
                 </div>
             </section>
     
