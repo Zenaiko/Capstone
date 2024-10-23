@@ -52,4 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Checkout Button Confirmation
+    document.getElementById('checkoutButton').addEventListener('click', function () {
+        Swal.fire({
+            title: 'Confirm Checkout',
+            text: "Are you sure you want to proceed to checkout?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Checkout'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Success!',
+                    'Your items have been checked out.',
+                    'success'
+                );
+                // Redirect to the checkout page (pwede rin basta dito handle yung checkout logic)
+            }
+        });
+    });
 });
