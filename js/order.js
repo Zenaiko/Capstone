@@ -17,3 +17,17 @@ const shipping_fee = num_extact("#shipping_fee");
 const total_pay = (parseFloat(shipping_fee) + parseFloat(item_subtotal));
 
 $("#total_payement").text("₱"+total_pay.toFixed(2));
+
+
+$("#order_rqst_form").on("submit" , function(event){
+    const pickup_id = document.getElementById("pickup_id");
+    if(!pickup_id){
+        event.preventDefault();
+        Swal.fire({
+            title: 'No Address Provided',
+            text: 'Please provide a pickup address location',
+            icon: 'error',
+            confirmButtonText: 'Okay'
+        });
+    }
+});

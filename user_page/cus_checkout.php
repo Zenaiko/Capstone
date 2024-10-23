@@ -25,12 +25,18 @@
     
             <!-- Shipping Section -->
             <section class="section">
-                <h2 class="section-title">Shipping Information</h2>
-                <div class="section-content">
-                    <p>The Hotdog Seller</p>
-                    <p>1234 Street Name, City</p>
-                    <p>0999999</p>
-                </div>
+                <?php if(!is_null($pickup_info->get_pickup_id()) && $pickup_info->get_pickup_id() !== ""){?>
+                    <input type="text" hidden name="pickup_id" value="<?=$pickup_info->get_pickup_id()?>" id="pickup_id">
+                    <h2 class="section-title">Shipping Information</h2>
+                    <div class="section-content">
+                        <p class="fw-bold"><?=$pickup_info->get_pickup_name()?></p>
+                        <p><?=$pickup_info->get_recipient()?></p>
+                        <p><?=$pickup_info->get_full_address()?></p>
+                        <p>(<?=$pickup_info->get_contact()?>)</p>
+                    </div>
+                    <button id="address_change">Change</button>
+                <?php }else{ echo "No Address Set"; } ?>
+             
             </section>
     
             <!-- Cart Items Section -->

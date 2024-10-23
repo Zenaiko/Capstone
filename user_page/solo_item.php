@@ -60,9 +60,9 @@
                             <p id="item_sold">10k sold</p>
                             <div id="item_star_container">
                                 <i id="item_star" class="bi bi-star-fill"></i>
-                                <p id="item_rate">4.9/5</p>
+                                <p id="item_rate"><?=$item_info->get_rating()??0?>/5</p>
                                 <span class="star_splitter"></span>
-                                <p id="star_respondents">Respondents (500)</p>
+                                <p id="star_respondents">Respondents (<?=$item_info->get_respondents()??0?>)</p>
                             </div>
                             <i class="bi bi-hand-thumbs-up cus_rel" id="like_item"></i>
                         </div>

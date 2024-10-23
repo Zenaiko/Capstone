@@ -20,18 +20,22 @@
                 $this->item->set_img($img['item_img']);
             }
 
-            $get_item_info = $this->query("SELECT itm.market_id, itm.item_name, itm.average_rating, itm.item_desc, categ.category, MIN(vari.variation_price) AS min_price, max(vari.variation_price) AS max_price
-            FROM tbl_item itm, tbl_category categ, tbl_variation vari
-            WHERE itm.category_id = categ.category_id AND vari.item_id = itm.item_id
-            AND itm.item_id = :item_id" , [":item_id" => $this->item->get_item_id()]);
+            $get_item_info = $this->query("SELECT item.market_id, item.item_name, item.item_desc, category.category, MIN(variation.variation_price) AS min_price, max(variation.variation_price) AS max_price, AVG(item_rel.rating) AS avg_rate, COUNT(item_rel.rating) AS respondents
+            FROM tbl_item item
+            LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id
+            LEFT JOIN tbl_category category ON item.category_id = category.category_id
+            LEFT JOIN tbl_variation variation ON variation.item_id = item.item_id
+            WHERE item.category_id = category.category_id AND variation.item_id = item.item_id
+            AND item.item_id = :item_id" , [":item_id" => $this->item->get_item_id()]);
             $item_info = $get_item_info->fetchAll(PDO::FETCH_ASSOC)[0];
             $this->seller->set_seller_id($item_info["market_id"]);
             $this->item->set_name($item_info["item_name"]);
-            $this->item->set_rating($item_info["average_rating"]);
+            $this->item->set_rating($item_info["avg_rate"]);
             $this->item->set_desc($item_info["item_desc"]);
             $this->item->set_category($item_info["category"]);
             $this->item->set_min_price($item_info["min_price"]);
             $this->item->set_max_price($item_info["max_price"]);
+            $this->item->set_respondents($item_info["respondents"]);
 
             $get_seller_info = $this->query("SELECT market.market_name, address.city, address.street, address.brngy , market_img.market_image, market.rating
             FROM tbl_market market, tbl_address address, tbl_market_image market_img
