@@ -171,21 +171,13 @@ body {
     padding: 0 5px;
 }
 
-.btn-primary {
-    background-color: #40A578 !important; 
-    border: none; 
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 1rem; 
-    border-radius: 5px; 
-}
-
-.btn-primary:hover {
-    background-color: #357d61 !important; 
-}
-
 .center-button-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 20px; 
+}
+
+.btn-primary {
+    padding: 10px 30px; 
+    font-size: 16px;    
 }

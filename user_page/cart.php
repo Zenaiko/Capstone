@@ -159,6 +159,12 @@ if (!empty($exist_market)) {
         </div> -->
     </section>
 
+    <!-- Center Button Container -->
+    <div class="center-button-container">
+        <button class="btn btn-primary" id="checkoutButton">Checkout</button>
+    </div>
+
+
     <script src="../js/cart.js"></script>
 </body>
 </html>
