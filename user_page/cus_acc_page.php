@@ -36,22 +36,22 @@ require_once('../db_api/db_get.php');
                         </div>
                         <div id="cus_order_info_wrapper">
                             <div id="cus_order_info_container">
-                                <figure>
+                                <div>
                                     <i class="bi bi-clipboard"></i>
-                                    <figcaption>Requesting</figcaption>
-                                </figure>
-                                <figure>
+                                    <a href="order_request.php">Requesting</a>
+                                </div>
+                                <div>
                                     <i class="bi bi-truck"></i>
-                                    <figcaption>Shipping</figcaption>
-                                </figure>
-                                <figure>
+                                    <a>Shipping</a>
+                                </div>
+                                <div>
                                     <i class="bi bi-box"></i>
-                                    <figcaption>Recieving</figcaption>
-                                </figure>
-                                <figure>
+                                    <a>Recieving</a>
+                                </div>
+                                <div>
                                     <i class="bi bi-star"></i>
-                                    <figcaption>Rate</figcaption>
-                                </figure>
+                                    <a>Rate</a>
+                                </div>
                             </div>
                         </div>
                     </div>

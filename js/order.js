@@ -29,5 +29,7 @@ $("#order_rqst_form").on("submit" , function(event){
             icon: 'error',
             confirmButtonText: 'Okay'
         });
+    }else{
+    
     }
 });

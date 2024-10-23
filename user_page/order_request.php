@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Requesting Phase</title>
+  <title>Order Requests</title>
   <style>
     body {
       background-color: #f8f9fa;
@@ -32,43 +32,30 @@
   </style>
 </head>
 <body>
-<?php require_once('../utilities/initialize.php'); ?>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+require_once('../utilities/initialize.php'); 
+require_once('../db_api/db_get.php');
+$order_requests = $get_db->get_customer_orders($_SESSION["cus_id"], "requesting");
+?>
 <div class="container mt-4">
     <div class="d-flex justify-content-between mb-4">
-      <a href="order_transaction_history.php" class="btn btn-outline-primary">Back</a>
+      <a class="btn btn-outline-primary" id="back_btn">Back</a>
       <div></div> 
     </div>
 
-    <!-- Order Card 1 -->
+    <?php foreach($order_requests as $requsts){  ?>
     <div class="card mb-3">
       <div class="card-body">
-        <h6 class="card-title">Order #123456</h6>
-        <p><strong>Items:</strong> 2x Pizza, 1x Salad</p>
-        <p><strong>Total:</strong> ₱700.00</p>
+        <h6 class="card-title">Order#<?=$requsts["order_id"]?></h6>
+        <p><strong>Items:</strong> <?=$requsts["variation_name"]."(". $requsts["order_qty"] .")"?></p>
+        <p><strong>Total:</strong> <?=$requsts["order_price"]?></p>
         <button class="btn btn-primary submit-rating" onclick="confirmCancelOrder()">Cancel Order</button>
       </div>
     </div>
-
-    <!-- Order Card 2 -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h6 class="card-title">Order #123457</h6>
-        <p><strong>Items:</strong> 1x Burger, 3x Fries</p>
-        <p><strong>Total:</strong> ₱900.00</p>
-        <button class="btn btn-primary submit-rating" onclick="confirmCancelOrder()">Cancel Order</button>
-      </div>
-    </div>
-
-    <!-- Order Card 3 -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h6 class="card-title">Order #123458</h6>
-        <p><strong>Items:</strong> 5x Sushi</p>
-        <p><strong>Total:</strong> ₱1,500.00</p>
-        <button class="btn btn-primary submit-rating" onclick="confirmCancelOrder()">Cancel Order</button>
-      </div>
-    </div>
-  </div>
+    <?php } ?>
 
   <script>
     function confirmCancelOrder() {
@@ -91,8 +78,9 @@
         }
       });
     }
+    $("#back_btn").click(function(){
+      window.history.back();
+    });
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

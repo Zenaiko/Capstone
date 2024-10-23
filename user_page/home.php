@@ -14,7 +14,6 @@
         require_once('../db_api/db_get.php');
         unset($_SESSION['shop_info']);
         unset($_SESSION['seller_id']);
-        var_dump($_SESSION);
         ?>
 <body>
 

@@ -15,7 +15,7 @@ class class_order_database extends class_database {
         $this->pickup_info = $pickup_info;
     }
 
-    public function get_order_info() {
+    public function get_order() {
         $curr_var_info = $this->order_info->get_varaint_info();
         $updated_variants = []; // To store updated variant info
         $get_variant_info = $this->pdo->prepare("SELECT item.item_name, variation.variation_name, variation.variation_price
@@ -51,7 +51,6 @@ class class_order_database extends class_database {
         }
         // Update the order_info with the new variant details
         $this->order_info->set_order_info($updated_variants);
-        $this->get_pickup_info();
     }
 
     public function get_pickup_info(){
@@ -87,8 +86,10 @@ class class_order_database extends class_database {
             ]);
         }
         $this->query("COMMIT");
-        header("location: ../user_page/home.php");
-        return;
+        if(isset($_POST["order_submit"])){
+            header("location: ../user_page/home.php");
+        }
+        exit;
     }
 }
 
@@ -197,15 +198,14 @@ $order_db = new class_order_database($order_info,$pickup_info);
 if(isset($_POST["variant_order"])){
     foreach ($_POST["variant_order"] as $var_id => $qty) {
         $order_info->set_variant_info($var_id, $qty["qty"]);
+        $order_db->get_order();
     }
-}
-
     // Fetch and display variant info
-    $order_db->get_order_info();
+    $order_db->get_pickup_info();
+}
 
    // Process the order submission
    if (isset($_POST["order_submit"])){
-
     $order_db->set_order_request();
     exit;
     }

@@ -11,11 +11,10 @@
 
     <?php 
         require_once('../utilities/initialize.php');
-        require_once('../db_api/db_item_info.php');
         require_once('../db_api/db_checkout.php');
      ?>
 
-<form action="../db_api/db_checkout.php" id="order_rqst_form" method="post">
+<form action="" id="order_rqst_form" method="post">
         <div class="checkout-container">
             <!-- Header -->
             <header class="checkout-header">

@@ -170,6 +170,15 @@ class class_get_database extends class_database{
         ORDER BY market.market_id" , [$cus_id]);
         return  $get_cart->fetchAll(PDO::FETCH_ASSOC)??null;
     }
+
+    public function get_customer_orders($cus_id, $order_type){
+        $get_customer_orders = $this->query("SELECT odr.order_id, odr.order_qty , odr.order_price, variation.variation_name
+        FROM tbl_order odr, tbl_variation variation, tbl_item item
+        WHERE variation.variation_id = odr.variation_id AND item.item_id = variation.variation_id AND odr.order_status = :status AND odr.customer_id = :customer_id
+        GROUP BY odr.order_id ORDER BY odr.date_requested", [":customer_id" => $cus_id, ":status" => $order_type]);
+
+        return  $get_customer_orders->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
 }
 
 $get_db = new class_get_database();
@@ -198,15 +207,6 @@ $category_array = $get_db->get_category();
         }
         echo json_encode($result);
     }
-
-
-    // Get top order
-    // SELECT COUNT(odr.order_id) AS odr_count FROM tbl_item item 
-    // LEFT JOIN tbl_variation variation ON variation.item_id = item.item_id
-    // LEFT JOIN tbl_order odr ON odr.variation_id = variation.variation_id
-    // WHERE odr.order_status = "completed"
-    // GROUP BY item.item_id
-    // ORDER BY odr_count 
 
 ?>
 
