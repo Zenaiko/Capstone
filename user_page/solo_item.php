@@ -31,16 +31,6 @@
                                     </div>
                                 <?php }} ?>
 
-                                
-                                            <!-- <div class="carousel-item active">
-                                                <img src="../assets/tmp.png" class="d-block w-100" alt="...">
-                                            </div>
-                                            <div class="carousel-item">
-                                                <img src="../assets/tmp.png" class="d-block w-100" alt="...">
-                                            </div>
-                                            <div class="carousel-item">
-                                                <img src="../assets/tmp.png" class="d-block w-100" alt="...">
-                                            </div> -->
                             </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -74,7 +64,7 @@
                 <div id="item_seller_info_wrapper">
                     <div id="item_seller_info_container">
                         <div id="seller_info_contents">
-                            <div id="seller_item_img_container"><img src="<?=$seller_info->get_img()??' ../assets/tmp.png'?>" alt="" id="seller_item_img"></div>
+                            <div id="seller_item_img_container"><img src="<?=file_exists($seller_info->get_img())?$seller_info->get_img():' ../assets/tmp.png' ?>" alt="" id="seller_item_img"></div>
                             <div id="seller_info">
                                 <p id="seller_name"><?=$seller_info->get_name()?></p>
                                 <p id="seller_location"><i class="bi bi-geo-alt"></i><?=$seller_info->get_brngy() . ' ,' . $seller_info->get_street() . ' ,' . $seller_info->get_city()?></p>

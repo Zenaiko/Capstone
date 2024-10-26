@@ -109,8 +109,8 @@
         }
     
         // Getter and Setter for is_default
-        public function set_is_default($is_default) {
-            $this->is_default = $is_default;
+        public function set_is_default($is_default){
+                $this->is_default = ($is_default)? 1 : 0;
         }
     
         public function get_is_default() {

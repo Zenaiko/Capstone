@@ -21,8 +21,8 @@ require_once('../db_api/db_get.php');
                     <img id="cus_acc_img"  src="<?php if(isset($cus_info->user_img)){echo $cus_info->customer_img;}else{echo '../assets/tmp.png';}?>" alt="">
                     <div id="cus_acc_info">
                         <p id="cus_username"> <?=$cus_info->username?> </p>
-                        <p id="cus_liked_items" class="cus_info_relation">  <?=$cus_info->like?> Liked Items</p>
-                        <p id="cus_following" class="cus_info_relation"> <?=$cus_info->follow?> Following</p>
+                        <p id="cus_liked_items" class="cus_info_relation">  <?=$cus_info->like??0 ?> Liked Items</p>
+                        <p id="cus_following" class="cus_info_relation"> <?=$cus_info->follow??0 ?> Following</p>
                     </div>
                 </div>
             </header>

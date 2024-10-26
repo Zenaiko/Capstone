@@ -55,9 +55,9 @@ function get_stats(frame) {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: frame === 'year' ? 'Total Quantity Sold (Monthly)' : 
-                           frame === 'month' ? 'Total Quantity Sold (Weekly)' : 
-                           'Total Quantity Sold (Daily)',
+                    label: frame === 'year' ? 'Monthly Sales' : 
+                           frame === 'month' ? 'Weekly Sales' : 
+                           'Daily Sales',
                     data: stat_qty,
                     borderColor: 'rgba(75, 192, 192, 1)',
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',

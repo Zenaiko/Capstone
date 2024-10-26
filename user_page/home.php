@@ -59,7 +59,7 @@
 
             <?php foreach($get_db->get_top_shop() as $shop){ ?>
                 <div class="featured-shop-contents" id="<?=$shop["market_id"]?>">
-                    <img class="feature_img" src="<?=$shop['market_image']??'../assets/tmp.png'?>" alt="">
+                    <img class="feature_img" src="<?=file_exists($shop['market_image'])? $shop['market_image']:'../assets/tmp.png'?>" alt="">
                     <div class="featured-info">
                         <p class="featured-name"><?=$shop['market_name']?></p>
                         <div class="feature_shop_rate">
@@ -120,42 +120,6 @@
     </div>
 </section>
 
-<!-- Footer Section -->
-<!-- <footer class="footer mt-5 py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <h5 class="text-white">Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="footer-link">Home</a></li>
-                    <li><a href="#" class="footer-link">Shop</a></li>
-                    <li><a href="#" class="footer-link">Contact</a></li>
-                    <li><a href="#" class="footer-link">About Us</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 mb-3 text-center">
-                <h5 class="text-white">Follow Us</h5>
-                <a href="#" class="footer-icon me-3"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="footer-icon me-3"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="footer-icon me-3"><i class="fab fa-instagram"></i></a>
-            </div>
-
-            <div class="col-md-4 mb-3">
-                <h5 class="text-white">Contact Us</h5>
-                <p class="footer-contact text-white">Email: hotdogseller@gmail.com</p>
-                <p class="footer-contact text-white">Phone: </p>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <p class="text-white mb-0">&copy; 2024 Shop. All Rights Reserved.</p>
-        </div>
-    </div>
-</footer> -->
-
-
-<script src="../js/home.js"></script> 
 <script src="../js/item_loop.js"></script>
 </body>
 </html>

@@ -1,6 +1,4 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/seller_item_inventory.css">
-
     <?php 
         require_once("../db_api/db_get.php");
         $action = $_POST["action"]??"live"??null;
@@ -13,7 +11,7 @@
             <div class="item-card">
                 <div class="product-content">
                     <div class="product-image">
-                        <img src="<?=$item['']??"../assets/tmp.png" ?>">
+                        <img src="<?=is_file($item['item_img']??"")?$item['item_img']:"../assets/tmp.png" ?>">
                     </div>
                     <div class="product-details">
                         <span class="product-name"><?=$item['item_name']?></span>
