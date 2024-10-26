@@ -32,7 +32,7 @@ require_once('../db_api/db_get.php');
                     <div id="cus_acc_order_info_container">
                         <div id="cus_acc_order_head">
                             <p>Orders</p>
-                            <a href="#">View Transaction History <i class="bi bi-chevron-compact-right"></i></a>
+                            <a href="order_transaction_history.php">View Transaction History <i class="bi bi-chevron-compact-right"></i></a>
                         </div>
                         <div id="cus_order_info_wrapper">
                             <div id="cus_order_info_container">
@@ -42,15 +42,15 @@ require_once('../db_api/db_get.php');
                                 </div>
                                 <div>
                                     <i class="bi bi-truck"></i>
-                                    <a>Shipping</a>
+                                    <a href="order_shipping.php">Shipping</a>
                                 </div>
                                 <div>
                                     <i class="bi bi-box"></i>
-                                    <a>Recieving</a>
+                                    <a href="order_received.php">Recieving</a>
                                 </div>
                                 <div>
                                     <i class="bi bi-star"></i>
-                                    <a>Rate</a>
+                                    <a href="order_rate.php ">Rate</a>
                                 </div>
                             </div>
                         </div>

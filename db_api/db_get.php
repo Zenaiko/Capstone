@@ -104,15 +104,34 @@ class class_get_database extends class_database{
         return $get_top_items->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
-    public function get_seller_items($seller_id){
-        $get_seller_items = $this->query("SELECT itm.item_id, itm.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
-        FROM tbl_item itm
-        LEFT JOIN tbl_market mrkt ON mrkt.market_id = itm.market_id
-        LEFT JOIN tbl_item_img img ON itm.item_id = img.item_id 
-        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = itm.item_id
-        LEFT JOIN tbl_variation vari ON vari.item_id = itm.item_id
-        WHERE mrkt.market_id = ?
-        GROUP BY itm.item_id", [$seller_id]);
+    public function get_seller_items($seller_id, $type){
+        $get_seller_items = $this->pdo->prepare("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_rel.rating) AS avg_rate, SUM(odr.order_qty) AS total_orders
+        FROM tbl_item item
+        LEFT JOIN tbl_market market ON market.market_id = item.market_id
+        LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+        LEFT JOIN tbl_customer_item_relationship cus_rel ON cus_rel.item_id = item.item_id
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        LEFT JOIN tbl_order odr ON odr.variation_id AND odr.order_status = 'completed'
+        WHERE market.market_id = :seller_id
+        GROUP BY item.item_id
+        ORDER BY :order");
+        switch($type){
+            case "popular":
+                $order = "total_orders"; 
+                break;
+            case "latest":
+                $order = "item.date_added"; 
+                break;
+            case "top_sales":
+                $order = "avg_rate"; 
+                break;
+            default:
+                $order = "total_orders";
+        }
+        $get_seller_items->execute([
+            ":seller_id" => $seller_id,
+            ":order" => $order
+        ]);
         return $get_seller_items->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 

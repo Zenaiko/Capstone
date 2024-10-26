@@ -21,7 +21,7 @@
     font-size: 0.813rem;
 }
 
-#products_header_container p:first-child{
+#products_header_container p.active_prod{
     color: var(--products_orange);
 }
 
@@ -29,4 +29,8 @@
     display: grid;
     grid-template-columns: auto auto;
     row-gap: 1rem;
+}
+
+.prod_tab{
+    cursor: pointer;
 }

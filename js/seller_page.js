@@ -3,13 +3,10 @@ let load;
 
 // Get the current URL
 const currentUrl = window.location.href;
-
 // Create a URL object
 const url = new URL(currentUrl);
-
 // Use URLSearchParams to get the 'seller' parameter
 const seller_id = url.searchParams.get('seller'); // Change 'id' to 'seller'
-
 $(".seller_tabs").on("click", function() {
     const tab = $(this).attr('id');
 
@@ -21,13 +18,13 @@ $(".seller_tabs").on("click", function() {
             load = "seller_products.php";
             break;
         case "seller_categories":
-            load = ""; // Handle accordingly
+            load = "";
             break;
     }
 
     $.ajax({
         url: load,
-        data: { seller: seller_id }, // Use the correct seller_id
+        data: { seller: seller_id }, 
         success: function(page) {
             seller_loader.innerHTML = page;
         },
@@ -38,4 +35,17 @@ $(".seller_tabs").on("click", function() {
     });
 });
 
+$(document).on('click', '.prod_tab', function() {
 
+    $('.prod_tab').removeClass('active_prod');
+    $(this).addClass('active_prod');
+    type = $(this).attr("id");
+    $.ajax({
+        url: "db_get_ajax.php",
+        type: "POST",
+        data: type,
+        success:function(){
+            
+        }
+    })
+});

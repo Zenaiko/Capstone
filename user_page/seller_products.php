@@ -1,29 +1,28 @@
 <?php 
     require_once("../db_api/db_get.php");
-    $seller_items =  $get_db->get_seller_items($_GET["seller"]); 
-
+    $type = $_POST["type"]??"popular"??null;
+    $seller_items =  $get_db->get_seller_items($_GET["seller"], $type); 
 ?>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/seller_products.css">
 
 <section id="seller_products_section">
     <div id="seller_products_wrapper">
         <header id="seller_products_header">
             <div id="products_header_container">
-                <p>Popular</p>
-                <p>Latest</p>
-                <p>Top Sales</p>
-                <p>Filter <i class="bi bi-filter"></i></p>
+                <p class="prod_tab active_prod" id="popular">Popular</p>
+                <p class="prod_tab" id="latest">Latest</p>
+                <p class="prod_tab" id="top_sales">Top Sales</p>
+                <p class="" id="filter">Filter <i class="bi bi-filter"></i></p>
             </div>
         </header>
 
         <div id="products_wrapper">
             <div id="products_container">
-                <?php foreach($seller_items as $item){
-                    include("../utilities/item_loop.php");
-                } ?>
+                <?php if(!is_null($seller_items)){
+                    foreach($seller_items as $item){
+                        include("../utilities/item_loop.php");
+                }}else{echo"No Items Found";}?>
             </div>
         </div>
-
     </div>
 </section>
