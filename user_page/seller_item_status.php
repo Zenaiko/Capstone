@@ -16,16 +16,16 @@
                     <div class="product-details">
                         <span class="product-name"><?=$item['item_name']?></span>
                         <div class="product-info">
-                            <span class="product-price">₱<?=$item['min_price']?></span>
+                            <span class="product-price">₱<?=$item['min_price']??0?></span>
                         </div>
                     <div class="product-info">
-                        <span class="product-quantity">Stock: <?=$item['total_stocks']?> pcs</span>
+                        <span class="product-quantity">Stock: <?=$item['total_stocks']??0?> pcs</span>
                     </div>
                     </div>
                 </div>
                 <div class="card-actions">
                     <input type="button" class="action-btn delist-btn" id="<?=$item['item_id']?>" value="<?=($action !== "delisted")?"Delist":"Publish"?>">
-                    <input type="button" class="action-btn edit-btn" value="Edit">
+                    <input type="button" class="action-btn edit-btn" id="<?=$item['item_id']?>" value="Edit">
                     <input type="button" class="action-btn more-options-btn" value="...">
                     <div class="more-options-dropdown">
                         <ul>

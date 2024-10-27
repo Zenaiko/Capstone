@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    const itemsSection = document.getElementById('items-section');
+    const add_item_dir = "seller_product_add.php";
+    const items_section = document.getElementById('items-section');
 
     $(".tab").on("click", function(){
         let tab_name = $(this).attr("id");
@@ -13,7 +14,7 @@ $(document).ready(function() {
             type: "POST",
             data: {action:tab_name},
             success:function(page){
-                itemsSection.innerHTML = page;
+                items_section.innerHTML = page;
             },error: function(jqXHR, textStatus, errorThrown) {
                 console.error('AJAX error: ' + textStatus + ', ' + errorThrown);
             }
@@ -21,13 +22,21 @@ $(document).ready(function() {
     })
 
     $(document).on('click', '.delist-btn', function() {
-            const item_id = $(this).attr("id");
-            let action = ($(this).val()).toLowerCase();
-            action = (action === "delist") ? "delisted" : "live";
-            $.ajax({
-            url: "../db_api/db_get_ajax.php",
-            type: "POST",
-            data: {item_id:item_id, action: action}
+        const item_id = $(this).attr("id");
+        let action = ($(this).val()).toLowerCase();
+        action = (action === "delist") ? "delisted" : "live";
+        $.ajax({
+        url: "../db_api/db_get_ajax.php",
+        type: "POST",
+        data: {item_id:item_id, action: action}
         })
     });
+
+    
+    $(document).on('click', '.edit-btn', function() {
+        const item_id = $(this).attr("id");
+        window.location.href = add_item_dir + "?item=" + item_id;
 });
+});
+
+

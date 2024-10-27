@@ -8,77 +8,56 @@
 </head>
 <body>
     <?php require_once('../utilities/initialize.php');
-            require_once('../db_api/db_get.php');
+            require_once('../db_api/db_add_item.php');
+            $item = $_GET["item"]??null;
     ?>
 
-    <form action="../db_api/db_add_item.php" method="post" enctype="multipart/form-data">
+    <form action="../db_api/db_add_item.php<?="?item=".$item??null?>" method="post" enctype="multipart/form-data">
         <div class="form-container">
             <!-- Product Name Section -->
             <div class="section" id="product-name-section">
                 <label for="product-name">Product Name</label>
                 <span id="product-name-counter">0/100</span>
-                <input type="text" id="product-name" name="product_name" placeholder="Product name" maxlength="100" oninput="updateCounter('product-name', 'product-name-counter', 100)">
+                <input type="text" id="product-name" name="product_name" placeholder="Product name" maxlength="100" oninput="updateCounter('product-name', 'product-name-counter', 100)" value="<?=$item_info->get_name()??null?>">
             </div>
             <!-- Product Description Section -->
             <div class="section" id="description-section">
                 <label for="description">Product Description</label>
                 <span id="description-counter">0/500</span>
-                <textarea id="description" placeholder="Product description" name="product_desc" maxlength="500" oninput="updateCounter('description', 'description-counter', 500)"></textarea>
+                <textarea id="description" placeholder="Product description" name="product_desc" maxlength="500" oninput="updateCounter('description', 'description-counter', 500)"><?=$item_info->get_desc()??null?></textarea>
             </div>
             <!-- Category Section -->
             <div class="section" id="category-section">
                 <div id="toggle_splitter">
                     <div id="category">
                         <span>Category</span>
-                        <p id="category_shown" ></p>
+                        <p id="category_shown"><?=$item_info->get_category()??null?></p>
                     </div>
                     <i class="bi bi-chevron-right" id="categ_chev" data-bs-toggle="collapse" data-bs-target="#div_collapse" aria-expanded="false" aria-controls="div_collapse"></i>
                 </div>
-                <div class="collapse" id="div_collapse">
-                    <hr>
-                   
+                <hr>
+                <div class="collapse" id="div_collapse" data-bs-toggle="collapse" data-bs-target="#div_collapse" aria-expanded="false" aria-controls="div_collapse" >
                     <?php 
                         foreach ($category_array as $category){?>
-                         <div class="category">
-                            <input type="radio" class="radio_ary" name="category"data-bs-toggle="collapse" data-bs-target="#div_collapse" aria-expanded="false" aria-controls="div_collapse" value="<?=$category['category']?>" id="<?=$category['category']?>">
+                         <div class="category" >
+                            <input type="radio" class="radio_ary" name="category" value="<?=$category['category']?>" id="<?=$category['category']?>" <?=($item_info->get_category() === $category['category'])?"Checked":"" ?>>
                             <label for="<?=$category['category']?>"><?=ucfirst($category['category'])?></label>
                         </div>
                     <?php }
                     ?>
-
-                    <!-- <div class="category">
-                        <input type="radio" name="categ" id="categ_meat">
-                        <label for="categ_meat">Meat</label>
-                    </div>
-                    <div class="category">
-                        <input type="radio" name="categ" id="categ_fish">
-                        <label for="categ_fish">Fish</label>
-                    </div>
-                    <div class="category">
-                        <input type="radio" name="categ" id="categ_aaa">
-                        <label for="categ_aaa">AAA</label>
-                    </div>
-                    <div class="category">
-                        <input type="radio" name="categ" id="categ_other">
-                        <label for="categ_other">Others</label>
-                    </div>
-                    <div class="category">
-                        <input type="radio" name="categ" id="categ_ku">
-                        <label for="categ_ku">Kitchenware and Utensils</label>
-                    </div> -->
                 </div>
             </div>
             <!-- Price Section -->
             <div class="section" id="price-section">
                 <span>Price</span>
                 <div class="price-input">
-                    <input type="text" id="price" name="price" placeholder="0.00">
+                    <input type="text" id="price" name="price" placeholder="0.00" value="<?=($item_info->get_min_price().(($item_info->get_max_price()!==$item_info->get_min_price())?"-".$item_info->get_max_price():null))??null?>">
                 </div>
             </div>
             <!-- Stock Section -->
             <div class="section" id="stock-section">
                 <span>Stock</span>
-                <input type="text" id="stock" name="stock" placeholder="Set">
+                <input type="text" id="stock" name="stock" placeholder="Set" value="<?=$item_info->get_item_stock()?>">
             </div>  
        
             <div class="section" id="stock-section">
@@ -90,73 +69,28 @@
                 <!-- Variants -->
                 <div class="added_varaint_container">
                     <div class="added_variant_contents" id="added_variant_contents">
-                        <!-- <div class="added_varaint">
-                            <div class="var_header">
-                                <input type="text" disabled readonly class="var_name" placeholder="Color">
-                                <div class="var_buttons">
-                                    <button class="var_button">Edit</button>
-                                    <button class="var_button">Add</button>
+                            
+                    <!-- Structure made by JS DOM or for edit -->
+                        <?php if($item_info->get_variant_array()){
+                            foreach($item_info->get_variant_array() as $variant_info){ ?>
+        
+                            <div class="added_varaint">
+                                <div class="var_contents">
+                                    <img src="<?=$variant_info["item_img"]?>" alt="" class="var_img">
+                                    <div class="added_var_info">
+                                        <input type="text" readonly class="variation_name[<?=$variant_info["variation_name"]?>]" value="<?=$variant_info["variation_name"]?>">
+                                        <input type="text" readonly class="variation_name[<?=$variant_info["variation_name"]?>][stock]" value="<?=$variant_info["variation_stock"]?>" >
+                                        <input type="text" readonly class="variation_name[<?=$variant_info["variation_name"]?>][price]" value="<?=$variant_info["variation_price"]?>" >
+                                        <input type="file" class="variation_name[<?=$variant_info["variation_name"]?>][img]" value="<?=$variant_info["item_img"]?>" >
+                                    </div>
                                 </div>
                             </div>
-                            <div class="var_contents">
-                                <img src="../assets/tmp.png" alt="" class="var_img">
-                                <div class="added_var_info">
-                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
-                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
-                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
-                                </div>
-                            </div>
-                            <div class="var_contents">
-                                <img src="../assets/tmp.png" alt="" class="var_img">
-                                <div class="added_var_info">
-                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
-                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
-                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="added_varaint">
-                            <div class="var_header">
-                                <input type="text" disabled readonly class="var_name" placeholder="Color">
-                                <div class="var_buttons">
-                                    <button class="var_button">Edit</button>
-                                    <button class="var_button">Add</button>
-                                </div>
-                            </div>
-                            <div class="var_contents">
-                                <img src="../assets/tmp.png" alt="" class="var_img">
-                                <div class="added_var_info">
-                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
-                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
-                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
-                                </div>
-                            </div>
-                            <div class="var_contents">
-                                <img src="../assets/tmp.png" alt="" class="var_img">
-                                <div class="added_var_info">
-                                    <input type="text" disabled readonly name="" id="" placeholder="Green">
-                                    <input type="text"  disabled readonly name="" id="" placeholder="₱30">
-                                    <input type="text" disabled readonly name="" id="" placeholder="24pcs">
-                                </div>
-                            </div>
-                        </div> -->
+                        <?php }} ?>
+                    
 
                     </div>
                 </div>
-
-                <!-- Add a variant type canvas -->
-                <!-- <div class="offcanvas offcanvas-bottom"  data-bs-scroll="true" tabindex="-1" aria-labelledby="offcanvasBottomLabel" id="add_variant">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="">Variant Name</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    
-                    <div class="offcanvas-body large" id="add_variant_body">
-                        <input type="text" name="" id="add_variant_field" >
-                        <button type="button" id="add_varaint_btn_canvas" data-bs-dismiss="offcanvas" aria-label="Close">Add Variant</button>
-                    </div>
-                </div> -->
                 
                 <!-- Add Variants -->
                 <div class="offcanvas offcanvas-bottom" id="variant_form" data-bs-scroll="false" tabindex="-1" aria-labelledby="offcanvasBottomLabel">
@@ -170,15 +104,15 @@
                             <div class="variant_info_container">
                                 <div class="variant_type_info">
                                     <label for="">Name</label>
-                                    <input type="text" name="" id="variant_form_type" required>
+                                    <input type="text" name="variant_form_type" id="variant_form_type">
                                 </div>
                                 <div class="variant_type_info">
                                     <label for="">Price</label>
-                                    <input type="text" name="" id="variant_form_price">
+                                    <input type="text" name="variant_form_price" id="variant_form_price">
                                 </div>
                                 <div class="variant_type_info">
                                     <label for="">Stock</label>
-                                    <input type="text" name="" id="variant_form_stock">
+                                    <input type="text" name="variant_form_stock" id="variant_form_stock">
                                 </div>
                             </div>
                             
@@ -198,7 +132,7 @@
             </div>
 
             <div class="buttons">
-                <input type="submit" name="" id="" value="Add Item">
+                <input type="submit" name="item_interaction" id="" value="<?=(is_null($item))?"Add Item":"Edit"?>">
             </div>
         </div>
     </form>

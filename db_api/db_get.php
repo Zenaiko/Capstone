@@ -164,7 +164,7 @@ class class_get_database extends class_database{
         $get_item_status =  $this->query("SELECT item.item_id, item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks, item_img.item_img
         FROM tbl_item item
         LEFT JOIN tbl_market market ON item.market_id = market.market_id 
-        LEFT JOIN tbl_item_img item_img ON item_img.item_id = item.item_id AND item_img.item_img = (SELECT item_img FROM tbl_item_img, tbl_item item WHERE item.item_id = item_img.item_id LIMIT 1)
+        LEFT JOIN tbl_item_img item_img ON item_img.item_id = item.item_id AND item_img.item_img = (SELECT item_img FROM tbl_item_img LIMIT 1)
         LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
         WHERE item.item_status = :status AND market.market_id = :market_id
         GROUP BY item.item_id
@@ -199,9 +199,9 @@ class class_get_database extends class_database{
         FROM tbl_order odr, tbl_variation variation, tbl_item item
         WHERE variation.variation_id = odr.variation_id AND item.item_id = variation.variation_id AND odr.order_status = :status AND odr.customer_id = :customer_id
         GROUP BY odr.order_id ORDER BY odr.date_requested", [":customer_id" => $cus_id, ":status" => $order_type]);
-
         return  $get_customer_orders->fetchAll(PDO::FETCH_ASSOC)??null;
     }
+
 }
 
 $get_db = new class_get_database();

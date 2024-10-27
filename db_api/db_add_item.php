@@ -116,12 +116,47 @@ if (session_status() === PHP_SESSION_NONE) {
             $this->query('COMMIT');
             header('location: ../user_page/seller_item_page.php');
         }
+
+        public function get_item_info(){
+            $get_item_info = $this->query("SELECT item.item_name, item.item_desc, category.category, MIN(variation.variation_price) AS min_price, MAX(variation.variation_price) AS max_price, SUM(variation.variation_stock) as total_stocks
+            FROM tbl_item item, tbl_variation variation, tbl_category category
+            WHERE variation.item_id = item.item_id 
+            AND category.category_id = item.category_id
+            AND item.item_id = ?", [$this->item->get_item_id()]);
+            $item_info = $get_item_info->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+            $this->item->set_item_name($item_info["item_name"]);
+            $this->item->set_item_desc($item_info["item_desc"]);
+            $this->item->set_category($item_info["category"]);
+            $this->item->set_min_price($item_info["min_price"]);
+            $this->item->set_max_price($item_info["max_price"]);
+            $this->item->set_item_stock($item_info["total_stocks"]);
+
+            $get_item_variant = $this->query("SELECT variation.variation_id, variation.variation_name, variation.variation_price, variation.variation_stock, variation.variation_img_id, item_img.item_img
+            FROM tbl_variation variation
+            LEFT JOIN tbl_item item ON variation.item_id = item.item_id
+            LEFT JOIN tbl_item_img item_img ON item_img.item_id = item.item_id AND item_img.item_img = (SELECT item_img FROM tbl_item_img WHERE is_variant = 1 AND item_id = :item_id LIMIT 1)
+            WHERE variation.item_id = item.item_id AND item.item_id = :item_id",[":item_id" => $this->item->get_item_id()]);
+            $item_variations = $get_item_variant->fetchAll(PDO::FETCH_ASSOC)??null;
+            $this->item->set_variant_array($item_variations);
+        }
+
+        public function edit_item_info(){
+            $edit_item_info = $this->pdo->prepare("UPDATE tbl_item SET item_name = :name, item_desc = :desc, category_id = :category WHERE item_id = :id");
+            $edit_item_info->execute([
+                ":name" => $this->item->get_name(),
+                ":desc" => $this->item->get_desc(),
+                ":category" => $this->item->get_category_id(),
+                ":id" => $this->item->get_item_id(),
+            ]);
+        }
     }
 
     class class_item_info{
         private $item_id;
         private $name;
         private $price;
+        private $min_price;
+        private $max_price;
         private $stock;
         private $desc;
         private $date;
@@ -177,6 +212,14 @@ if (session_status() === PHP_SESSION_NONE) {
         public function set_seller_dir($dir) {
             $this->seller_folder = $dir . '/market/';
         }
+        
+        public function set_min_price($min_price) {
+            $this->min_price = $min_price;
+        }
+
+        public function set_max_price($max_price) {
+            $this->max_price = $max_price;
+        }
 
         // Gets the item info
         public function get_item_id() {
@@ -202,6 +245,10 @@ if (session_status() === PHP_SESSION_NONE) {
         public function get_category_id() {
             return $this->category_id;
         }
+
+        public function get_category() {
+            return $this->category;
+        }
     
         public function get_variant_array() {
             return $this->variant_array;
@@ -219,70 +266,36 @@ if (session_status() === PHP_SESSION_NONE) {
             return $this->seller_folder;
         }
 
+        public function get_min_price() {
+            return $this->min_price;
+        }
+
+        public function get_max_price() {
+            return $this->max_price;
+        }
+
     }
 
     $item_info = new class_item_info();
     $add_item_db = new add_item_database($item_info);
 
-    $item_info->set_item_name(($_POST['product_name']));
-    $item_info->set_item_price(($_POST['price']));
-    $item_info->set_item_stock(($_POST['stock']));
-    $item_info->set_item_desc(($_POST['product_desc'])??null)  ;
-    $item_info->set_category((htmlspecialchars($_POST['category']??"others")));
-    $item_info->set_image_array($_FILES['add_item_img']);
-    $item_info->set_seller_dir($get_db->get_cus_dir_by_seller($_SESSION['cus_id']));
-
-    $item_info->set_variant_array($_POST['variant_name']??null);
-
-
-
-    $add_item_db->add_item();
-
-    //  foreach($item_info->get_img_array()['name'] as $key => $indiv_img){
-    //     move_uploaded_file($item_info->get_img_array()['tmp_name'][$key] , $mr . "/" . $indiv_img);
-    // }
-
+    if(isset($_POST["item_interaction"])){
+        $item_info->set_item_name(($_POST['product_name']));
+        $item_info->set_item_price(($_POST['price']));
+        $item_info->set_item_stock(($_POST['stock']));
+        $item_info->set_item_desc(($_POST['product_desc'])??null)  ;
+        $item_info->set_category((htmlspecialchars($_POST['category']??"others")));
+        $item_info->set_image_array($_FILES['add_item_img']);
+        $item_info->set_seller_dir($get_db->get_cus_dir_by_seller($_SESSION['cus_id']));
+        $item_info->set_variant_array($_POST['variant_name']??null);
+        if($_POST["item_interaction"] === "Add Item"){
+            $add_item_db->add_item();
+        }elseif($_POST["item_interaction"] === "Edit"){
+            $item_info->set_item_id($_GET["item"]);
+            $add_item_db->edit_item_info();
+        }
+    }elseif(isset($_GET["item"])){
+        $item_info->set_item_id($_GET["item"]);
+        $add_item_db->get_item_info();
+    }
 ?>
-
-
-
-<!-- 
-
-$item = [
-    $variant1 =>[
-        variant_name => [
-            price => 200
-            qty => 600
-        ]
-        variant_name => [
-        price => 300
-        qty => 500
-        ]
-    ]
-]
-
-shirt = [
-    color =>[
-        green => [
-            price => 200
-            qty => 600
-        ]
-        red => [
-        price => 300
-        qty => 500
-        ]
-    ]
-
-    size =>[
-        medium => [
-            price => 5
-            qty => 7
-        ]
-        large => [
-            price => 3
-            qty => 2
-            ]
-        ]
-    
-    ]
--->
