@@ -73,7 +73,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     ":movement" => 'in',
                     ":stock_id" => $stock_id,
                     ":vari_id" => $vari_id,
-                    ":qty" => $this->item->get_item_price(),
+                    ":qty" => $this->item->get_item_stock(),
                     ":date" => date('Y-m-d H:i:s')
                 ]);
 
@@ -89,7 +89,6 @@ if (session_status() === PHP_SESSION_NONE) {
                         ':item_id' => $this->item->get_item_id(),
                         ":vari_id" => $vari_id
                     ]);
-                    $stock_id = $this->pdo->lastInsertId();
                     $stock_id = $this->pdo->lastInsertId();
                     $insert_tbl_stock_movement->execute([
                         ":movement" => 'in',
@@ -141,6 +140,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
 
         public function edit_item_info(){
+            $this->query("START TRANSACTION");
             $edit_item_info = $this->pdo->prepare("UPDATE tbl_item SET item_name = :name, item_desc = :desc, category_id = :category WHERE item_id = :id");
             $edit_item_info->execute([
                 ":name" => $this->item->get_name(),
@@ -148,6 +148,32 @@ if (session_status() === PHP_SESSION_NONE) {
                 ":category" => $this->item->get_category_id(),
                 ":id" => $this->item->get_item_id(),
             ]);
+            $edit_variant_info = $this->pdo->prepare("UPDATE tbl_variation SET variation_name = :variation_name, variation_price = :price");
+            $get_stock = $this->pdo->prepare("SELECT stock_id, current_stock_qty FROM tbl_stock WHERE item_id = :item_id AND variation_id = :variation_id");
+            $insert_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, stock_qty, stock_date) VALUES (:movement, :stock_id, :stock_qty, :stock_date)");
+
+            foreach($this->item->get_variant_array() as $varaint_type => $variant){
+                $edit_variant_info->execute([
+                    ":variation_name" => $varaint_type,
+                    ":price" => $variant["price"],
+                ]);
+
+                $get_stock->execute([":item_id" => $this->item->get_item_id(),":variation_id" => $variant["id"]]);
+                $stock_info = $get_stock->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+                if($stock_info["current_stock_qty"] !== $variant["stock"]){
+                    $movement = ($stock_info["current_stock_qty"] < $variant["stock"])?"in":"out";
+                    $difference =  abs($stock_info["current_stock_qty"] - $variant["stock"]);
+                    $insert_stock_movement->execute([
+                        ":movement" => $movement,
+                        ":stock_id" => $stock_info["stock_id"], 
+                        ":stock_qty" => $difference,
+                        ":stock_date" =>  date('Y-m-d H:i:s'),
+                    ]);
+                }
+
+                echo $difference;
+
+            }
         }
     }
 
