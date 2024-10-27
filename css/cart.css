@@ -1,3 +1,22 @@
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px; /* Reduced padding */
+    background-color: #40A578; /* Background color */
+    color: white; /* Text color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    height: 60px; /* Set a fixed height */
+}
+
+.navbar-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px; /* Reduced font size */
+    cursor: pointer;
+}
+
 /* General Styles */
 body {
     font-family: 'Arial', sans-serif;
@@ -116,33 +135,14 @@ body {
     color: #fff;
 }
 
-/* Fixed Size & Lowered Quantity */
 .cart_item_qty {
-    width: 30px; /* Fixed width */
+    width: 40px; /* Fixed width */
     text-align: center;
     font-size: 0.85rem; /* Slightly smaller font */
     font-weight: bold;
     background-color: #fff;
-    line-height: 1; /* Adjust line height */
+    line-height: 12; /* Adjust line height */
     padding-top: 2px; /* Shift number lower */
-}
-
-#navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 20px;
-    background-color: #40A578; /* Background color */
-    color: white; /* Text color */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow effect */
-}
-
-.navbar-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
 }
 
 .delete-store {
@@ -180,4 +180,4 @@ body {
 .btn-primary {
     padding: 10px 30px; 
     font-size: 16px;    
-}
+} 
