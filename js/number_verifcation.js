@@ -1,6 +1,6 @@
 var otp_send_code = document.getElementById('otp_send_code');
 
-otp_send_code.addEventListener('click' , function(){
+otp_send_code.addEventListener('click' , function(event){
     event.preventDefault();
     // Checks if number exists
     const opt_phone = document.getElementById('opt_phone').value;

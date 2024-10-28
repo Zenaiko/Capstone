@@ -17,7 +17,7 @@
                         <div id="otp_number_contents">
                             <p class="h3 fw-bold text-center">Enter your phone number</p>
                             <form action="" id="visitor_sign_contact">
-                                <input type="text" step="1" name="opt_phone" id="opt_phone" placeholder="Phone Number" maxlength="11">
+                                <input type="number" name="opt_phone" id="opt_phone" placeholder="Phone Number" maxlength="11">
                                 <input type="submit" name="" id="otp_send_code" value="Send Code" class="submit_button">
                             </form>
                         </div>
@@ -28,7 +28,7 @@
         
     </div>
 </section>
-    <script src="js/number_verifcation.js"></script>
+    <script src="/js/number_verifcation.js"></script>
 
 </body>
 </html>
