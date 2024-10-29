@@ -81,7 +81,7 @@
                                         <input type="text"  readonly name="variant_name[<?=$variant_info["variation_name"]?>]" value="<?=$variant_info["variation_name"]?>">
                                         <input type="text"  readonly name="variant_name[<?=$variant_info["variation_name"]?>][stock]" value="<?=$variant_info["variation_stock"]?>" >
                                         <input type="text"  readonly name="variant_name[<?=$variant_info["variation_name"]?>][price]" value="<?=$variant_info["variation_price"]?>" >
-                                        <input type="file"  readonly name="variant_name[<?=$variant_info["variation_name"]?>][img]" value="<?=$variant_info["item_img"]?>" >
+                                        <!-- <input type="file"  readonly name="variant_name[<?=$variant_info["variation_name"]?>][img]" value="<?=$variant_info["item_img"]?>" > -->
                                         <input type="text"  readonly hidden name="variant_name[<?=$variant_info["variation_name"]?>][id]" value="<?=$variant_info["variation_id"]?>">
                                     </div>
                                 </div>

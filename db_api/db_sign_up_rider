@@ -1,0 +1,20 @@
+<?php 
+require_once("../db_api/db_insert_username.php");
+
+class class_rider_database extends classs_username_database{
+    public function __construct(class_username_info $customer_info){
+        // Createas class username info
+        parent::__construct($customer_info);
+    }
+
+    public function sign_up_rider(){
+        $this->query("START TRANSACTION");
+    
+        $insert_employee_registration = $this->pdo->prepare("INSERT INTO tbl_employee_registration ");
+
+    }
+}
+
+
+
+?>

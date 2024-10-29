@@ -57,6 +57,11 @@ class class_get_database extends class_database{
     }
 
     public function get_contact($contact){
+        $get_contact = $this->query("SELECT contact.contact FROM tbl_contact contact, tbl_user user, tbl_username username, tbl_customer customer WHERE contact.contact_id = user.contact_id AND user.user_id = username.user_id AND username.username_id = customer.username_id AND contact.contact = ?", [$contact]);
+        return $get_contact->fetchAll(PDO::FETCH_ASSOC)[0]['contact']??null;
+    }
+
+     public function get_rider_contact($contact){
         $get_contact = $this->query("SELECT contact FROM tbl_contact WHERE contact = ?", [$contact]);
         return $get_contact->fetchAll(PDO::FETCH_ASSOC)[0]['contact']??null;
     }
@@ -210,7 +215,11 @@ $category_array = $get_db->get_category();
     $data = json_decode(file_get_contents("php://input"), true);
 
     if(isset($data['otp_number']) && $data['action'] === 'get_number'){
-        $verify_otp = $get_db->get_contact($data['otp_number']);
+        if(isset($data['user']) && $data['user']=== "rider"){
+            $verify_otp = $get_db->get_contact($data['otp_number']);
+        }else{
+            $verify_otp = $get_db->get_contact($data['otp_number']);
+        }
         if(!empty($verify_otp)){
             $exist_json = ['exists' => true];
         }elseif(empty($verify_otp)){

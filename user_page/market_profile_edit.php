@@ -88,7 +88,7 @@
 <body>
   <div class="container mt-4">
     <div class="d-flex justify-content-between mb-4">
-      <a href="#" class="btn btn-outline-primary">Back</a>
+      <a href="../user_page/seller_dashboard.php" class="btn btn-outline-primary">Back</a>
       <div></div> 
     </div>
 

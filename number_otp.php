@@ -28,7 +28,7 @@
         
     </div>
 </section>
-    <script src="/js/number_verifcation.js"></script>
+    <script src="js/number_verifcation.js"></script>
 
 </body>
 </html>

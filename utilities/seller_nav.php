@@ -20,7 +20,7 @@
             <hr>
             <li><a href="../user_page/seller_item_page.php"><span class="material-symbols-outlined">inventory_2</span> Inventory</a></li>
             <hr>
-            <li><a href=""><span class="material-symbols-outlined">storefront</span> Profile</a></li>
+            <li><a href="../user_page/market_profile_edit.php"><span class="material-symbols-outlined">storefront</span> Profile</a></li>
             <hr>
             <li><a href="../user_page/seller_transaction.php"><span class="material-symbols-outlined">receipt</span> Transaction</a></li>
             <hr>

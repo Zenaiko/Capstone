@@ -10,7 +10,7 @@
     <div class="main_container">
         <?php require_once("arrow_header.php");?>
 
-<form action="sign_up.php" id="otp_form">
+<form action="<?=($_GET["user"]==="customer")?"sign_up.php":"rider_page/rider_signup.php"?>" id="otp_form">
     <div id="otp_form_container">
         <div id="otp_form_contents">
             <p class="h3 fw-bold text-center">Enter Your OTP</p>

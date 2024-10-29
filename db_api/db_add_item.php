@@ -170,10 +170,10 @@ if (session_status() === PHP_SESSION_NONE) {
                         ":stock_date" =>  date('Y-m-d H:i:s'),
                     ]);
                 }
-
-                echo $difference;
-
             }
+            $this->query("COMMIT");
+            header('location: ../user_page/seller_item_page.php');
+            
         }
     }
 

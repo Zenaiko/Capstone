@@ -1,11 +1,4 @@
 var otp_send_code = document.getElementById('otp_send_code');
-const getFileNameFromCurrentUrl = () => {
-    const url = window.location.href;
-    return new URL(url).pathname.split('/').pop();
-  };
-  const fileName = getFileNameFromCurrentUrl();
-  const user = (fileName==="number_otp.php")?'customer':"rider";
-  
 otp_send_code.addEventListener('click' , function(event){
     event.preventDefault();
     // Checks if number exists
@@ -15,11 +8,11 @@ otp_send_code.addEventListener('click' , function(event){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ otp_number: opt_phone, action:'get_number', user: user}) // Sending the variable
+        body: JSON.stringify({ otp_number: opt_phone, action:'get_number', user:"rider"}) // Sending the variable
     }).then(contact_json => contact_json.json())
     .then(contact_info => {
         if (contact_info.exists !== true){
-            window.location.assign("otp.php?user="+user);
+            window.location.assign("otp.php");
         }
         else if (contact_info.exists !== false){
             Swal.fire({
