@@ -70,41 +70,35 @@
     </style>
 </head>
 <body>
-<?php require_once("../utilities/initialize.php");
-require_once("../db_api/db_sign_up_rider.php");
-?>
+<?php require_once("../utilities/initialize.php");?>
     <div class="container mt-5">
-        <form action="" method="post" enctype="multipart/form-data" id="multiStepForm">
+        <form id="multiStepForm">
             <!-- Form 1: Personal Information -->
             <div class="form-step form-step-active">
             <h4 class="form-title">Sign Up</h4>
-                <div class="mb-3">                
-                    <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" name="first_name" id="firstName" required>
+                <div class="mb-3">
+                    <label for="firstName" class="form-label" required>First Name</label>
+                    <input type="text" class="form-control" id="firstName" required>
                 </div>
                 <div class="mb-3">
                     <label for="lastName" class="form-label">Middle Name (*Optional*)</label>
                     <input type="text" class="form-control" name="middle_name" id="middleName">
                 </div>
-                <div class="mb-3">                  
-                    <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" name="last_name" id="lastName" required>
+                <div class="mb-3">
+                    <label for="email" class="form-label" required>Email</label>
+                    <input type="email" class="form-control" id="email" required>
                 </div>
-                <div class="mb-3">                
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" id="email" required>
+                <div class="mb-3">
+                    <label for="username" class="form-label" required>Username</label>
+                    <input type="text" class="form-control" id="username" required>
                 </div>
-                <div class="mb-3">            
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" name="username" id="username" required>
+                <div class="mb-3">
+                    <label for="password" class="form-label" required>Password</label>
+                    <input type="password" class="form-control" id="password" required>
                 </div>
-                <div class="mb-3">        
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" required>
-                </div>
-                <div class="mb-3">                
-                    <label for="confirmPassword" class="form-label">Re-enter Password</label>
-                    <input type="password" class="form-control" name="confirm_password" id="confirmPassword" required>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label" required>Re-enter Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" required>
                 </div>
                 <div class="error hidden" id="passwordError">Passwords do not match.</div>
                 <div class="button-group">
@@ -118,29 +112,29 @@ require_once("../db_api/db_sign_up_rider.php");
             <!-- Form 2: Rider Info -->
             <div class="form-step">
             <h4 class="form-title">Rider Information</h4>
-                <div class="mb-3">               
-                    <label for="nbiClearance" class="form-label">NBI or Police Clearance</label>
-                    <input type="file" class="form-control" name="nbi_clearance" id="nbiClearance" required>
+                <div class="mb-3">
+                    <label for="nbiClearance" class="form-label" required>NBI or Police Clearance</label>
+                    <input type="file" class="form-control" id="nbiClearance" required>
                 </div>
-                <div class="mb-3">               
-                    <label for="brgyClearance" class="form-label">Brgy Clearance</label>
-                    <input type="file" class="form-control" name="brgy_clearance" id="brgyClearance" required>
+                <div class="mb-3">
+                    <label for="brgyClearance" class="form-label" required>Barangay Clearance</label>
+                    <input type="file" class="form-control" id="brgyClearance" required>
                 </div>
-                <div class="mb-3">                 
-                    <label for="drugTest" class="form-label">Drug Test</label>
-                    <input type="file" class="form-control" name="drug_test" id="drugTest" required>
+                <div class="mb-3">
+                    <label for="drugTest" class="form-label" required>Drug Test</label>
+                    <input type="file" class="form-control" id="drugTest" required>
                 </div>
-                <div class="mb-3">                 
-                    <label for="ridersLicense" class="form-label">Rider's License</label>
-                    <input type="file" class="form-control" name="riders_license" id="ridersLicense" required>
+                <div class="mb-3">
+                    <label for="ridersLicense" class="form-label" required>Rider's License</label>
+                    <input type="file" class="form-control" id="ridersLicense" required>
                 </div>
-                <div class="mb-3">                
-                    <label for="selfie" class="form-label">Selfie</label>
-                    <input type="file" class="form-control" name="selfie" id="selfie" required>
+                <div class="mb-3">
+                    <label for="selfie" class="form-label" required>Selfie</label>
+                    <input type="file" class="form-control" id="selfie" required>
                 </div>
-                <div class="mb-3">             
-                    <label for="eSignature" class="form-label">Electronic Signature</label>
-                    <input type="file" class="form-control" name="e_signature"  name="eSignature" id="eSignature" required>
+                <div class="mb-3">
+                    <label for="eSignature" class="form-label" required>Electronic Signature</label>
+                    <input type="file" class="form-control" id="eSignature" required>
                 </div>
                 <div class="button-group">
                     <button type="button" class="btn btn-secondary prev-btn">Previous</button>
@@ -151,13 +145,13 @@ require_once("../db_api/db_sign_up_rider.php");
             <!-- Form 3: Vehicle Info -->
             <div class="form-step">
             <h4 class="form-title">Vehicle Information</h4>
-                <div class="mb-3">            
-                    <label for="vehicleType" class="form-label">Vehicle Type</label>
-                    <input type="text" class="form-control" name="vehicle_type" id="vehicleType" required>
+                <div class="mb-3">
+                    <label for="vehicleType" class="form-label" required>Vehicle Type</label>
+                    <input type="text" class="form-control" id="vehicleType" required>
                 </div>
-                <div class="mb-3">                
-                    <label for="registrationPhoto" class="form-label">Registration Photo</label>
-                    <input type="file" class="form-control" name="registration_photo" id="registrationPhoto" required>
+                <div class="mb-3">
+                    <label for="registrationPhoto" class="form-label" required>Registration Photo</label>
+                    <input type="file" class="form-control" id="registrationPhoto" required>
                 </div>
                 <div class="mb-3">
                     <label for="orCr" class="form-label">OR or CR</label>
@@ -165,14 +159,14 @@ require_once("../db_api/db_sign_up_rider.php");
                 </div>
                 <div class="mb-3">
                     <label for="vehiclePlate" class="form-label">Vehicle Coding or Plate Number</label>
-                    <input type="text" class="form-control" name="vehicle_plate" id="vehiclePlate" required>
+                    <input type="text" class="form-control" id="vehiclePlate" required>
                 </div>
                 <div class="mb-3">
                     <label for="dealerCert" class="form-label">Dealer Certificate</label>
-                    <input type="file" class="form-control" name="dealer_certificate" id="dealerCert" required>
+                    <input type="file" class="form-control" id="dealerCert" required>
                 </div>
                 <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" name="is_owner" id="isOwner">
+                    <input type="checkbox" class="form-check-input" id="isOwner">
                     <label class="form-check-label" for="isOwner">I am the owner of the vehicle</label>
                 </div>
                 <div id="supportingDocs" class="hidden">
@@ -192,7 +186,7 @@ require_once("../db_api/db_sign_up_rider.php");
             <div class="form-step">
             <h4 class="form-title">Health Documents</h4>
                 <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" name="is_senior" id="isSenior">
+                    <input type="checkbox" class="form-check-input" id="isSenior">
                     <label class="form-check-label" for="isSenior">I am a senior</label>
                 </div>
                 <div id="seniorDocs" class="hidden">
@@ -206,8 +200,8 @@ require_once("../db_api/db_sign_up_rider.php");
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="disabilityInfo" class="form-label">Disability or Comormodity (If Applicable)</label>
-                    <input type="text" class="form-control" name="disability_info" id="disabilityInfo">
+                    <label for="disabilityInfo" class="form-label">Disability (Optional)</label>
+                    <input type="text" class="form-control" id="disabilityInfo">
                 </div>
                 <div class="mb-3">
                     <label for="medicalAssurance" class="form-label">Medical Assurance</label>
