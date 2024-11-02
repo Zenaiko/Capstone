@@ -1,3 +1,3 @@
 <?php 
-    require_once("rider_login.php");
+    require_once("../db_api/db_sign_up_rider.php");
 ?>

@@ -83,8 +83,8 @@ require_once("../db_api/db_sign_up_rider.php");
                     <input type="text" class="form-control" name="first_name" id="firstName" required>
                 </div>
                 <div class="mb-3">
-                    <label for="lastName" class="form-label">Middle Name</label>
-                    <input type="text" class="form-control" name="middle_name" id="middleName" required>
+                    <label for="lastName" class="form-label">Middle Name (*Optional*)</label>
+                    <input type="text" class="form-control" name="middle_name" id="middleName">
                 </div>
                 <div class="mb-3">                  
                     <label for="lastName" class="form-label">Last Name</label>
@@ -161,7 +161,7 @@ require_once("../db_api/db_sign_up_rider.php");
                 </div>
                 <div class="mb-3">
                     <label for="orCr" class="form-label">OR or CR</label>
-                    <input type="file" class="form-control" name="orCr" id="or_cr" required>
+                    <input type="file" class="form-control" name="or_cr" id="or_cr" required>
                 </div>
                 <div class="mb-3">
                     <label for="vehiclePlate" class="form-label">Vehicle Coding or Plate Number</label>
@@ -177,11 +177,9 @@ require_once("../db_api/db_sign_up_rider.php");
                 </div>
                 <div id="supportingDocs" class="hidden">
                     <div class="mb-3">
-                        <label for="supportingDocuments" class="form-label" required>Upload Supporting Documents</label>
-                        <input type="file" class="form-control" id="supportingDocuments">
+                        <label for="supportingDocuments" class="form-label">Upload Supporting Documents</label>
+                        <input type="file" class="form-control"name="supporting_documents" id="supportingDocuments">
                     </div>
-                    <label for="supportingDocuments" class="form-label">Upload Supporting Documents</label>
-                    <input type="file" class="form-control"name="supporting_documents" id="supportingDocuments">
                 </div>
                 </div>
                 <div class="button-group">
@@ -199,14 +197,10 @@ require_once("../db_api/db_sign_up_rider.php");
                 </div>
                 <div id="seniorDocs" class="hidden">
                     <div class="mb-3">
-                        <label for="certID" class="form-label" required>Certificate ID</label>
-                        <input type="text" class="form-control" id="certID">
                         <label for="certID" class="form-label">Certificate ID</label>
                         <input type="text" class="form-control" name="medical_certificate" id="certID">
                     </div>
                     <div class="mb-3">
-                        <label for="fitToWork" class="form-label" required>Certificate Photo (Fit to Work)</label>
-                        <input type="file" class="form-control" id="fitToWork">
                         <label for="fitToWork" class="form-label">Certificate Photo (Fit to Work)</label>
                         <input type="file" class="form-control" name="medical_image" id="fitToWork">
                     </div>
@@ -216,10 +210,12 @@ require_once("../db_api/db_sign_up_rider.php");
                     <input type="text" class="form-control" name="disability_info" id="disabilityInfo">
                 </div>
                 <div class="mb-3">
-                    <label for="medicalAssurance" class="form-label" required>Medical Assurance</label>
-                    <input type="file" class="form-control" id="medicalAssurance">
                     <label for="medicalAssurance" class="form-label">Medical Assurance</label>
                     <input type="file" class="form-control" name="assurance_image" id="medicalAssurance">
+                </div>
+                <div class="mb-3">
+                    <input type="radio" class="form-control" name="terms_conditions_radio" id="">
+                    <label for="terms_conditions_radio" class="form-label">Accept Terms and Conditions</label>
                 </div>
                 <div class="button-group">
                     <button type="button" class="btn btn-secondary prev-btn">Previous</button>
