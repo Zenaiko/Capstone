@@ -81,8 +81,8 @@
                     <input type="text" class="form-control" id="firstName" required>
                 </div>
                 <div class="mb-3">
-                    <label for="lastName" class="form-label">Middle Name (*Optional*)</label>
-                    <input type="text" class="form-control" name="middle_name" id="middleName">
+                    <label for="lastName" class="form-label" required>Last Name</label>
+                    <input type="text" class="form-control" id="lastName" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label" required>Email</label>
@@ -155,7 +155,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="orCr" class="form-label">OR or CR</label>
-                    <input type="file" class="form-control" name="or_cr" id="or_cr" required>
+                    <input type="file" class="form-control" id="orCr" required>
                 </div>
                 <div class="mb-3">
                     <label for="vehiclePlate" class="form-label">Vehicle Coding or Plate Number</label>
@@ -171,10 +171,9 @@
                 </div>
                 <div id="supportingDocs" class="hidden">
                     <div class="mb-3">
-                        <label for="supportingDocuments" class="form-label">Upload Supporting Documents</label>
-                        <input type="file" class="form-control"name="supporting_documents" id="supportingDocuments">
+                        <label for="supportingDocuments" class="form-label" required>Upload Supporting Documents</label>
+                        <input type="file" class="form-control" id="supportingDocuments">
                     </div>
-                </div>
                 </div>
                 <div class="button-group">
                     <button type="button" class="btn btn-secondary prev-btn">Previous</button>
@@ -191,12 +190,12 @@
                 </div>
                 <div id="seniorDocs" class="hidden">
                     <div class="mb-3">
-                        <label for="certID" class="form-label">Certificate ID</label>
-                        <input type="text" class="form-control" name="medical_certificate" id="certID">
+                        <label for="certID" class="form-label" required>Certificate ID</label>
+                        <input type="text" class="form-control" id="certID">
                     </div>
                     <div class="mb-3">
-                        <label for="fitToWork" class="form-label">Certificate Photo (Fit to Work)</label>
-                        <input type="file" class="form-control" name="medical_image" id="fitToWork">
+                        <label for="fitToWork" class="form-label" required>Certificate Photo (Fit to Work)</label>
+                        <input type="file" class="form-control" id="fitToWork">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -204,12 +203,8 @@
                     <input type="text" class="form-control" id="disabilityInfo">
                 </div>
                 <div class="mb-3">
-                    <label for="medicalAssurance" class="form-label">Medical Assurance</label>
-                    <input type="file" class="form-control" name="assurance_image" id="medicalAssurance">
-                </div>
-                <div class="mb-3">
-                    <input type="radio" class="form-control" name="terms_conditions_radio" id="">
-                    <label for="terms_conditions_radio" class="form-label">Accept Terms and Conditions</label>
+                    <label for="medicalAssurance" class="form-label" required>Medical Assurance</label>
+                    <input type="file" class="form-control" id="medicalAssurance">
                 </div>
                 <div class="button-group">
                     <button type="button" class="btn btn-secondary prev-btn">Previous</button>
