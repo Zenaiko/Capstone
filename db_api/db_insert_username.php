@@ -1,7 +1,7 @@
 <?php 
 require_once('db_root_conn.php');
 // Centralized username insert
-class classs_username_database extends class_database{
+class class_username_database extends class_database{
     private $username_info;
 
     public function __construct(class_username_info $username_info) {
@@ -53,8 +53,7 @@ class classs_username_database extends class_database{
             ":terms" => $this->username_info->get_condition(),
         ]);
         $username_id = $this->pdo->lastInsertId();
-
-        // $this->query("COMMIT");
+        $this->query("COMMIT");
         return $username_id;
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();

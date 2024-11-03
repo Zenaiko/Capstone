@@ -2,7 +2,7 @@
 require_once('db_insert_username.php');
 (session_status() === PHP_SESSION_NONE)?session_start():null;
 
-class customer_sign_up_database extends classs_username_database{
+class customer_sign_up_database extends class_username_database{
  
     public function __construct(class_username_info $customer_info){
         // Createas class username info
