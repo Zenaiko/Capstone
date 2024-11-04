@@ -52,7 +52,7 @@
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
         </form>
         <div class="footer">
-            <p>Don't have an account? <a href="rider_signup.php">Sign Up</a></p>
+            <p>Don't have an account? <a href="../number_otp.php?user=rider">Sign Up</a></p>
             <p><a href="">Forgot Password?</a></p>
         </div>
     </div>

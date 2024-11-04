@@ -12,23 +12,27 @@ class class_rider_database extends class_employee_database{
         $this->query("START TRANSACTION");
         $employee_id = $this->insert_employee();
         try{
-            $has_disability = !is_null($this->rider_info->get_disability_comorbidity());
-            $insert_rider_registration = $this->pdo->prepare("INSERT INTO tbl_rider_registration (employee_registration_id, drug_test_clearance, has_disability, has_motorized_vehicle, is_senior) VALUES (:employee_id, :drug_test, :has_disability, :has_motor, :is_senior)");
-            $insert_rider_registration->execute([
-                ":employee_id" => $employee_id, 
-                ":drug_test" => $this->rider_info->get_drug_test(), 
-                ":has_disability" => $has_disability, 
-                ":has_motor" => 1, 
-                ":is_senior" => 0,
-            ]);
-            $rider_registration_id =  $this->pdo->lastInsertId();
+            // $has_disability = !is_null($this->rider_info->get_disability_comorbidity());
+            // $insert_rider_registration = $this->pdo->prepare("INSERT INTO tbl_rider_registration (employee_registration_id, drug_test_clearance, has_disability, has_motorized_vehicle, is_senior) VALUES (:employee_id, :drug_test, :has_disability, :has_motor, :is_senior)");
+            // $insert_rider_registration->execute([
+            //     ":employee_id" => $employee_id, 
+            //     ":drug_test" => $this->rider_info->get_drug_test(), 
+            //     ":has_disability" => $has_disability, 
+            //     ":has_motor" => 1, 
+            //     ":is_senior" => 0,
+            // ]);
+            // $tbl_rider_registration_id =  $this->pdo->lastInsertId();
 
             // $insert_rider_license = $this->pdo->prepare("INSERT INTO tbl_rider_license (rider_verification_id, drivers_license_number, drivers_license_photo) VALUES (:verification_id, :license_number, :license_img)");
             // $insert_rider_license->execute([
-            //     ":verification_id" => $this->rider_info,
-            //     ":license_number" => $this->rider_info,
-            //     ":license_img" => $this->rider_info,
+            //     ":verification_id" => $tbl_rider_registration_id,
+            //     ":license_number" => $this->rider_info->get_license_number(),
+            //     ":license_img" => $this->rider_info->get_license_photo(),
             // ]);
+            // $tbl_rider_license_id =  $this->pdo->lastInsertId();
+
+            // $insert_vehicle_registration = $this->pdo->prepare("INSERT INTO tbl_rider_vehicle_registration (rider_license_id, vehicle_type, vehicle_registration_photo, or_cr, vehicle_coding, dealer_certificate, is_owner)
+            // VALUES (:license_id, :vehicle_type, :registration_photo, :or_cr, :vehicle_coding, :dealer_certificate, :is_owner)");
 
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();
@@ -41,13 +45,14 @@ class class_rider_database extends class_employee_database{
 class class_rider_registration_info{
     // Rider relevant requirements
     private $drug_test;
-    private $licesce_number;
-    private $licesce_photo;
+    private $license_number;
+    private $license_photo;
     private $has_motor;
 
     // Other informations that can be sepearated by class if needed
     // Vehicle information
     private $vehicle_registration;
+    private $vehicle_type;
     private $vehice_or_cr;
     private $vehicle_coding;
     private $dealer_certificcate;
@@ -76,20 +81,20 @@ class class_rider_registration_info{
         return $this->has_motor;
     }
     
-    public function set_licesce_number($licesce_number) {
-        $this->licesce_number = $licesce_number;
+    public function set_license_number($license_number) {
+        $this->license_number = $license_number;
     }
     
-    public function get_licesce_number() {
-        return $this->licesce_number;
+    public function get_license_number() {
+        return $this->license_number;
     }
     
-    public function set_licesce_photo($licesce_photo) {
-        $this->licesce_photo = $licesce_photo;
+    public function set_license_photo($license_photo) {
+        $this->license_photo = $license_photo;
     }
     
-    public function get_licesce_photo() {
-        return $this->licesce_photo;
+    public function get_license_photo() {
+        return $this->license_photo;
     }
     
     public function set_vehicle_registration($vehicle_registration) {
@@ -98,6 +103,14 @@ class class_rider_registration_info{
     
     public function get_vehicle_registration() {
         return $this->vehicle_registration;
+    }
+
+    public function set_vehicle_type($vehicle_type) {
+        $this->vehicle_type = $vehicle_type;
+    }
+    
+    public function get_vehicle_type() {
+        return $this->vehicle_type;
     }
     
     public function set_vehice_or_cr($vehice_or_cr) {
@@ -199,18 +212,19 @@ $rider_info["employee"]->set_selife($_POST["selife"]);
 $rider_info["employee"]->set_signature($_POST["signature"]);
 // Rider registration info
 $rider_info["registration"]->set_drug_test($_POST["drug_test"]);
-$rider_info["registration"]->set_licesce_number($_POST["licesce_number"]);
-$rider_info["registration"]->set_licesce_photo($_POST["licesce_photo"]);
+$rider_info["registration"]->set_license_number($_POST["license_number"]);
+$rider_info["registration"]->set_license_photo($_POST["license_photo"]);
 
-$rider_info["registration"]->set_vehicle_registration($_POST[""]);
-$rider_info["registration"]->set_vehice_or_cr($_POST[""]);
-$rider_info["registration"]->set_vehicle_coding($_POST[""]);
-$rider_info["registration"]->set_dealer_certificcate($_POST[""]);
-$rider_info["registration"]->set_is_owner($_POST[""]);
-$rider_info["registration"]->set_supporting_documents($_POST[""]);
-$rider_info["registration"]->set_medical_certificate($_POST[""]);
-$rider_info["registration"]->set_medical_certificate_id($_POST[""]);
-$rider_info["registration"]->set_disability_comorbidity($_POST[""]);
+$rider_info["registration"]->set_vehicle_registration($_POST["vehicle_registration"]);
+$rider_info["registration"]->set_vehicle_type($_POST["vehicle_type"]);
+$rider_info["registration"]->set_vehice_or_cr($_POST["or_cr"]);
+$rider_info["registration"]->set_vehicle_coding($_POST["coding_number"]);
+$rider_info["registration"]->set_dealer_certificcate($_POST["dealer_certificate"]);
+$rider_info["registration"]->set_is_owner($_POST["is_owner"]);
+$rider_info["registration"]->set_supporting_documents($_POST["supporting_documents"]);
+$rider_info["registration"]->set_medical_certificate_id($_POST["medical_certificate_id"]);
+$rider_info["registration"]->set_medical_certificate($_POST["medical_certificate"]);
+$rider_info["registration"]->set_disability_comorbidity($_POST["disability_comorbidity"]);
 $rider_info["registration"]->set_medical_assurance($_POST[""]);
 
 ?>

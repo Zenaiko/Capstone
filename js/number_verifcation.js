@@ -1,10 +1,7 @@
 var otp_send_code = document.getElementById('otp_send_code');
-const getFileNameFromCurrentUrl = () => {
-    const url = window.location.href;
-    return new URL(url).pathname.split('/').pop();
-  };
-  const fileName = getFileNameFromCurrentUrl();
-  const user = (fileName==="number_otp.php")?'customer':"rider";
+
+let params = new URLSearchParams(window.location.search);
+let user = params.get('user');
   
 otp_send_code.addEventListener('click' , function(event){
     event.preventDefault();
