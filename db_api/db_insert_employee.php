@@ -15,10 +15,8 @@ class class_employee_database extends class_username_database{
 
     // Uploads the files
     private function upload_file($file, $employee_folder){
-        $employee_files_dir = $employee_folder . "/" . $file["name"];
-        echo "<pre>";
-        echo $employee_files_dir;
-        // move_uploaded_file($file["tmp_name"],$employee_files_dir);
+        $employee_files_dir = !is_null($file["name"])?$employee_folder . "/" . $file["name"]:"";
+        move_uploaded_file($file["tmp_name"],$employee_files_dir);
         return $employee_files_dir;
     }
 
@@ -38,9 +36,9 @@ class class_employee_database extends class_username_database{
 
         $employee_id =  $this->pdo->lastInsertId();
         // Moves and saves the dir of each file
-        // Creates the employees folder
+            // Creates the employees folder
         $employee_folder = $this->employe_folder . $employee_id . "_assets_folder";
-        // (!is_dir($employee_folder))?mkdir($employee_folder):null;
+        (!is_dir($employee_folder))?mkdir($employee_folder):null;
         
         $nbi_dir = $this->upload_file($this->employee->get_nbi_police(), $employee_folder);
         $brngy_clearance_dir = $this->upload_file($this->employee->get_brngy_clearance(), $employee_folder);
@@ -49,12 +47,7 @@ class class_employee_database extends class_username_database{
         $signature_dir = $this->upload_file($this->employee->get_signature(), $employee_folder);
         
         $employee_files = $this->pdo->prepare("UPDATE tbl_employee_registration SET 
-        nbi_police_clearance = :nbi_police, 
-        brngy_clearance = :brngy_clearance, 
-        valid_id = :valid_id, 
-        valid_id_type = :id_type, 
-        registrator_selfie = :selfie, 
-        registrator_e_signature = :signature WHERE employee_id = :employee_id)");
+        nbi_police_clearance = :nbi_police, brngy_clearance = :brngy_clearance, valid_id = :valid_id, valid_id_type = :id_type, registrator_selfie = :selfie, registrator_e_signature = :signature, employee_dir = :dir WHERE employee_registration_id = :employee_id");
         $employee_files->execute([
             ":nbi_police" => $nbi_dir,
             ":brngy_clearance" => $brngy_clearance_dir, 
@@ -62,6 +55,8 @@ class class_employee_database extends class_username_database{
             ":id_type" => $this->employee->get_id_type(), 
             ":selfie" => $selfie_dir, 
             ":signature" => $signature_dir, 
+            ":dir" => $employee_folder,
+            ":employee_id" => $employee_id
         ]);
         $this->query("COMMIT");
         return $employee_id;

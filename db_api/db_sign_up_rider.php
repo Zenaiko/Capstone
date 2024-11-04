@@ -7,31 +7,67 @@ class class_rider_database extends class_employee_database{
         parent::__construct($username_info,$employee_info, "../rider_page/rider_assets/r");
         $this->rider_info = $rider_info;
     }
+    
+    // Uploads the files
+    private function upload_files($file, $employee_folder){
+        $file_dir = $employee_folder . $file["name"];
+        // move_uploaded_file($file["tmp_name"], $file_dir);
+        return $file_dir;
+    }
 
     public function sign_up_rider(){
         $this->query("START TRANSACTION");
-        $employee_id = $this->insert_employee();
+        $employee_registration_id = $this->insert_employee();
+        $get_employee_dir = $this->query("SELECT employee_dir FROM tbl_employee_registration WHERE employee_registration_id = ?", [$employee_registration_id]);
+        $employee_folder =  ($get_employee_dir->fetchAll(PDO::FETCH_ASSOC)[0]["employee_dir"]) . "/";
         try{
-            // $has_disability = !is_null($this->rider_info->get_disability_comorbidity());
-            // $insert_rider_registration = $this->pdo->prepare("INSERT INTO tbl_rider_registration (employee_registration_id, drug_test_clearance, has_disability, has_motorized_vehicle, is_senior) VALUES (:employee_id, :has_disability, :has_motor, :is_senior)");
-            // $insert_rider_registration->execute([
-            //     ":employee_id" => $employee_id, 
-            //     ":has_disability" => $has_disability, 
-            //     ":has_motor" => 1, 
-            //     ":is_senior" => 0,
-            // ]);
-            // $tbl_rider_registration_id =  $this->pdo->lastInsertId();
+            $has_disability = !is_null($this->rider_info->get_disability_comorbidity());
+            $drug_test = $this->upload_files($this->rider_info->get_drug_test(),$employee_folder);
+            $insert_rider_registration = $this->pdo->prepare("INSERT INTO tbl_rider_registration (employee_registration_id, drug_test_clearance, has_disability, has_motorized_vehicle, is_senior) VALUES (:employee_registration_id, :drug_test,:has_disability, :has_motor, :is_senior)");
+            $insert_rider_registration->execute([
+                ":employee_registration_id" => $employee_registration_id, 
+                ":drug_test" => $drug_test, 
+                ":has_disability" => $has_disability, 
+                ":has_motor" => $this->rider_info->get_has_motor(), 
+                ":is_senior" => 0,
+            ]);
+            $tbl_rider_registration_id =  $this->pdo->lastInsertId();
 
-            // $insert_rider_license = $this->pdo->prepare("INSERT INTO tbl_rider_license (rider_verification_id, drivers_license_number, drivers_license_photo) VALUES (:verification_id, :license_number, :license_img)");
-            // $insert_rider_license->execute([
-            //     ":verification_id" => $tbl_rider_registration_id,
-            //     ":license_number" => $this->rider_info->get_license_number(),
-            //     ":license_img" => $this->rider_info->get_license_photo(),
-            // ]);
-            // $tbl_rider_license_id =  $this->pdo->lastInsertId();
+            $liscence_img = $this->upload_files($this->rider_info->get_license_photo(), $employee_folder);
 
-            // $insert_vehicle_registration = $this->pdo->prepare("INSERT INTO tbl_rider_vehicle_registration (rider_license_id, vehicle_type, vehicle_registration_photo, or_cr, vehicle_coding, dealer_certificate, is_owner)
-            // VALUES (:license_id, :vehicle_type, :registration_photo, :or_cr, :vehicle_coding, :dealer_certificate, :is_owner)");
+            $insert_rider_license = $this->pdo->prepare("INSERT INTO tbl_rider_license (rider_verification_id, drivers_license_number, drivers_license_photo) VALUES (:verification_id, :license_number, :license_img)");
+            $insert_rider_license->execute([
+                ":verification_id" => $tbl_rider_registration_id,
+                ":license_number" => $this->rider_info->get_license_number(),
+                ":license_img" => $liscence_img,
+            ]);
+            $tbl_rider_license_id =  $this->pdo->lastInsertId();
+
+            // Uploads all the relevant file
+            $vehicle_file_array = [
+                "registration" => $this->rider_info->get_vehicle_registration(),
+                "or_cr" => $this->rider_info->get_vehice_or_cr(),
+                "dealer_certificate" => $this->rider_info->get_dealer_certificcate(),
+            ];
+            $vehicle_files = [];
+            array_walk($vehicle_file_array,function($file, $key) use ($employee_folder,&$vehicle_files){
+                $vehicle_files[$key] = $this->upload_files($file, $employee_folder);
+            });
+
+            // Inserts into tbl vehicle registration
+            $insert_vehicle_registration = $this->pdo->prepare("INSERT INTO tbl_rider_vehicle_registration (rider_license_id, vehicle_type, vehicle_registration_photo, or_cr, vehicle_coding, dealer_certificate, is_owner)
+            VALUES (:license_id, :vehicle_type, :registration_photo, :or_cr, :vehicle_coding, :dealer_certificate, :is_owner)");
+            $insert_vehicle_registration->execute([
+                ":license_id" => $tbl_rider_license_id, 
+                ":vehicle_type" => $this->rider_info->get_vehicle_type(), 
+                ":registration_photo" => $vehicle_files["registration"], 
+                ":or_cr" => $vehicle_files["or_cr"], 
+                ":vehicle_coding" => $this->rider_info->get_vehicle_coding(), 
+                ":dealer_certificate" => $vehicle_files["dealer_certificate"], 
+                ":is_owner" => $this->rider_info->get_is_owner(),
+            ]);
+
+
             // $this->query("COMMIT");
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();
@@ -210,6 +246,7 @@ $rider_info["employee"]->set_brngy_clearance($_FILES["brngy_clearance"]);
 $rider_info["employee"]->set_selfie($_FILES["selfie"]);
 $rider_info["employee"]->set_signature($_FILES["signature"]);
 $rider_info["employee"]->set_is_manager(0);
+$rider_info["employee"]->set_valid_id($_FILES["license_photo"]);
 // Rider registration info
 $rider_info["registration"]->set_drug_test($_FILES["drug_test"]);
 $rider_info["registration"]->set_license_number($_POST["license_number"]);
