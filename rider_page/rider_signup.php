@@ -72,36 +72,36 @@
 <body>
 <?php require_once("../utilities/initialize.php");?>
     <div class="container mt-5">
-        <form id="multiStepForm">
+        <form action="../db_api/db_sign_up_rider.php" method="POST" enctype="multipart/form-data" id="multiStepForm">
             <!-- Form 1: Personal Information -->
             <div class="form-step form-step-active">
             <h4 class="form-title">Sign Up</h4>
                 <div class="mb-3">
-                    <label for="firstName" class="form-label" required>First Name</label>
+                    <label for="firstName" class="form-label">First Name</label>
                     <input type="text" name="first_name" class="form-control" id="firstName" required>
                 </div>
                 <div class="mb-3">
-                    <label for="middleName" class="form-label" required>Middle Name (*Optional*)</label>
+                    <label for="middleName" class="form-label">Middle Name (*Optional*)</label>
                     <input type="text" name="middle_name" class="form-control" id="middleName">
                 </div>
                 <div class="mb-3">
-                    <label for="lastName" class="form-label" required>Last Name</label>
+                    <label for="lastName" class="form-label">Last Name</label>
                     <input type="text" name="last_name" class="form-control" id="lastName" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label" required>Email</label>
+                    <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" id="email" required>
                 </div>
                 <div class="mb-3">
-                    <label for="username" class="form-label" required>Username</label>
+                    <label for="username" class="form-label">Username</label>
                     <input type="text" name="username" class="form-control" id="username" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label" required>Password</label>
+                    <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" id="password" required>
                 </div>
                 <div class="mb-3">
-                    <label for="confirmPassword" class="form-label" required>Re-enter Password</label>
+                    <label for="confirmPassword" class="form-label">Re-enter Password</label>
                     <input type="password" class="form-control" id="confirmPassword" required>
                 </div>
                 <div class="error hidden" id="passwordError">Passwords do not match.</div>
@@ -117,31 +117,31 @@
             <div class="form-step">
             <h4 class="form-title">Rider Information</h4>
                 <div class="mb-3">
-                    <label for="nbiClearance" class="form-label" required>NBI or Police Clearance</label>
+                    <label for="nbiClearance" class="form-label" >NBI or Police Clearance</label>
                     <input type="file" name="nbi_police" class="form-control" id="nbiClearance" required>
                 </div>
                 <div class="mb-3">
-                    <label for="brgyClearance" class="form-label" required>Barangay Clearance</label>
+                    <label for="brgyClearance" class="form-label">Barangay Clearance</label>
                     <input type="file" name="brngy_clearance" class="form-control" id="brgyClearance" required>
                 </div>
                 <div class="mb-3">
-                    <label for="drugTest" class="form-label" required>Drug Test</label>
+                    <label for="drugTest" class="form-label">Drug Test</label>
                     <input type="file" name="drug_test" class="form-control" id="drugTest" required>
                 </div>
                 <div class="mb-3">
-                    <label for="ridersLicenseNumber" class="form-label" required>Driver's License Number</label>
+                    <label for="ridersLicenseNumber" class="form-label">Driver's License Number</label>
                     <input type="text" name="license_number" class="form-control" id="ridersLicenseNumber" required>
                 </div>
                 <div class="mb-3">
-                    <label for="ridersLicense" class="form-label" required>Driver's License Photo</label>
-                    <input type="file" name="licesce_photo" class="form-control" id="ridersLicense" required>
+                    <label for="ridersLicense" class="form-label">Driver's License Photo</label>
+                    <input type="file" name="license_photo" class="form-control" id="ridersLicense" required>
                 </div>
                 <div class="mb-3">
-                    <label for="selfie" class="form-label" required>Selfie</label>
+                    <label for="selfie" class="form-label">Selfie</label>
                     <input type="file" name="selfie" class="form-control" id="selfie" required>
                 </div>
                 <div class="mb-3">
-                    <label for="eSignature" class="form-label" required>Electronic Signature</label>
+                    <label for="eSignature" class="form-label">Electronic Signature</label>
                     <input type="file" name="signature" class="form-control" id="eSignature" required>
                 </div>
                 <div class="button-group">
@@ -154,11 +154,11 @@
             <div class="form-step">
             <h4 class="form-title">Vehicle Information</h4>
                 <div class="mb-3">
-                    <label for="vehicleType" class="form-label" required>Vehicle Type</label>
+                    <label for="vehicleType" class="form-label">Vehicle Type</label>
                     <input type="text" name="vehicle_type" class="form-control" id="vehicleType" required>
                 </div>
                 <div class="mb-3">
-                    <label for="registrationPhoto" class="form-label" required>Vehicle Registration Photo</label>
+                    <label for="registrationPhoto" class="form-label">Vehicle Registration Photo</label>
                     <input type="file" name="vehicle_registration" class="form-control" id="registrationPhoto" required>
                 </div>
                 <div class="mb-3">
