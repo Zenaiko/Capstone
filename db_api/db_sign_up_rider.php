@@ -68,6 +68,20 @@ class class_rider_database extends class_employee_database{
             ]);
 
 
+            // Insert into tbl rider medication if rider has any
+            if($this->rider_info->get_disability_comorbidity()){
+                $assurance_file = $this->upload_files($this->rider_info->get_medical_assurance(), $employee_folder);
+                $insert_rider_medication = $this->pdo->prepare("INSERT INTO tbl_rider_medication 
+                (rider_verification_id, disability_cormobidity, medical_assurance) 
+                VALUES (:verification_id, :disability_comorbidity, :assurance)");
+                $insert_rider_medication->execute([
+                    ":verification_id" => $tbl_rider_registration_id, 
+                    ":disability_comorbidity" => $this->rider_info->get_disability_comorbidity(), 
+                    ":assurance" => $assurance_file,
+                ]);
+            }
+
+
             // $this->query("COMMIT");
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();
