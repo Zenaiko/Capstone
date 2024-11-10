@@ -78,7 +78,7 @@
             <h4 class="form-title">Sign Up</h4>
                 <div class="mb-3">
                     <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" name="first_name" class="form-control" id="firstName" required>
+                    <input type="text" name="first_name" class="form-control" id="firstName" >
                 </div>
                 <div class="mb-3">
                     <label for="middleName" class="form-label">Middle Name (*Optional*)</label>
@@ -86,23 +86,23 @@
                 </div>
                 <div class="mb-3">
                     <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" name="last_name" class="form-control" id="lastName" required>
+                    <input type="text" name="last_name" class="form-control" id="lastName" >
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" required>
+                    <input type="email" name="email" class="form-control" id="email" >
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" id="username" required>
+                    <input type="text" name="username" class="form-control" id="username" >
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" required>
+                    <input type="password" name="password" class="form-control" id="password" >
                 </div>
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Re-enter Password</label>
-                    <input type="password" class="form-control" id="confirmPassword" required>
+                    <input type="password" class="form-control" id="confirmPassword" >
                 </div>
                 <div class="error hidden" id="passwordError">Passwords do not match.</div>
                 <div class="button-group">
@@ -118,31 +118,31 @@
             <h4 class="form-title">Rider Information</h4>
                 <div class="mb-3">
                     <label for="nbiClearance" class="form-label" >NBI or Police Clearance</label>
-                    <input type="file" name="nbi_police" class="form-control" id="nbiClearance" required>
+                    <input type="file" name="nbi_police" class="form-control" id="nbiClearance" >
                 </div>
                 <div class="mb-3">
                     <label for="brgyClearance" class="form-label">Barangay Clearance</label>
-                    <input type="file" name="brngy_clearance" class="form-control" id="brgyClearance" required>
+                    <input type="file" name="brngy_clearance" class="form-control" id="brgyClearance" >
                 </div>
                 <div class="mb-3">
                     <label for="drugTest" class="form-label">Drug Test</label>
-                    <input type="file" name="drug_test" class="form-control" id="drugTest" required>
+                    <input type="file" name="drug_test" class="form-control" id="drugTest" >
                 </div>
                 <div class="mb-3">
                     <label for="ridersLicenseNumber" class="form-label">Driver's License Number</label>
-                    <input type="text" name="license_number" class="form-control" id="ridersLicenseNumber" required>
+                    <input type="text" name="license_number" class="form-control" id="ridersLicenseNumber" >
                 </div>
                 <div class="mb-3">
                     <label for="ridersLicense" class="form-label">Driver's License Photo</label>
-                    <input type="file" name="license_photo" class="form-control" id="ridersLicense" required>
+                    <input type="file" name="license_photo" class="form-control" id="ridersLicense" >
                 </div>
                 <div class="mb-3">
                     <label for="selfie" class="form-label">Selfie</label>
-                    <input type="file" name="selfie" class="form-control" id="selfie" required>
+                    <input type="file" name="selfie" class="form-control" id="selfie" >
                 </div>
                 <div class="mb-3">
                     <label for="eSignature" class="form-label">Electronic Signature</label>
-                    <input type="file" name="signature" class="form-control" id="eSignature" required>
+                    <input type="file" name="signature" class="form-control" id="eSignature" >
                 </div>
                 <div class="button-group">
                     <button type="button" class="btn btn-secondary prev-btn">Previous</button>
@@ -155,23 +155,23 @@
             <h4 class="form-title">Vehicle Information</h4>
                 <div class="mb-3">
                     <label for="vehicleType" class="form-label">Vehicle Type</label>
-                    <input type="text" name="vehicle_type" class="form-control" id="vehicleType" required>
+                    <input type="text" name="vehicle_type" class="form-control" id="vehicleType" >
                 </div>
                 <div class="mb-3">
                     <label for="registrationPhoto" class="form-label">Vehicle Registration Photo</label>
-                    <input type="file" name="vehicle_registration" class="form-control" id="registrationPhoto" required>
+                    <input type="file" name="vehicle_registration" class="form-control" id="registrationPhoto" >
                 </div>
                 <div class="mb-3">
                     <label for="orCr" class="form-label">Vehicle Officaial Receipt(OR) or Certificate of Registration(CR)</label>
-                    <input type="file" name="or_cr" class="form-control" id="orCr" required>
+                    <input type="file" name="or_cr" class="form-control" id="orCr" >
                 </div>
                 <div class="mb-3">
                     <label for="vehiclePlate" class="form-label">Vehicle Coding or Plate Number</label>
-                    <input type="text" name="coding_number" class="form-control" id="vehiclePlate" required>
+                    <input type="text" name="coding_number" class="form-control" id="vehiclePlate" >
                 </div>
                 <div class="mb-3">
                     <label for="dealerCert" class="form-label">Dealer Certificate</label>
-                    <input type="file" name="dealer_certificate" class="form-control" id="dealerCert" required>
+                    <input type="file" name="dealer_certificate" class="form-control" id="dealerCert" >
                 </div>
                 <div class="form-check mb-3">
                     <input type="checkbox" name="is_owner" class="form-check-input" id="isOwner">

@@ -12,7 +12,7 @@
     <a href="rider_landing.php" class="btn btn-outline-primary mb-3">Back</a>
 
     <!-- Delivery Overview -->
-    <div class="card mb-3">
+    <!-- <div class="card mb-3">
       <div class="card-body">
         <h6 class="card-title">Delivery Overview</h6>
         <p><strong>Seller Name:</strong> CJshabu</p>
@@ -21,10 +21,10 @@
         <p><strong>Address:</strong> secret</p>
         <p><strong>Contact Number:</strong> (69) 456-7890</p>
       </div>
-    </div>
+    </div> -->
 
     <!-- Order Summary -->
-    <div class="card mb-3">
+    <!-- <div class="card mb-3">
       <div class="card-body">
         <h6 class="card-title">Order Summary</h6>
         <ul>
@@ -33,10 +33,9 @@
         </ul>
         <p><strong>Total Amount:</strong> ₱700</p>
       </div>
-    </div>
+    </div> -->
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

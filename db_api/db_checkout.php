@@ -73,22 +73,25 @@ class class_order_database extends class_database {
 
     public function set_order_request() {
         $this->query("START TRANSACTION");
-        foreach ($this->order_info->get_order_info() as $variant) {
-            $insert_tbl_order = $this->pdo->prepare("INSERT INTO tbl_order (variation_id, order_qty, order_price, customer_id, pickup_id, date_requested) 
-            VALUES (:var_id, :qty, :price, :customer_id, :pickup_id, :date_req)");
+        $insert_tbl_transaction = $this->pdo->prepare("INSERT INTO tbl_transaction(customer_id, delivery_id) VALUES (:customer_id, :delivery_id)");
+        $insert_tbl_transaction->execute([
+            ":customer_id" => $_SESSION["cus_id"],
+            ":delivery_id" => $this->order_info->get_cus_address_id(),
+        ]);
+        $transaction_id = $this->pdo->lastInsertId();
+        $insert_tbl_order = $this->pdo->prepare("INSERT INTO tbl_order(transaction_id, variation_id, order_qty, order_price, date_requested) 
+        VALUES (:transaction_id, :var_id, :qty, :price, :date_req)");
+        foreach ($this->order_info->get_order_info() as $variant){
             $insert_tbl_order->execute([
+                "transaction_id" => $transaction_id,
                 ":var_id" => $variant["id"],
                 ":qty" => $variant["qty"],
                 ":price" => ($variant["price"] * $variant["qty"]),
-                ":customer_id" => $_SESSION["cus_id"],
-                ":pickup_id" => $_POST["pickup_id"],
                 ":date_req" =>  date('Y-m-d H:i:s'),
             ]);
         }
         $this->query("COMMIT");
-        if(isset($_POST["order_submit"])){
-            header("location: ../user_page/home.php");
-        }
+        header("location: ../user_page/home.php");  
         exit;
     }
 }
@@ -206,6 +209,7 @@ if(isset($_POST["variant_order"])){
 
    // Process the order submission
    if (isset($_POST["order_submit"])){
+    $order_info->set_cus_address_id($_POST["pickup_id"]);
     $order_db->set_order_request();
     exit;
     }

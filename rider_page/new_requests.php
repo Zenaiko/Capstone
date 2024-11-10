@@ -25,40 +25,30 @@
   </style>
 </head>
 <body>
-<?php require_once("../utilities/initialize.php"); ?>
+<?php require_once("../utilities/initialize.php");
+require_once("../db_api/db_get.php");
+$order_requests = $get_db->get_all_orders();?>
   <div class="container mt-4">
     <div class="d-flex justify-content-between mb-4">
       <a href="rider_landing.php" class="btn btn-outline-primary">Back</a>
       <div></div>
     </div>
 
-    <!-- Sample Delivery Request -->
+    <?php foreach($order_requests as $orders){?>
     <div class="card mb-3" id="request-1">
       <div class="card-body">
-        <h6 class="card-title">Delivery Request from Jollihotdog</h6>
-        <p><strong>Pickup Address:</strong> Cabanatuan</p>
-        <p><strong>Drop-off Address:</strong> Secret</p>
-        <p><strong>Contact:</strong> +63 913 574 1234</p>
+        <h6 class="card-title">Delivery Request from <strong><?=$orders["market_name"]?></strong></h6>
+        <p><strong>Pickup Address: </strong><?=$orders["market_adr"]?></p>
+        <p><strong>Pickup Contact: </strong><?=$orders["market_contact"]?></p>
+        <h6 class="card-title">Recepient: <strong><?=$orders["recipient_name"]?></strong></h6>
+        <p><strong>Drop-off Address: </strong><?=$orders["customer_adr"]?></p>
+        <p><strong>Recepient Contact: </strong><?=$orders["customer_contact"]?></p>
         <div class="d-flex justify-content-between">
-          <button class="btn btn-outline-primary btn-custom" onclick="acceptRequest('request-1')">Accept</button>
-          <button class="btn btn-outline-danger btn-custom" onclick="declineRequest('request-1')">Decline</button>
+          <button class="btn btn-outline-primary btn-custom" onclick="acceptRequest('<?=$orders['transaction_id']?>')">Accept</button>
         </div>
       </div>
     </div>
-
-    <div class="card mb-3" id="request-2">
-      <div class="card-body">
-        <h6 class="card-title">Delivery Request from Jollihotdog</h6>
-        <p><strong>Pickup Address:</strong> Cabanatuan</p>
-        <p><strong>Drop-off Address:</strong> Secret</p>
-        <p><strong>Contact:</strong> +63 913 574 1234</p>
-        <div class="d-flex justify-content-between">
-          <button class="btn btn-outline-primary btn-custom" onclick="acceptRequest('request-2')">Accept</button>
-          <button class="btn btn-outline-danger btn-custom" onclick="declineRequest('request-2')">Decline</button>
-        </div>
-      </div>
-    </div>
-
+    <?php } ?>
   <script>
     // Function to handle accepting a request with SweetAlert confirmation
     function acceptRequest(id) {
@@ -72,43 +62,47 @@
         confirmButtonText: 'Yes, accept it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          const requestCard = document.getElementById(id);
-          if (requestCard) {
+          $.ajax({
+            url : '../db_api/db_accept_order.php',
+            type: 'POST',
+            data: {transaction_id:id} ,
+            success:function(r){
+              console.log(r);
+            }
+          })
             Swal.fire(
               'Accepted!',
               'You have accepted the delivery request.',
               'success'
             );
-            requestCard.remove(); // Remove the card after accepting
-          }
         }
       });
     }
 
     // Function to handle declining a request with SweetAlert confirmation
-    function declineRequest(id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to decline this delivery request?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, decline it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const requestCard = document.getElementById(id);
-          if (requestCard) {
-            Swal.fire(
-              'Declined!',
-              'You have declined the delivery request.',
-              'error'
-            );
-            requestCard.remove(); // Remove the card after declining
-          }
-        }
-      });
-    }
+    // function declineRequest(id) {
+    //   Swal.fire({
+    //     title: 'Are you sure?',
+    //     text: "Do you want to decline this delivery request?",
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: 'Yes, decline it!'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       const requestCard = document.getElementById(id);
+    //       if (requestCard) {
+    //         Swal.fire(
+    //           'Declined!',
+    //           'You have declined the delivery request.',
+    //           'error'
+    //         );
+    //         requestCard.remove(); // Remove the card after declining
+    //       }
+    //     }
+    //   });
+    // }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>

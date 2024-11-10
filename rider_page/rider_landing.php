@@ -86,9 +86,8 @@
 
     <div class="card mb-3">
       <div class="card-body">
-        <h6 class="card-title">New Delivery Requests</h6>
-        <p class="card-text">You have <strong>2</strong> new requests.</p>
-        <a href="new_requests.php" class="btn btn-outline-primary btn-sm">Accept/Decline</a>
+        <h6 class="card-title">Delivery Requests</h6>
+        <a href="new_requests.php" class="btn btn-outline-primary btn-sm">View Requests</a>
       </div>
     </div>
 

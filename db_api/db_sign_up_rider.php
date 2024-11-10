@@ -72,7 +72,7 @@ class class_rider_database extends class_employee_database{
             if($this->rider_info->get_disability_comorbidity()){
                 $assurance_file = $this->upload_files($this->rider_info->get_medical_assurance(), $employee_folder);
                 $insert_rider_medication = $this->pdo->prepare("INSERT INTO tbl_rider_medication 
-                (rider_verification_id, disability_cormobidity, medical_assurance) 
+                (rider_verification_id, disability_comorbidity, medical_assurance) 
                 VALUES (:verification_id, :disability_comorbidity, :assurance)");
                 $insert_rider_medication->execute([
                     ":verification_id" => $tbl_rider_registration_id, 
@@ -81,8 +81,8 @@ class class_rider_database extends class_employee_database{
                 ]);
             }
 
-
-            // $this->query("COMMIT");
+            $this->query("COMMIT");
+            header("Location: ../rider_page/rider_login.php");
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();
             $this->query('ROLLBACK');

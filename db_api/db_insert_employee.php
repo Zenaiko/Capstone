@@ -55,7 +55,7 @@ class class_employee_database extends class_username_database{
             ":id_type" => $this->employee->get_id_type(), 
             ":selfie" => $selfie_dir, 
             ":signature" => $signature_dir, 
-            ":dir" => $employee_folder,
+            ":dir" => $employee_folder, 
             ":employee_id" => $employee_id
         ]);
         $this->query("COMMIT");

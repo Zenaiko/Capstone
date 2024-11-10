@@ -52,10 +52,10 @@ if (session_status() === PHP_SESSION_NONE) {
             $insert_tbl_variation = $this->pdo->prepare("INSERT INTO tbl_variation (item_id, variation_name, variation_price)
             VALUES (:item_id, :vari_name, :vari_price)");
             // Inserts into tbl_stocks and records in tbl_stock_movement
-            $insert_tbl_stocks = $this->pdo->prepare("INSERT INTO tbl_stock (item_id, variation_id)
-            VALUES (:item_id, :vari_id)");
-            $insert_tbl_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, variation_id, stock_qty, stock_date) 
-            VALUES (:movement, :stock_id, :vari_id, :qty, :date)");
+            $insert_tbl_stocks = $this->pdo->prepare("INSERT INTO tbl_stock (variation_id)
+            VALUES (:vari_id)");
+            $insert_tbl_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, stock_qty, stock_date) 
+            VALUES (:movement, :stock_id, :qty, :date)");
             // Checks whether the variant is set... if not use the item information
             if(is_null($this->item->get_variant_array())){
                 $insert_tbl_variation->execute([
@@ -65,14 +65,12 @@ if (session_status() === PHP_SESSION_NONE) {
                 ]);
                 $vari_id = $this->pdo->lastInsertId();
                 $insert_tbl_stocks->execute([
-                    ':item_id' => $this->item->get_item_id(),
                     ":vari_id" => $vari_id
                 ]);
                 $stock_id = $this->pdo->lastInsertId();
                 $insert_tbl_stock_movement->execute([
                     ":movement" => 'in',
                     ":stock_id" => $stock_id,
-                    ":vari_id" => $vari_id,
                     ":qty" => $this->item->get_item_stock(),
                     ":date" => date('Y-m-d H:i:s')
                 ]);

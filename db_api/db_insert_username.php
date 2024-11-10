@@ -53,6 +53,14 @@ class class_username_database extends class_database{
             ":terms" => $this->username_info->get_condition(),
         ]);
         $username_id = $this->pdo->lastInsertId();
+        
+        $insert_tbl_login = $this->pdo->prepare("INSERT INTO tbl_login(username_id, password_id) 
+        VALUES (:username_id, :pswd_id)");
+        $insert_tbl_login->execute([
+            ":username_id" => $username_id, 
+            ":pswd_id" => $pswd_id
+        ]);
+
         $this->query("COMMIT");
         return $username_id;
         }catch(Exception $error){

@@ -209,6 +209,36 @@ class class_get_database extends class_database{
         return  $get_customer_orders->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
+    public function get_rider_request(){
+        $get_rider_request = $this->query("SELECT * FROM tbl_employee_registration emp_reg
+        LEFT JOIN tbl_rider_registration rider_reg ON rider_reg.employee_registration_id = emp_reg.employee_registration_id
+        LEFT JOIN tbl_username username ON username.username_id = emp_reg.username_id
+        WHERE rider_reg.employee_registration_id = emp_reg.employee_registration_id AND 
+        emp_reg.registration_status = 'requesting'
+        GROUP BY emp_reg.employee_registration_id");
+        return  $get_rider_request->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+    public function get_all_orders(){
+        $get_all_orders = $this->query("SELECT transact.transaction_id, pickup.recipient_name, market.market_name, CONCAT_WS(', ' , market_adr.city, market_adr.street, market_adr.brngy, market_adr.house_unit_number) AS market_adr, CONCAT_WS(', ' , customer_adr.city, customer_adr.street, customer_adr.brngy, customer_adr.house_unit_number) AS customer_adr, market_contact.contact AS market_contact, customer_contact.contact as customer_contact, customer.customer_id
+        -- For Market Info
+        FROM tbl_transaction transact 
+        JOIN tbl_order odr ON odr.transaction_id = transact.transaction_id 
+        JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
+        JOIN tbl_item item ON item.item_id = variation.item_id
+        JOIN tbl_market market ON market.market_id = item.market_id
+        JOIN tbl_address market_adr ON  market_adr.address_id = market.address_id
+        LEFT JOIN tbl_contact market_contact ON market_contact.contact_id = market.contact_id
+        -- For Customer Info
+        JOIN tbl_customer customer ON customer.customer_id = transact.customer_id
+        JOIN tbl_customer_pickup pickup ON transact.delivery_id = pickup.customer_pickup_id
+        JOIN tbl_address customer_adr ON customer_adr.address_id = pickup.address_id
+        JOIN tbl_contact customer_contact ON customer_contact.contact_id = pickup.contact_id
+        WHERE odr.order_status = 'accepted' 
+        GROUP BY odr.order_id");
+        return  $get_all_orders->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
 }
 
 $get_db = new class_get_database();
