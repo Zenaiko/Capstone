@@ -34,6 +34,7 @@
     </style>
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
     <div class="container mt-4">
         <h4 class="text-center mb-4">Search by Recipe</h4>
         <div class="input-group mb-4">

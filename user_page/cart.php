@@ -18,7 +18,7 @@
 
     <!-- Navbar -->
     <nav id="navbar">
-        <button id="backButton" class="navbar-button">Back</button>
+        <button id="backButton" class="navbar-button"  onclick="window.history.back()">Back</button>
         <button id="editButton" class="navbar-button">Edit</button>
     </nav>
 

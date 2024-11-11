@@ -23,7 +23,6 @@
                                 <input type="text" name="cus_log_user" autocomplete="off" required id="username_field" placeholder="Username/Email">
                                 <div>
                                     <input type="password" name="cus_log_pass" required id="pass_field" placeholder="Password">
-                                    <span id="show_password"><i class="bi bi-eye"></i></span>
                                 </div>
                             </div>
                             <div id="forget_container"><a href="" id="forget_pass">Forgot Password?</a></div>

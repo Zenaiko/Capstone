@@ -7,10 +7,9 @@
 
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
 <?php require_once("../utilities/initialize.php"); ?>
   <div class="container mt-4">
-    <a href="rider_landing.php" class="btn btn-outline-primary mb-3">Back</a>
-
     <!-- Delivery Overview -->
     <!-- <div class="card mb-3">
       <div class="card-body">

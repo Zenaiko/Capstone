@@ -86,11 +86,8 @@
   </style>
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
   <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a href="../user_page/seller_dashboard.php" class="btn btn-outline-primary">Back</a>
-      <div></div> 
-    </div>
 
   <!-- Profile Picture -->
   <div class="container">

@@ -44,6 +44,7 @@
   </style>
 </head>
 <body>
+ <?php require_once('../utilities/back_button.php'); ?>
   <div class="container mt-4">
     <div class="card">
       <div class="card-body">
