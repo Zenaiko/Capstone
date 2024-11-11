@@ -25,7 +25,7 @@
 <form action="cus_checkout.php" method="post">
         <section id="cart_section">
     
-        <?php
+    <?php 
     $exist_market = array();
     foreach($get_db->get_cart($_SESSION["cus_id"]) as $cart_info) {
         if (!in_array($cart_info["market_id"], $exist_market)) {
@@ -47,9 +47,10 @@
             array_push($exist_market, $cart_info["market_id"]);
         }
         // Seller item block
+        $assets = '../assets/tmp.png';
         echo '<div class="seller_item">';
         echo '<input type="checkbox" value="'. $cart_info["variation_id"]  .'" name="variant_order['.$cart_info["variation_id"].'" class="item_cart_checkbox">';
-        echo '<img src="../assets/tmp.png" alt="Item Image" class="item_cart_img">';
+        echo '<img src="'. $cart_info['item_img'] .'" alt="Item Image" class="item_cart_img">';
         echo '<div class="cart_item_description">';
         echo '<p class="item_cart_name">' . htmlspecialchars($cart_info["item_name"]) . ' (' . htmlspecialchars($cart_info["variation_name"]) . ')</p>';
         echo '<p class="item_cart_price">' . htmlspecialchars($cart_info["cart_price"]) . '</p>';

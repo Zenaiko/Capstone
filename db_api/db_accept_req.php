@@ -10,15 +10,35 @@
         }
 
         public function update_order_stats($order_id, $stat){
-            $accept_date = ($stat === "accepted")?date('Y-m-d H:i:s'):null;
-            if($accept_date){            }
-            $accept_order = $this->pdo->prepare("UPDATE tbl_order SET order_status = :stat , order_acceptance_date = :accept_date, variation_stock :stock WHERE order_id = :order_id");
-            $accept_order->execute([
-                ":order_id" => $order_id,
-                ":stat" => $stat,
-                ":accept_date" => $accept_date,
-                ":stock" => "",
-            ]);
+            $this->query("START TRANSACTION");
+            try{
+                $accept_date = ($stat === "accepted")?date('Y-m-d H:i:s'):null;
+                if($accept_date){      
+                    $get_stock = $this->query("SELECT variation.variation_id, variation.variation_stock, SUM(odr.order_qty) AS total_order
+                    FROM tbl_variation variation
+                    JOIN tbl_order odr ON odr.variation_id = variation.variation_id
+                    WHERE odr.order_id = :order_id
+                    GROUP BY odr.order_id", [':order_id' => $order_id]);
+                    $curr_stock = $get_stock->fetchAll(PDO::FETCH_ASSOC)[0]??null;      
+                    $new_stock =  $curr_stock["variation_stock"] - $curr_stock["total_order"];
+                    $available_stock_update = $this->pdo->prepare("UPDATE tbl_variation SET variation_stock = :new_stock WHERE variation_id = :variation_id");
+                    $available_stock_update->execute([
+                        ":new_stock" => $new_stock, 
+                        ":variation_id" => $curr_stock["variation_id"]
+                    ]);
+                }
+                $accept_order = $this->pdo->prepare("UPDATE tbl_order SET order_status = :stat , order_acceptance_date = :accept_date WHERE order_id = :order_id");
+                $accept_order->execute([
+                    ":order_id" => $order_id,
+                    ":stat" => $stat,
+                    ":accept_date" => $accept_date,
+                ]);
+                $this->query("COMMIT");
+            }catch(Exception $error){
+                echo "Failed: " . $error->getMessage();
+                $this->query('ROLLBACK');
+                return null;
+            }
     
                 // $insert_stocks_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement(stock_movement, stock_id, stock_qty, stock_date) 
                 // VALUES (:movement, :stock_id, :stock_qty, :stock_date)");

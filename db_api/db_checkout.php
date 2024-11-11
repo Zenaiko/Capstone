@@ -18,9 +18,9 @@ class class_order_database extends class_database {
     public function get_order() {
         $curr_var_info = $this->order_info->get_varaint_info();
         $updated_variants = []; // To store updated variant info
-        $get_variant_info = $this->pdo->prepare("SELECT item.item_name, variation.variation_name, variation.variation_price
-        FROM tbl_variation variation, tbl_item item
-        WHERE variation.item_id = item.item_id
+        $get_variant_info = $this->pdo->prepare("SELECT market.market_id, item.item_name, variation.variation_name, variation.variation_price
+        FROM tbl_variation variation, tbl_item item, tbl_market market
+        WHERE variation.item_id = item.item_id AND market.market_id = item.market_id
         AND variation.variation_id = :var_id");
 
         foreach ($curr_var_info as $variant_info){
@@ -32,6 +32,7 @@ class class_order_database extends class_database {
             // Check if the variant info was found
             if ($indiv_variant_info) {
                 $updated_variants = [
+                    "market_id" => $indiv_variant_info["market_id"],
                     "id" => $variant_info["id"],
                     "item_name" => $indiv_variant_info["item_name"],
                     "name" => $indiv_variant_info["variation_name"],
@@ -73,15 +74,20 @@ class class_order_database extends class_database {
 
     public function set_order_request() {
         $this->query("START TRANSACTION");
+        $market_ids =[];
         $insert_tbl_transaction = $this->pdo->prepare("INSERT INTO tbl_transaction(customer_id, delivery_id) VALUES (:customer_id, :delivery_id)");
-        $insert_tbl_transaction->execute([
-            ":customer_id" => $_SESSION["cus_id"],
-            ":delivery_id" => $this->order_info->get_cus_address_id(),
-        ]);
-        $transaction_id = $this->pdo->lastInsertId();
         $insert_tbl_order = $this->pdo->prepare("INSERT INTO tbl_order(transaction_id, variation_id, order_qty, order_price, date_requested) 
         VALUES (:transaction_id, :var_id, :qty, :price, :date_req)");
         foreach ($this->order_info->get_order_info() as $variant){
+            if(!in_array($variant["market_id"], $market_ids)){        
+                $insert_tbl_transaction->execute([
+                    ":customer_id" => $_SESSION["cus_id"],
+                    ":delivery_id" => $this->order_info->get_cus_address_id(),
+                ]);
+                $transaction_id = $this->pdo->lastInsertId();
+            }else{
+                array_push($market_ids, $variant["market_id"]);
+            }
             $insert_tbl_order->execute([
                 "transaction_id" => $transaction_id,
                 ":var_id" => $variant["id"],

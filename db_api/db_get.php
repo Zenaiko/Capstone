@@ -1,8 +1,5 @@
 <?php require_once('db_root_conn.php');
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+(session_status() === PHP_SESSION_NONE)?session_start():null;
 class class_get_database extends class_database{
     public function __construct()
     {
@@ -191,11 +188,14 @@ class class_get_database extends class_database{
     }
 
     public function get_cart($cus_id){
-        $get_cart = $this->query("SELECT market.market_id, market.market_name, item.item_name, variation.variation_id, variation.variation_name, cart.item_qty, (variation.variation_price * cart.item_qty) AS cart_price FROM
-        tbl_cart cart, tbl_variation variation, tbl_item item, tbl_market market 
+        $get_cart = $this->query("SELECT market.market_id, market.market_name, item.item_name, variation.variation_id, variation.variation_name, cart.item_qty, (variation.variation_price * cart.item_qty) AS cart_price, item_img.item_img
+        FROM tbl_cart cart, tbl_variation variation, tbl_item item, tbl_market market, tbl_item_img item_img
         WHERE cart.variant_id = variation.variation_id 
         AND variation.item_id = item.item_id 
         AND item.market_id = market.market_id
+        AND item.item_id = item_img.item_id
+        AND item_img.item_img = (SELECT item_img.item_img FROM tbl_item_img item_img, tbl_item item WHERE item.item_id = item_img.item_id LIMIT 1)
+        AND cart.cart_status = 'cart'
         AND  cart.customer_id = ?
         ORDER BY market.market_id" , [$cus_id]);
         return  $get_cart->fetchAll(PDO::FETCH_ASSOC)??null;
@@ -237,6 +237,37 @@ class class_get_database extends class_database{
         WHERE odr.order_status = 'accepted' 
         GROUP BY odr.order_id");
         return  $get_all_orders->fetchAll(PDO::FETCH_ASSOC)??null;
+    }
+
+    public function get_active_delivery($rider_id){
+        $get_rider_delivery = $this->query("SELECT delivery.rider_id, market.market_name, CONCAT_WS(', ', market_address.city, market_address.street, market_address.brngy, market_address.house_unit_number) AS market_address, market_contact.contact AS market_contact, pickup.recipient_name, CONCAT_WS(', ', customer_address.city, customer_address.street, customer_address.brngy, customer_address.house_unit_number) AS customer_address, customer_contact.contact AS customer_contact
+        FROM tbl_delivery delivery
+        JOIN tbl_transaction transact ON transact.transaction_id = delivery.delivery_id
+        JOIN tbl_order odr ON odr.transaction_id = transact.transaction_id
+        JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
+        JOIN tbl_item item ON item.item_id = variation.variation_id
+        JOIN tbl_market market ON market.market_id = item.item_id
+        LEFT JOIN tbl_contact market_contact ON market_contact.contact_id = market.contact_id
+        LEFT JOIN tbl_address market_address ON market_address.address_id = market.address_id
+        JOIN tbl_customer customer ON customer.customer_id = transact.customer_id
+        JOIN tbl_username username ON username.username_id = customer.username_id
+        JOIN tbl_user usr ON usr.user_id = username.user_id
+        JOIN tbl_contact customer_contact ON customer_contact.contact_id = usr.contact_id
+        JOIN tbl_customer_pickup pickup ON pickup.customer_id = customer.customer_id
+        JOIN tbl_address customer_address ON customer_address.address_id = pickup.address_id
+        WHERE delivery.rider_id = :rider_id", [":rider_id" => $rider_id]);
+        return $get_rider_delivery->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+    }
+
+    public function active_delivery_info($rirder_id){
+        $active_delivery_info = $this->query("SELECT item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price, transact.total_transaction_amt
+        FROM tbl_variation variaiton
+        JOIN tbl_item item ON item.item_id = variaiton.item_id
+        JOIN tbl_order odr ON odr.variation_id = variaiton.variation_id
+        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
+        JOIN tbl_delivery delivery ON delivery.transaction_id = transact.transaction_id
+        AND delivery.rider_id = :rider_id", [":rider_id" => $rirder_id]);
+        return $active_delivery_info->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
 }

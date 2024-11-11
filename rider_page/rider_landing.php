@@ -67,39 +67,56 @@
     }
 </style>
 <body>
-<?php require_once("../utilities/initialize.php") ?>
-  <div class="container mt-4">
+<?php 
+(session_status() === PHP_SESSION_NONE)?session_start():null;
+require_once("../utilities/initialize.php");
+require_once("../db_api/db_get.php");
+$active_delivery = $get_db->get_active_delivery($_SESSION["rider_num"]);
+?>
+<div class="container mt-4">
+  <!-- Rider Status -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="dashboard-title">Rider Dashboard</h4>
+  </div>
 
-     <!-- Rider Status -->
-     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h4 class="dashboard-title">Rider Dashboard</h4>
+  <!-- Quick Access Cards -->
+  <div class="card mb-3">
+    <div class="card-body">
+      <h6 class="card-title">Active Deliveries</h6>
+      <p class="card-text"><?=($active_delivery)?"You have an ongoing delivery":"You have no ongoing delivery"?></p>
+      <a href="view_details.php" class="btn btn-outline-primary btn-sm">View Details</a>
     </div>
+  </div>
 
-    <!-- Quick Access Cards -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h6 class="card-title">Active Deliveries</h6>
-        <p class="card-text">You have an ongoing delivery</p>
-        <a href="view_details.php" class="btn btn-outline-primary btn-sm">View Details</a>
-      </div>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h6 class="card-title">Delivery Requests</h6>
+      <a href="new_requests.php" id="view_request" class="btn btn-outline-primary btn-sm">View Requests</a>
     </div>
+  </div>
 
-    <div class="card mb-3">
-      <div class="card-body">
-        <h6 class="card-title">Delivery Requests</h6>
-        <a href="new_requests.php" class="btn btn-outline-primary btn-sm">View Requests</a>
-      </div>
-    </div>
+  <!-- Navigation Shortcuts -->
+  <div class="d-flex justify-content-between my-4">
+      <a href="order_history.php" class="btn btn-primary w-100 ms-2">Order History</a>
+  </div>
+  
+  <div class="d-flex justify-content-between my-4">
+      <a href="payments_transaction_history.php" class="btn btn-primary w-100 ms-2">Payments Transaction History</a>
+  </div>
+</div>
 
-    <!-- Navigation Shortcuts -->
-    <div class="d-flex justify-content-between my-4">
-       <a href="order_history.php" class="btn btn-primary w-100 ms-2">Order History</a>
-    </div>
-    
-    <div class="d-flex justify-content-between my-4">
-       <a href="payments_transaction_history.php" class="btn btn-primary w-100 ms-2">Payments Transaction History</a>
-    </div>
+<script>
+  if(<?=$active_delivery["rider_id"]?>){
+    $("#view_request").click(function(event){
+      event.preventDefault();
+      Swal.fire({
+        icon: "error",
+        title: "Active Delivery",
+        text: "You have already accepted a delivery"
+      });
+    });
+  }
+</script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
