@@ -17,6 +17,11 @@
 
     <form action="" id="order_rqst_form" method="post">
         <div class="checkout-container">
+            <!-- Header -->
+            <header class="checkout-header">
+    <button class="back-btn" onclick="goBack()">←</button>
+    <h1>Checkout</h1>
+</header>
 
             <!-- Shipping Section -->
             <section class="section">
