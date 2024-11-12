@@ -90,8 +90,8 @@
             </h2>
             <div id="accountManagement" class="accordion-collapse collapse" aria-labelledby="accountManagementHeader" data-bs-parent="#helpCenterAccordion">
                 <div class="accordion-body">
-                    <p><strong>Create an Account:</strong> Sign up <a href="#" class="btn-link">here</a> to enjoy exclusive features.</p>
-                    <p><strong>Account Settings:</strong> Update your contact info, password, or saved addresses in <a href="#" class="btn-link">Account Settings</a>.</p>
+                    <p><strong>Create an Account:</strong> Sign up <a href="../sign_up.php" class="btn-link">here</a> 
+                    <p><strong>Account Settings:</strong> Update your username, phone number, or email in <a href="cus_acc_edit_page.php" class="btn-link">Account Settings</a>.</p>
                 </div>
             </div>
         </div>
@@ -121,7 +121,7 @@
             <div id="contactUs" class="accordion-collapse collapse" aria-labelledby="contactUsHeader" data-bs-parent="#helpCenterAccordion">
                 <div class="accordion-body">
                     <p><strong>Email:</strong> Reach out at <a href="hotdogseller@gmail.com" class="btn-link">hotdogseller@gmail.com</a>.</p>
-                    <p><strong>Phone:</strong> Call us at (+63) 999-999-9999, Mon-Fri, 9 am - 6 pm.</p>
+                    <p><strong>Phone:</strong> Call us at (+63) 919-463-9940, Mon-Fri, 9 am - 6 pm.</p>
                 </div>
             </div>
         </div>

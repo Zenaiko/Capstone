@@ -16,7 +16,10 @@ $('.cus_acc_body_content').click(function(){
             redirect = '../db_api/db_logout.php';
             break;
         case 'help':
-            redirect = '';
+            redirect = 'help_center.php';
+            break;
+         case 'rider':
+            redirect = '../rider_page/rider_login.php';
             break;
         case 'store':
             fetch('../db_api/db_get.php', {
