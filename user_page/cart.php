@@ -18,10 +18,11 @@
 
     <!-- Navbar -->
     <nav id="navbar">
-        <button id="backButton" class="navbar-button" onclick="window.history.back()">Back</button>
+        <button id="backButton" class="navbar-button"  onclick="window.history.back()">Back</button>
+        <button id="editButton" class="navbar-button">Edit</button>
     </nav>
 
-    <form action="cus_checkout.php" method="post">
+<form action="cus_checkout.php" method="post">
         <section id="cart_section">
     
     <?php 
@@ -71,13 +72,13 @@
     }
     ?>
         </section>
-
+        <!-- Center Button Container -->
         <div class="center-button-container">
             <button class="btn btn-primary" id="checkoutButton">Checkout</button>
         </div>
-    </form>
+</form>
+
 
     <script src="../js/cart.js"></script>
-
 </body>
 </html>
