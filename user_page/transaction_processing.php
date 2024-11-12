@@ -1,9 +1,39 @@
-<?php require_once("../db_api/db_get_orders.php");?>
+<?php 
+require_once("../db_api/db_get_orders.php");
+$oder_processing = $order_info_db->get_preparing_transaction();
+?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/transaction.css">
 
 <div class="transaction-card">
-
+  <?php foreach($oder_processing as $transaction){ ?>
+    <div class="buyer-info">
+      <img src="<?=$transaction["customer_img"]??"../assets/tmp.png"?>" alt="Buyer Profile Picture" class="buyer-pic">
+      <span class="buyer-name"><?=$transaction["username"]?></span>
+    </div>
+    <div class="separator"></div>
+    <div class="order-info">
+      <div class="order-details">
+        <!-- loop for each transactions -->
+         <?php foreach($transaction["orders"] as $order){ ?>
+            <div class="product-text">
+              <p class="product-name"><?=$order["item_name"] . "(" . $order["variation_name"] . ")"?></p>
+              <p class="quantity">Quantity: <?=$order["order_qty"]?></p>
+              <p class="price">₱<?=$order["order_price"]?></p>
+            </div>
+        <?php } ?>
+          <p>Order Subtotal Price: ₱<?=$transaction["total_transaction_amt"]?></p>
+      </div>
+    </div>
+    <div class="order-time">
+      <p><?=$transaction["order_acceptance_date"]?></p>
+    </div>
+    <div class="separator"></div>
+    <div class="action-buttons centered"> 
+      <input type="button" class="order_btn prepare-btn" value="Prepared">
+      <input type="button" class="order_btn abort-btn" value="Cancel">
+    </div>
+  <?php } ?>
   
 
 

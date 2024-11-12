@@ -38,7 +38,7 @@ $(".transac_tab").on('click', function(){
 });
 
 // Use event delegation to handle clicks on dynamically added .accept-btns
-$(document).on("click", ".accept-btn", function() {
+$(document).on("click", ".order_btn", function() {
     const order_id = ($(this).attr("id"));
     $.ajax({
         url: "../db_api/db_accept_req.php",

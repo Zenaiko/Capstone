@@ -13,7 +13,9 @@
             $this->query("START TRANSACTION");
             try{
                 $accept_date = ($stat === "accepted")?date('Y-m-d H:i:s'):null;
+                $accept_order = $this->pdo->prepare("UPDATE tbl_order SET order_status = :stat , order_acceptance_date = :accept_date WHERE order_id = :order_id");
                 if($accept_date){      
+                    // Updates the available stock
                     $get_stock = $this->query("SELECT variation.variation_id, variation.variation_stock, SUM(odr.order_qty) AS total_order
                     FROM tbl_variation variation
                     JOIN tbl_order odr ON odr.variation_id = variation.variation_id
@@ -26,8 +28,14 @@
                         ":new_stock" => $new_stock, 
                         ":variation_id" => $curr_stock["variation_id"]
                     ]);
+
+                    // Updates the transaction info 
+                    $update_transaction = $this->pdo->prepare("UPDATE tbl_transaction transact, tbl_order odr
+                    SET transact.transaction_status = 'preparing' WHERE odr.transaction_id = transact.transaction_id AND odr.order_id = :order_id ");
+                    $update_transaction->execute([":order_id" => $order_id]);
                 }
-                $accept_order = $this->pdo->prepare("UPDATE tbl_order SET order_status = :stat , order_acceptance_date = :accept_date WHERE order_id = :order_id");
+
+                // Updates the orer info
                 $accept_order->execute([
                     ":order_id" => $order_id,
                     ":stat" => $stat,

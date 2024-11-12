@@ -57,6 +57,11 @@ body {
     align-items: center;
 }
 
+.order-details{
+    display: flex;
+    flex-direction: column;
+}
+
 .product-text {
     width: 65%; /* Adjusted text width */
 }
@@ -94,7 +99,7 @@ body {
     margin-top: var(--button-spacing); /* Space above buttons */
 }
 
-.accept-btn, .reject-btn, .abort-btn {
+.accept-btn, .reject-btn, .abort-btn, .prepare-btn{
     background-color: var(--primary-color);
     color: var(--button-text-color);
     border: none;
@@ -105,16 +110,12 @@ body {
     font-size: var(--font-size-md); /* Compact button text */
 }
 
-.reject-btn {
+.reject-btn, .abort-btn{
     background-color: var(--reject);
 }
 
-.abort-btn {
-    background-color: var(--abort);
-}
-
 .reject-btn:hover, .accept-btn:hover, .abort-btn:hover {
-    background-color: #508d4e; /* Hover color change */
+    filter:brightness(90%);
 }
 
 .status-text.centered, .action-buttons.centered {

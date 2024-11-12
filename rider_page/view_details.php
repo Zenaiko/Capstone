@@ -15,7 +15,6 @@ $active_delivery = $get_db->get_active_delivery($_SESSION["rider_num"]);
 $delivery_info = $get_db->active_delivery_info($_SESSION["rider_num"]);
  ?>
 <div class="container mt-4">
-  <a href="rider_landing.php" class="btn btn-outline-primary mb-3">Back</a>
   <?php 
     if($active_delivery){?>
 <?php require_once('../utilities/back_button.php'); ?>

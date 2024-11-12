@@ -1,6 +1,5 @@
-<?php    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+<?php
+(session_status() === PHP_SESSION_NONE)?session_start():null;
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +20,7 @@
         <nav class="selector">
             <ul class="scrollable-tabs">
                 <li class="transac_tab tab" id="requesting">Requesting</li>
-                <li class="transac_tab tab" id="processing">Processing</li>
+                <li class="transac_tab tab" id="processing">Preparing</li>
                 <li class="transac_tab tab" id="shipping">Shipping</li>
                 <li class="transac_tab tab" id="failed_delivery">Failed Delivery</li>
                 <li class="transac_tab tab" id="completed">Completed</li>

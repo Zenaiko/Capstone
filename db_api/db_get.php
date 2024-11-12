@@ -269,7 +269,6 @@ class class_get_database extends class_database{
         AND delivery.rider_id = :rider_id", [":rider_id" => $rirder_id]);
         return $active_delivery_info->fetchAll(PDO::FETCH_ASSOC)??null;
     }
-
 }
 
 $get_db = new class_get_database();

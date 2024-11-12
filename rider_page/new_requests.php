@@ -25,10 +25,12 @@
   </style>
 </head>
 <body>
-<?php require_once('../utilities/back_button.php'); ?>
-<?php require_once("../utilities/initialize.php");
+<?php 
+require_once("../utilities/initialize.php");
 require_once("../db_api/db_get.php");
-$order_requests = $get_db->get_all_orders();?>
+$order_requests = $get_db->get_all_orders();
+require_once('../utilities/back_button.php');
+?>
   <div class="container mt-4">
     <?php foreach($order_requests as $orders){?>
     <div class="card mb-3" id="request-1">
