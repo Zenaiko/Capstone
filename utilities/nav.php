@@ -36,11 +36,6 @@ if (!isset($_SESSION['user'])){
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-message"></i> Messages
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="<?php 
                             if($_SESSION['user'] == 'visitor'){
                                 echo "../login.php";}elseif($_SESSION['user'] == 'customer'){
