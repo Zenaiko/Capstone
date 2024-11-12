@@ -7,7 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <?php require_once('../utilities/initialize.php'); 
+    
+    <?php 
+    require_once('../utilities/back_button.php');
+    require_once('../utilities/initialize.php'); 
     ?>
 
     <section id="seller_sign_up">

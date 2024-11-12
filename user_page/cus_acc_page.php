@@ -81,7 +81,11 @@ require_once('../db_api/db_get.php');
                     <figure id="help" class="cus_acc_body_content">
                         <i class="bi bi-question-circle"></i>
                         <figcaption>Help Center</figcaption>
-                    </figure>                  
+                    </figure>    
+                    <figure id="logout" class="cus_acc_body_content">
+                        <i class="bi bi-bicycle"></i>
+                        <figcaption>Become a Rider</figcaption>
+                    </figure>              
                     <figure id="logout" class="cus_acc_body_content">
                         <i class="bi bi-box-arrow-left"></i>
                         <figcaption>Logout</figcaption>
