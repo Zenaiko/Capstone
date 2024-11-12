@@ -37,15 +37,44 @@ $(".transac_tab").on('click', function(){
     });
 });
 
+// rerurns a bool to determine the status
+function check_class_contains(element, status) {
+    // Validate inputs
+    if (!(element instanceof HTMLElement || element instanceof jQuery)) {
+        return false;
+    }
+    
+    if (typeof status !== 'string') {
+        return false;
+    }
+
+    // If element is a jQuery object, get the native DOM element
+    const domElement = element instanceof jQuery ? element[0] : element;
+
+    // Check if the DOM element has the specified class
+    return domElement.classList.contains(status);
+}
+
 // Use event delegation to handle clicks on dynamically added .accept-btns
 $(document).on("click", ".order_btn", function() {
-    const order_id = ($(this).attr("id"));
+    const basis_id = ($(this).attr("id"));
+
+    // Determines the status action by viewing the class name
+    const accept = check_class_contains($(this), "accept-btn");
+    const decline = check_class_contains($(this), "reject-btn");
+    const prepared = check_class_contains();
+    console.log (accept);
+
+    switch(true){
+        case(accept):
+            stats = "accepted"
+    }
     $.ajax({
         url: "../db_api/db_accept_req.php",
         type: "POST",
-        data: {order_id:order_id, stats:"accepted"},
-        success($results){
-            console.log($results);
+        data: {basis_id:basis_id, stats:stats},
+        success(results){
+            console.log(results);
         }
 
     });

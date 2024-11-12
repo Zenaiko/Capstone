@@ -28,7 +28,7 @@ $order_requests = $order_info_db->get_orders_info();
     <div class="separator"></div>
     <div class="action-buttons">
         <input type="button" class="order_btn accept-btn" id="<?=$req["order_id"]?>" value="Accept">
-      <input type="button" class="order_btn reject-btn" id="<?=$req["order_id"]?>" value="Reject">
+      <input type="button" class="order_btn reject-btn" id="<?=$req["order_id"]?>" value="Decline">
     </div> 
 
   <?php } ?>

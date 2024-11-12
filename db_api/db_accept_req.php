@@ -65,13 +65,19 @@
                 // ]);
 
         }
+
+        public function complete_transaction(){
+
+        }
     }
+$order_update_db = new class_order_update_database();
+$basis_id = $_POST["basis_id"];
+$stats = $_POST["stats"];
 
-    $order_id = $_POST["order_id"];
-    $stats = $_POST["stats"];
+switch($stats){
+    case("accepted"):
+        $order_update_db->update_order_stats($basis_id, $stats);
+        break;
+}
 
-    $order_update_db = new class_order_update_database();
-
-    $order_update_db->update_order_stats($order_id, $stats);
-    
 ?>
