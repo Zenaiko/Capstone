@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Seller Dashboard</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
     <link href="../css/dashboard.css" rel="stylesheet">
 </head>
 <body>

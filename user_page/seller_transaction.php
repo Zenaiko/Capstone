@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/transaction.css">
     <link rel="stylesheet" href="../css/seller_item_inventory.css">
-    <title>Document</title>
+    <title>Seller Transaction</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 <body>
     <?php 

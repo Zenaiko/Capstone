@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Form</title>
     <link rel="stylesheet" href="../css/product-add.css">
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 <body>
     <?php require_once('../utilities/initialize.php');

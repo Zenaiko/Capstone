@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Step Form</title>
+    <title>Rider Sign Up</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
     <style>
         body {
             display: flex;

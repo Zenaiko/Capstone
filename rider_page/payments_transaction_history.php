@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payments Transaction History</title>
+  <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 <style>
     body {

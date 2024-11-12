@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/cus_acc_page.css">
-    <title></title>
+    <title>Account Page</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 
 <body>
@@ -80,7 +81,7 @@ require_once('../db_api/db_get.php');
                     </figure>
                     <figure id="help" class="cus_acc_body_content">
                         <i class="bi bi-question-circle"></i>
-                        <figcaption href="help_center.php">Help Center</figcaption>
+                        <figcaption>Help Center</figcaption>
                     </figure>    
                     <figure id="rider" class="cus_acc_body_content">
                         <i class="bi bi-bicycle"></i>

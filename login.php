@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
     <title>Login</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
     <?php
     (session_status() === PHP_SESSION_NONE)?session_start():null;?>
 </head>

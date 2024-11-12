@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/sign_up_seller.css">
-    <title>Document</title>
+    <title>Seller Sign Up</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 <body>
     

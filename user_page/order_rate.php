@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rate Your Products</title>
+  <title>Rate Products</title>
+  <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
   <style>
     body {
       background-color: #f8f9fa;

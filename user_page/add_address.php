@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/add_address.css">
-    <title>Document</title>
+    <title>Add Address</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 <body>
 <?php require_once('../utilities/back_button.php'); ?>

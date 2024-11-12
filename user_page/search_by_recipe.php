@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search by Recipe</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -34,7 +35,7 @@
     </style>
 </head>
 <body>
-<?php require_once('../utilities/back_button.php'); ?>
+    <?php require_once('../utilities/back_button.php'); ?>
     <div class="container mt-4">
         <h4 class="text-center mb-4">Search by Recipe</h4>
         <div class="input-group mb-4">

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/solo_item.css">
-    <title>Document</title>
+    <title>Product</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 <body>
     <?php require_once('../utilities/initialize.php');

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/cart.css">
     <title>Cart Page</title>
+    <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
 <body>
 
