@@ -44,11 +44,8 @@
     </style>
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
 <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a href="rider_landing.php" class="btn btn-outline-primary">Back</a>
-      <div></div>
-    </div>
     <!-- Liked Items Grid -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <!-- Sample Liked Item Card -->

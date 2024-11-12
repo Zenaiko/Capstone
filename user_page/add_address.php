@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
     <?php require_once("../utilities/initialize.php") ?>
 
 <form action="../db_api/db_address.php" method="post">

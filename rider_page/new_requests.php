@@ -25,15 +25,11 @@
   </style>
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
 <?php require_once("../utilities/initialize.php");
 require_once("../db_api/db_get.php");
 $order_requests = $get_db->get_all_orders();?>
   <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a href="rider_landing.php" class="btn btn-outline-primary">Back</a>
-      <div></div>
-    </div>
-
     <?php foreach($order_requests as $orders){?>
     <div class="card mb-3" id="request-1">
       <div class="card-body">

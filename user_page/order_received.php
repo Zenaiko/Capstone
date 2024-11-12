@@ -37,13 +37,9 @@
   </style>
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
 <?php require_once('../utilities/initialize.php'); ?>
 <div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a href="order_transaction_history.php" class="btn btn-outline-primary">Back</a>
-      <div></div> 
-    </div>
-    
     <!-- Order Card 1 -->
     <div class="card mb-3">
       <div class="card-body">

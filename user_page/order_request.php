@@ -36,16 +36,13 @@
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+require_once('../utilities/back_button.php'); 
 require_once('../utilities/initialize.php'); 
 require_once('../db_api/db_get.php');
 $order_requests = $get_db->get_customer_orders($_SESSION["cus_id"], "requesting");
 ?>
-<div class="container mt-4">
-    <div class="d-flex justify-content-between mb-4">
-      <a class="btn btn-outline-primary" id="back_btn">Back</a>
-      <div></div> 
-    </div>
 
+<div class="container mt-4">
     <?php foreach($order_requests as $requsts){  ?>
     <div class="card mb-3">
       <div class="card-body">

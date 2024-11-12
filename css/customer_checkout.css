@@ -162,6 +162,131 @@ h1 {
     width:  1.8rem;
 }
 
-#address_change{
+
+/* Offcanvas */
+.offcanvas-bottom {
+    top: auto;
+    bottom: 0;
+    height: 65% !important; 
+    max-height: 100% !important; 
+}
+
+.offcanvas-body {
+    height: 100%; 
+    padding: 20px; 
+}
+
+.offcanvas-start, .offcanvas-end {
+    width: 80%; 
+    max-width: 100%; 
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+body.modal-open .offcanvas-backdrop {
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Address Section */
+.address-entry {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.form-check-input {
+    margin-right: 20px; 
+}
+
+.form-check-label {
+    line-height: 1.5;
+}
+
+.form-check-label strong {
+    color: #333;
+}
+
+.btn-primary {
+    width: 50%;
+    margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.offcanvas-body {
+    padding: 2.5rem;
+}
+
+#saved_addresses .form-check {
+    padding: 2rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+#saved_addresses .form-check-label {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+#address_form .btn-primary {
+    display: block;
+    margin: 0 auto;
+}
+
+.form-check-input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #40A578;
+}
+
+.form-check {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+}
+
+.form-check:hover {
+    background-color: #f1f1f1;
+}
+
+.form-check-label div {
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+
+button[type="submit"] {
+    width: 100%;
+    max-width: 200px;
+}
+
+.address-form {
+    margin-top: 1rem;
+}
+
+.address-form input, .address-form textarea {
+    width: 100%;
+    padding: 50px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.address-form button {
+    background-color: #40A578;
+    color: white;
     border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.address-form button:hover {
+    background-color: #36885E;
 }

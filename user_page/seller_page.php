@@ -7,7 +7,7 @@
     <title>Seller Page</title>
 </head>
 <body>
-
+<?php require_once('../utilities/back_button.php'); ?>
     <?php require_once('../utilities/initialize.php'); 
             require_once("../db_api/db_get.php");
             $seller_info = $get_db->get_shop_info($_GET["seller"]);

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/cus_acc_edit.css">
 </head>
 <body>
+<?php require_once('../utilities/back_button.php'); ?>
     <?php require_once('../utilities/initialize.php');
         require_once('../db_api/db_edit_cus.php');
      ?>
