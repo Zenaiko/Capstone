@@ -80,9 +80,9 @@ require_once('../db_api/db_get.php');
                     </figure>
                     <figure id="help" class="cus_acc_body_content">
                         <i class="bi bi-question-circle"></i>
-                        <figcaption>Help Center</figcaption>
+                        <figcaption href="help_center.php">Help Center</figcaption>
                     </figure>    
-                    <figure id="logout" class="cus_acc_body_content">
+                    <figure id="rider" class="cus_acc_body_content">
                         <i class="bi bi-bicycle"></i>
                         <figcaption>Become a Rider</figcaption>
                     </figure>              
