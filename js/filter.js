@@ -12,7 +12,7 @@ document.addEventListener("click", function(event) {
 });
 
 
-    // Handle form submission with AJAX
+   /* // Handle form submission with AJAX
     document.getElementById("filterForm").addEventListener("submit", function(event) {
         event.preventDefault(); 
 
@@ -32,4 +32,4 @@ document.addEventListener("click", function(event) {
             }
         };
         xhr.send();
-    });
+    }); */

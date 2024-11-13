@@ -151,6 +151,84 @@ class class_get_database extends class_database{
         return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
+    public function get_category_item_filtered($category,$lowerprice,$higherprice,$sort){
+       if($sort==='highest'&&$lowerprice===''&&$higherprice===''){
+       $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+        FROM tbl_item item
+        LEFT JOIN tbl_category category ON category.category_id = item.category_id
+        LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        WHERE category.category = ?
+        GROUP BY item.item_id
+        ORDER BY vari.variation_price DESC", [$category]);
+        return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
+       }
+       else if($sort==='lowest'&&$lowerprice===''&&$higherprice===''){
+        $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+         FROM tbl_item item
+         LEFT JOIN tbl_category category ON category.category_id = item.category_id
+         LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+         LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+         LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+         WHERE category.category = ?
+         GROUP BY item.item_id
+         ORDER BY vari.variation_price ASC"
+         , [$category]);
+         return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
+        }
+        else if($sort===''&&$lowerprice!=''&&$higherprice!=''){
+            $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+             FROM tbl_item item
+             LEFT JOIN tbl_category category ON category.category_id = item.category_id
+             LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+             LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+             LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+             WHERE category.category = ? AND vari.variation_price BETWEEN ? AND ?
+             GROUP BY item.item_id"
+             , [$category,$lowerprice,$higherprice]);
+             return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
+            }
+        else if($sort==='lowest'&&$lowerprice!=''&&$higherprice!=''){
+            $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+            FROM tbl_item item
+            LEFT JOIN tbl_category category ON category.category_id = item.category_id
+            LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+            LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+            LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+            WHERE category.category = ? AND vari.variation_price BETWEEN ? AND ?
+            GROUP BY item.item_id
+            ORDER BY vari.variation_price ASC"
+            , [$category,$lowerprice,$higherprice]);
+            return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
+            }
+        else if($sort==='highest'&&$lowerprice!=''&&$higherprice!=''){
+                $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+                FROM tbl_item item
+                LEFT JOIN tbl_category category ON category.category_id = item.category_id
+                LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+                LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+                LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+                WHERE category.category = ? AND vari.variation_price BETWEEN ? AND ?
+                GROUP BY item.item_id
+                ORDER BY vari.variation_price DESC"
+                , [$category,$lowerprice,$higherprice]);
+                return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null;
+                }
+        else{
+            $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+            FROM tbl_item item
+            LEFT JOIN tbl_category category ON category.category_id = item.category_id
+            LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+            LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+            LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+            WHERE category.category = ?
+            GROUP BY item.item_id", [$category]);
+            return $get_category_item->fetchAll(PDO::FETCH_ASSOC)??null; 
+        }
+    }
+    
+
     public function get_top_selling_items($seller_id){
         $get_top_selling_items = $this->query("SELECT item.item_name, img.item_img, SUM(odr.order_qty) AS total_sold, SUM(odr.order_price) AS total_income FROM tbl_item item 
         LEFT JOIN tbl_market market ON market.market_id = item.market_id
@@ -304,4 +382,3 @@ $category_array = $get_db->get_category();
     }
 
 ?>
-

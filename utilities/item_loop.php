@@ -1,4 +1,4 @@
-    <div class="item_wrapper" id="<?=$item["item_id"]?>">
+<div class="item_wrapper" id="<?=$item["item_id"]?>">
         <div class="item_container">
             <div class="item_contents">
                 <img src="<?=file_exists($item['item_img'])? $item['item_img']: '../assets/tmp.png'?>" alt="" class="item_img">
@@ -7,11 +7,16 @@
                     <p class="item_price">₱<?=$item['min_price']?></p>
                     <div class="item_stars">
                             <ul>
-                                <li><i class="bi bi-star-fill"></i></li>
-                                <li><i class="bi bi-star-fill"></i></li>
-                                <li><i class="bi bi-star-fill"></i></li>
-                                <li><i class="bi bi-star-fill"></i></li>
-                                <li><i class="bi bi-star-fill"></i></li>
+                                <?php if ($item["avg_rate"]>=1){ ?>
+                                <li><i class="bi bi-star-fill"></i></li> <?php }else{ ?><li><i class="bi bi-star"></i></li> <?php } ?>
+                                <?php if ($item["avg_rate"]>=2){ ?>
+                                    <li><i class="bi bi-star-fill"></i></li> <?php }else{ ?><li><i class="bi bi-star"></i></li> <?php } ?>
+                                    <?php if ($item["avg_rate"]>=3){ ?>
+                                        <li><i class="bi bi-star-fill"></i></li> <?php }else{ ?><li><i class="bi bi-star"></i></li> <?php } ?>
+                                        <?php if ($item["avg_rate"]>=4){ ?>
+                                            <li><i class="bi bi-star-fill"></i></li> <?php }else{ ?><li><i class="bi bi-star"></i></li> <?php } ?>
+                                            <?php if ($item["avg_rate"]>=5){ ?>
+                                                <li><i class="bi bi-star-fill"></i></li> <?php }else{ ?><li><i class="bi bi-star"></i></li> <?php } ?>
                             </ul>
                         <span class="star_splitter"></span>
                         <p class="item_respondents">(<?=$item["rate_count"]??0?>)</p>
