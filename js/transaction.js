@@ -62,15 +62,21 @@ $(document).on("click", ".order_btn", function() {
     // Determines the status action by viewing the class name
     const accept = check_class_contains($(this), "accept-btn");
     const decline = check_class_contains($(this), "reject-btn");
-    const prepared = check_class_contains();
-    console.log (accept);
+    const prepared = check_class_contains($(this),"prepare-btn");
 
     switch(true){
         case(accept):
             stats = "accepted"
+            break;
+        case(decline):
+            stats = "declined"
+            break;
+        case(prepared):
+            stats = "prepared"
+            break;
     }
     $.ajax({
-        url: "../db_api/db_accept_req.php",
+        url: "../db_api/db_updt_order_stat.php",
         type: "POST",
         data: {basis_id:basis_id, stats:stats},
         success(results){

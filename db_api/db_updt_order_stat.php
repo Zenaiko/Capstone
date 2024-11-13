@@ -47,6 +47,41 @@
                 $this->query('ROLLBACK');
                 return null;
             }
+
+        }
+
+        public function prepare_transaction($tranaction_id){
+            try{
+                $this->query("START TRANSACTION");
+                $prepare_transaction = $this->pdo->prepare("UPDATE tbl_transaction SET transaction_status = 'prepared' WHERE transaction_id = :transaction_id");
+                $prepare_transaction->execute([":transaction_id" => $tranaction_id]);
+                $this->query("COMMIT");
+            }catch(Exception $error){
+                echo "Failed: " . $error->getMessage();
+                $this->query('ROLLBACK');
+                return null;
+            }
+        }
+    }
+$order_update_db = new class_order_update_database();
+$basis_id = $_POST["basis_id"];
+$stats = $_POST["stats"];
+
+switch($stats){
+    case "accepted":
+    case "decilned":
+        $order_update_db->update_order_stats($basis_id, $stats);
+        break;
+    case"prepared":
+        $order_update_db->prepare_transaction($basis_id);
+        break;
+    default:
+        break;
+}
+
+
+
+
     
                 // $insert_stocks_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement(stock_movement, stock_id, stock_qty, stock_date) 
                 // VALUES (:movement, :stock_id, :stock_qty, :stock_date)");
@@ -63,21 +98,5 @@
                 //     ":stock_qty" => $stock_info["order_qty"], 
                 //     ":stock_date" => date('Y-m-d H:i:s')
                 // ]);
-
-        }
-
-        public function complete_transaction(){
-
-        }
-    }
-$order_update_db = new class_order_update_database();
-$basis_id = $_POST["basis_id"];
-$stats = $_POST["stats"];
-
-switch($stats){
-    case("accepted"):
-        $order_update_db->update_order_stats($basis_id, $stats);
-        break;
-}
 
 ?>

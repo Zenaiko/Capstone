@@ -234,8 +234,8 @@ class class_get_database extends class_database{
         JOIN tbl_customer_pickup pickup ON transact.delivery_id = pickup.customer_pickup_id
         JOIN tbl_address customer_adr ON customer_adr.address_id = pickup.address_id
         JOIN tbl_contact customer_contact ON customer_contact.contact_id = pickup.contact_id
-        WHERE odr.order_status = 'accepted' 
-        GROUP BY odr.order_id");
+        WHERE transact.transaction_status = 'prepared' 
+        GROUP BY transact.transaction_id");
         return  $get_all_orders->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 

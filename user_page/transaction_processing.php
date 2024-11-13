@@ -1,6 +1,6 @@
 <?php 
 require_once("../db_api/db_get_orders.php");
-$oder_processing = $order_info_db->get_preparing_transaction();
+$oder_processing = $order_info_db->get_transaction_info("preparing");
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/transaction.css">
@@ -14,7 +14,7 @@ $oder_processing = $order_info_db->get_preparing_transaction();
     <div class="separator"></div>
     <div class="order-info">
       <div class="order-details">
-        <!-- loop for each transactions -->
+        <!-- loop for each order/s -->
          <?php foreach($transaction["orders"] as $order){ ?>
             <div class="product-text">
               <p class="product-name"><?=$order["item_name"] . "(" . $order["variation_name"] . ")"?></p>
@@ -30,8 +30,8 @@ $oder_processing = $order_info_db->get_preparing_transaction();
     </div>
     <div class="separator"></div>
     <div class="action-buttons centered"> 
-      <input type="button" class="order_btn prepare-btn" value="Prepared">
-      <input type="button" class="order_btn abort-btn" value="Cancel">
+      <input type="button" class="order_btn prepare-btn" id="<?=$transaction["transaction_id"]?>" value="Prepared">
+      <input type="button" class="order_btn abort-btn" id="<?=$transaction["transaction_id"]?>" value="Cancel">
     </div>
   <?php } ?>
   

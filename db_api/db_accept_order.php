@@ -10,10 +10,9 @@ class class_accept_order_database extends class_database{
 
     public function accept_order($transaction_id){
         $accept_order = $this->pdo->prepare("UPDATE tbl_order odr, tbl_transaction transact 
-        SET odr.order_status = 'shipping' 
+        SET odr.order_status = 'shipping', transact.transaction_status = 'shipping'
         WHERE transact.transaction_id = odr.transaction_id
-        AND transact.transaction_id = :transaction_id
-        AND odr.order_status = 'accepted'");
+        AND transact.transaction_id = :transaction_id");
         $insert_delivery = $this->pdo->prepare("INSERT INTO tbl_delivery(transaction_id, rider_id, date_time_accepted) 
         VALUES (:transact_id, :rider_id, :date_accept)");
         $accept_order->execute([
