@@ -12,7 +12,7 @@
         <footer id="main_footer">
             <div id="main_footer_contents">
                 <p id="account_preference">Don't have an account?</p>
-                <a href="number_otp.php" id="main_form_changer">Sign Up</a>
+                <a href="number_otp.php?user=customer" id="main_form_changer">Sign Up</a>
             </div>
         </footer>
     </div>
