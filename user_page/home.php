@@ -87,7 +87,9 @@
 <section class="mt-5">
     <div class="container">
         <div class="categories-header">
-            <h2>Categories</h2>
+            <strong>Categories</strong>
+            <br>
+            <br>
         </div>
         <div class="category-row">
 

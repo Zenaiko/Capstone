@@ -172,7 +172,7 @@ span.feature_star_splitter{
     }
 
     .featured-shops-header h2, .categories-header h2, .sale-section-header h2 {
-        font-size: 1.25rem; /* Smaller font size for headers */
+        font-size: 2.25rem; /* Smaller font size for headers */
     }
 
     /* .featured-shop-contents, .sale-shop-contents {
