@@ -1,6 +1,8 @@
-document.getElementById("filterButton").addEventListener("click", function() {
+$("#filterButton").click(function(event) {
+    event.stopPropagation();
     document.getElementById("filterSidebar").classList.add("active");
 });
+
 
 document.addEventListener("click", function(event) {
     var sidebar = document.getElementById("filterSidebar");

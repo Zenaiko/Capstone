@@ -8,6 +8,11 @@
     <title>Category Page</title>
     <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
+    <style>
+        #filter_icon{
+            cursor: pointer;
+        }
+    </style>
 <body>
 
 <?php require_once("../utilities/initialize.php");
@@ -18,7 +23,7 @@
     <div class="d-flex justify-content-end mb-3">
         <!-- Filter Button -->
         <button id="filterButton" class="btn btn-outline-secondary">
-            <i class="bi bi-funnel-fill"></i>
+            <i id="filter_icon" class="bi bi-funnel-fill"></i>
         </button>
     </div>
 
