@@ -80,7 +80,6 @@ $(document).on("click", ".order_btn", function() {
         type: "POST",
         data: {basis_id:basis_id, stats:stats},
         success(results){
-            console.log(results);
         }
 
     });

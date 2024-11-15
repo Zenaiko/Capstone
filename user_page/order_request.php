@@ -40,7 +40,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once('../utilities/back_button.php'); 
 require_once('../utilities/initialize.php'); 
 require_once('../db_api/db_get.php');
-$order_requests = $get_db->get_customer_orders($_SESSION["cus_id"], "requesting");
+$order_requests = $get_db->get_customer_orders($_SESSION["cus_id"]);
 ?>
 
 <div class="container mt-4">
@@ -48,7 +48,8 @@ $order_requests = $get_db->get_customer_orders($_SESSION["cus_id"], "requesting"
     <div class="card mb-3">
       <div class="card-body">
         <h6 class="card-title">Order#<?=$requsts["order_id"]?></h6>
-        <p><strong>Items:</strong> <?=$requsts["variation_name"]."(". $requsts["order_qty"] .")"?></p>
+        <p><strong>Item:</strong> <?=$requsts["item_name"]."(". $requsts["variation_name"] .")"?></p>
+        <p><strong>Quantity:</strong> <?=$requsts["order_qty"]?></p>
         <p><strong>Total:</strong> <?=$requsts["order_price"]?></p>
         <button class="btn btn-primary submit-rating" onclick="confirmCancelOrder()">Cancel Order</button>
       </div>

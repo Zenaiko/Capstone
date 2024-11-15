@@ -43,7 +43,7 @@ require_once('../db_api/db_get.php');
                                 </div>
                                 <div>
                                     <i class="bi bi-clipboard"></i>
-                                    <a href="">Accepted</a>
+                                    <a href="order_accepted.php">Accepted</a>
                                 </div>
                                 <div>
                                     <i class="bi bi-truck"></i>
@@ -51,7 +51,7 @@ require_once('../db_api/db_get.php');
                                 </div>
                                 <div>
                                     <i class="bi bi-box"></i>
-                                    <a href="order_received.php">Recieved</a>
+                                    <a href="order_received.php">Delivered</a>
                                 </div>
                             </div>
                         </div>

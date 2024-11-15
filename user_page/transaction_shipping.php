@@ -32,14 +32,14 @@ $transaction_processing = $order_info_db->get_transaction_info("prepared_shippin
     <div class="separator"></div>
 
     <!-- Checks if a rider is already assigned -->
-     <?php if($transaction["rider"]){?>
+     <?php if(isset($transaction["rider"])){?>
         <div class="rider-info">
           <p>Rider Name: <?=$transaction["rider"]["username"] ?> </p>
           <p>Rider Number: <?=$transaction["rider"]["contact"] ?> </p>
         </div>
       <?php } ?>
     <div class="separator"></div>
-    <p class="status-text centered"><?=($transaction["rider"])?"Shipping in Progress":"Awaiting Rider" ?></p> 
+    <p class="status-text centered"><?=(isset($transaction["rider"]))?"Shipping in Progress":"Awaiting Rider" ?></p> 
   </div>
 
 <?php } ?>

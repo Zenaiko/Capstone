@@ -39,12 +39,15 @@ class class_order_info extends class_database {
         if($transaction_status === "preparing"){
             $transaction_query .= (" AND transact.transaction_status = 'preparing'");
             $order_status = 'accepted';
+        }elseif($transaction_status === "completed"){
+            $transaction_query .= (" AND transact.transaction_status = 'delivered' OR transact.transaction_status = 'completed'");
+            $order_status = 'completed';
         }else{
             $transaction_query .= (" AND (transact.transaction_status = 'prepared' OR transact.transaction_status = 'shipping')");
             $order_status = 'shipping';
         }
 
-        // Finalized the query
+        // Finalize the query
         $transaction_query .= ("GROUP BY transact.transaction_id");
         $get_transaction_info = $this->pdo->prepare($transaction_query);
 
@@ -55,13 +58,13 @@ class class_order_info extends class_database {
         JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
         JOIN tbl_item item ON item.item_id = variation.item_id
         JOIN tbl_market market ON market.market_id = item.market_id
-        WHERE transact.transaction_id = :transaction_id AND odr.order_status = :order_status ");
+        WHERE transact.transaction_id = :transaction_id AND odr.order_status = :order_status");
 
         $get_transaction_info->execute([":market_id"=> $_SESSION["seller_id"],]);
         $transactions_array = $get_transaction_info->fetchAll(PDO::FETCH_ASSOC);
 
         // Gets the rider information
-        $get_rider_info = $this->pdo->prepare("SELECT username.username, contact.contact
+        $get_rider_info = $this->pdo->prepare("SELECT username.username, contact.contact, delivery.date_time_accepted, delivery.date_time_delivered
         FROM tbl_delivery delivery
         JOIN tbl_transaction transact ON transact.transaction_id = delivery.transaction_id
         JOIN tbl_employee employee ON employee.employee_id = delivery.rider_id
@@ -81,7 +84,7 @@ class class_order_info extends class_database {
             $order = $get_orders->fetchAll(PDO::FETCH_ASSOC);
             $transactions_array[$key]["orders"] =  $order;
             // Assigns a rider to the transaction if a rider has accepted it for shipping
-            if($transaction["transaction_status"] === "shipping"){
+            if($transaction["transaction_status"] === "shipping" or $transaction_status === "completed"){
                 $get_rider_info->execute([":transaction_id" => $transaction["transaction_id"]]);
                 $rider_info = $get_rider_info->fetchAll(PDO::FETCH_ASSOC)[0];
                 $transactions_array[$key]["rider"] =  $rider_info;
