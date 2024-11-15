@@ -1,180 +1,209 @@
-@import url(root.css);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('root.css');
 
-#cus_acc_section{
-    width: 100%;
-}
-
-#cus_acc_header_contents{
-    width: 100%;
-}
-
-#cus_acc_wrapper{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: center;
-}
-
-#cus_acc_header{
-    display: flex;
-    width: 100%;
-    padding: 1rem 0 1rem 0;
-    justify-content: center;
-    background-color: var(--cus_acc_header);
-    
-}
-
-#cus_acc_info{
-    display: flex;
-    flex-direction: column;
-    margin-left: 0.8rem;
-    align-self: flex-end;
-}
-
-#cus_username{
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-#cus_acc_info p{
-    height: fit-content;
+* {
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
+    padding: 0;
 }
 
-.cus_info_relation{
-    font-size: 0.5rem;
+body {
+    background-color: #f5f5f5;
+    color: #333;
 }
 
-#cus_acc_header_contents{
+#cus_acc_section {
+    width: 100%;
     display: flex;
-    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
 }
 
-#cus_acc_img{
+#cus_acc_wrapper {
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Header Section */
+#cus_acc_header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--cus_acc_header);
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#cus_acc_header_contents {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#cus_acc_img {
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    border: 0.5px solid black;
+    border: 2px solid #ddd;
+    object-fit: cover;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-#cus_acc_order_info_wrapper{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-#cus_acc_order_info{
-    margin-top: 1rem;
-}
-
-#cus_acc_order_head{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: fit-content;
-    margin: 0;
-}
-
-#cus_acc_order_head p{
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: 530;
-    margin: 0;
-    align-self: flex-end;
-}
-
-#cus_acc_order_head a{
-    font-size: 0.65rem;
-    text-decoration: none;
-    color: black;
-    align-self: flex-end;
-}
-
-#cus_acc_order_info_container{
+#cus_acc_info {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    margin-left: 1.2rem;
 }
 
-#cus_order_info_container{
+#cus_username {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.4rem;
+}
+
+.cus_info_relation {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#cus_acc_order_info {
+    width: 100%;
+    padding: 1rem 0;
+    background-color: #fafafa;
+    border-top: 1px solid #e0e0e0;
+}
+
+#cus_acc_order_head {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 1.2rem;
 }
 
-#cus_order_info_wrapper{
-    margin-top: 1rem;
+#cus_acc_order_head p {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #444;
 }
 
-#cus_order_info_container figure{
+#cus_acc_order_head a {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+}
+
+#cus_acc_order_head a:hover {
+    color: var(--primary-color-hover);
+}
+
+#cus_order_info_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
     text-align: center;
 }
 
-#cus_order_info_container figure i{
-    font-size: 1.2rem;
-}
-
-#cus_order_info_container figure figcaption{
-    font-size: 0.7rem;
-    text-transform: uppercase;
-}
-
-#cus_acc_body{
+#cus_order_info_container div {
     display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-#cus_acc_body_wrapeper{
-    width: 90%;
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-}
-
-#cus_acc_body_wrapeper figure{
-    display: flex;
-    min-width: 9.8rem;
-    min-width:  none;
-    min-height: 4rem;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    transition: transform 0.2s;
+}
+
+#cus_order_info_container div:hover {
+    transform: scale(1.05);
+}
+
+#cus_order_info_container i {
+    font-size: 1.5rem;
+    color: var(--icon-color);
+    margin-bottom: 0.2rem;
+}
+
+#cus_order_info_container a {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Main Body Section */
+#cus_acc_body {
+    width: 100%;
+    padding: 1rem 0;
+    background-color: #fff;
+}
+
+#cus_acc_body_wrapeper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+#cus_acc_body_wrapeper figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
     border: 1px solid var(--user_acc_border);
-    border-radius: 5px;
-    font-size: 0.9rem;
-
-}
-
-#cus_acc_body_wrapeper figure i{
-    margin-right: 0.2rem;
-}
-
-.bi-heart{
-    color: var(--heart_icon);
-}
-
-.bi-person-check{
-    color:var(--follow_store_icon);
-    font-size: 1.2rem;
-}
-
-.bi-question-circle{
-    color: var(--help_icon);
-}
-
-.bi-basket{
-    color: var(--store_icon);
-}
-
-.cus_acc_body_content{
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, box-shadow 0.3s;
     cursor: pointer;
 }
 
-.item_loop_contaner{
-    width: 100%;
-    justify-content: center;
+#cus_acc_body_wrapeper figure:hover {
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.item_loop{
-    width: 95%;
+#cus_acc_body_wrapeper figure i {
+    font-size: 1.5rem;
+    color: var(--icon-color);
+    margin-bottom: 0.5rem;
+}
+
+#cus_acc_body_wrapeper figcaption {
+    font-size: 0.85rem;
+    color: #555;
+}
+
+/* You May Also Like Section */
+.text-center {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #444;
+    margin: 2rem 0 1rem 0;
+}
+
+.item_loop_contaner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 2rem;
+}
+
+.item_loop {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.50rem;
 }
