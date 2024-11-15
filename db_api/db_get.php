@@ -304,7 +304,7 @@ class class_get_database extends class_database{
         JOIN tbl_item item ON item.item_id = variaiton.item_id
         JOIN tbl_order odr ON odr.variation_id = variaiton.variation_id
         JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
-        WHERE transact.transaction_id = :transaction_id AND odr.order_status = 'accepted'");
+        WHERE transact.transaction_id = :transaction_id AND (odr.order_status = 'accepted' OR odr.order_status = 'completed')");
 
         foreach($transaction_info as $key => $transact){
             $get_transaction_orders->execute([":transaction_id" => $transact["transaction_id"]]);
