@@ -120,7 +120,6 @@
                             
                         </div>
                             <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" id="add_variant_type">Add</button>
-                            <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" id="add_variant_type">Edit</button>
                         </div>
                     </div>
                 </div>
