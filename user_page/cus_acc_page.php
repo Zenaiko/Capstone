@@ -39,19 +39,19 @@ require_once('../db_api/db_get.php');
                             <div id="cus_order_info_container">
                                 <div>
                                     <i class="bi bi-clipboard"></i>
-                                    <a href="order_request.php">Requesting</a>
+                                    <a href="order_request.php">Requested</a>
+                                </div>
+                                <div>
+                                    <i class="bi bi-clipboard"></i>
+                                    <a href="">Accepted</a>
                                 </div>
                                 <div>
                                     <i class="bi bi-truck"></i>
-                                    <a href="order_shipping.php">Shipping</a>
+                                    <a href="order_shipping.php">Shipped</a>
                                 </div>
                                 <div>
                                     <i class="bi bi-box"></i>
-                                    <a href="order_received.php">Recieving</a>
-                                </div>
-                                <div>
-                                    <i class="bi bi-star"></i>
-                                    <a href="order_rate.php ">Rate</a>
+                                    <a href="order_received.php">Recieved</a>
                                 </div>
                             </div>
                         </div>
