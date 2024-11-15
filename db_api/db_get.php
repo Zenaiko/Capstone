@@ -138,6 +138,32 @@ class class_get_database extends class_database{
         ]);
         return $get_seller_items->fetchAll(PDO::FETCH_ASSOC)??null;
     }
+    public function search_item($search){
+        $search = "{$search}%";
+        if(isset($_GET["category"])){
+        $category = $_GET["category"];
+        $search_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+        FROM tbl_item item
+        LEFT JOIN tbl_category category ON category.category_id = item.category_id
+        LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+        LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        WHERE item.item_name LIKE ?
+        GROUP BY item.item_id", [$search]);
+        return $search_item->fetchAll(PDO::FETCH_ASSOC)??null;
+        }
+        else{
+            $search_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
+            FROM tbl_item item
+            LEFT JOIN tbl_category category ON category.category_id = item.category_id
+            LEFT JOIN tbl_item_img img ON item.item_id = img.item_id 
+            LEFT JOIN tbl_customer_item_relationship cus_r ON cus_r.item_id = item.item_id
+            LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+            WHERE item.item_name LIKE ?
+            GROUP BY item.item_id", [$search]);
+            return $search_item->fetchAll(PDO::FETCH_ASSOC)??null;
+            }
+    }
 
     public function get_category_item($category){
         $get_category_item = $this->query("SELECT item.item_id, item.item_name, img.item_img, MIN(vari.variation_price) AS min_price, AVG(cus_r.rating) AS avg_rate 
@@ -279,40 +305,12 @@ class class_get_database extends class_database{
         return  $get_cart->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 
-    public function get_customer_orders($cus_id){
-        $get_customer_orders = $this->query("SELECT odr.order_id, item.item_name, variation.variation_name, odr.order_qty, odr.order_price
-        FROM tbl_order odr
-        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
-        JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
-        JOIN tbl_item item ON item.item_id = variation.item_id
-        JOIN tbl_market market ON market.market_id = item.market_id
-        WHERE odr.order_status = 'requesting' AND transact.customer_id = :customer_id", [":customer_id" => $cus_id]);
+    public function get_customer_orders($cus_id, $order_type){
+        $get_customer_orders = $this->query("SELECT odr.order_id, odr.order_qty , odr.order_price, variation.variation_name
+        FROM tbl_order odr, tbl_variation variation, tbl_item item
+        WHERE variation.variation_id = odr.variation_id AND item.item_id = variation.variation_id AND odr.order_status = :status AND odr.customer_id = :customer_id
+        GROUP BY odr.order_id ORDER BY odr.date_requested", [":customer_id" => $cus_id, ":status" => $order_type]);
         return  $get_customer_orders->fetchAll(PDO::FETCH_ASSOC)??null;
-    }
-    
-    public function get_customer_transaction($cus_id, $status){
-        $get_customer_transaction = $this->query("SELECT transact.transaction_id, transact.del_fee, transact.total_transaction_amt, pickup.recipient_name, CONCAT_WS(', ',address.city, address.street, address.brngy, address.house_unit_number) AS customer_address
-        FROM tbl_transaction transact
-        JOIN tbl_customer_pickup pickup ON pickup.customer_pickup_id = transact.delivery_id
-        JOIN tbl_address address ON address.address_id = pickup.address_id
-        WHERE transact.transaction_status = :status AND transact.customer_id = :customer_id
-        ORDER BY transact.transaction_id", [":customer_id" => $cus_id, ":status" => $status]);
-        $transaction_info = $get_customer_transaction->fetchAll(PDO::FETCH_ASSOC)??null;
-
-        $get_transaction_orders = $this->pdo->prepare("SELECT item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
-        FROM tbl_variation variaiton
-        JOIN tbl_item item ON item.item_id = variaiton.item_id
-        JOIN tbl_order odr ON odr.variation_id = variaiton.variation_id
-        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
-        WHERE transact.transaction_id = :transaction_id AND (odr.order_status = 'accepted' OR odr.order_status = 'completed')");
-
-        foreach($transaction_info as $key => $transact){
-            $get_transaction_orders->execute([":transaction_id" => $transact["transaction_id"]]);
-            $order = $get_transaction_orders->fetchAll(PDO::FETCH_ASSOC)??null;
-            $transaction_info[$key]["orders"] = $order;
-        }
-
-        return $transaction_info;
     }
 
     public function get_rider_request(){
@@ -410,3 +408,4 @@ $category_array = $get_db->get_category();
     }
 
 ?>
+

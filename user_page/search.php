@@ -5,14 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/item.css">
     <link rel="stylesheet" href="../css/search.css">
-    <title>Category Page</title>
+    <title>Product Page</title>
     <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
 </head>
-    <style>
-        #filter_icon{
-            cursor: pointer;
-        }
-    </style>
 <body>
 
 <?php require_once("../utilities/initialize.php");
@@ -23,7 +18,7 @@
     <div class="d-flex justify-content-end mb-3">
         <!-- Filter Button -->
         <button id="filterButton" class="btn btn-outline-secondary">
-            <i id="filter_icon" class="bi bi-funnel-fill"></i>
+            <i class="bi bi-funnel-fill"></i>
         </button>
     </div>
 
@@ -35,6 +30,18 @@
                 include("../utilities/item_loop.php");
             }
         } 
+        else if(isset($_GET["search"])){
+            $items = $get_db->search_item($_GET["search"]);
+            foreach($items as $item){
+                include("../utilities/item_loop.php");
+            }
+        }
+        else if(isset($_GET["search"])&&isset($_GET["category"])){
+            $items = $get_db->search_item($_GET["search"]);
+            foreach($items as $item){
+                include("../utilities/item_loop.php");
+            }
+        }
         else if(isset($_GET["category"])){
             $items = $get_db->get_category_item($_GET["category"]);
             foreach($items as $item){
@@ -51,7 +58,7 @@
     <form id="filterForm" method="GET" action="search.php">
         <!-- Price Range Filter -->
         <div class="mb-3">
-            <input type="text" name="category" id="category" hidden value="<?php echo $_GET["category"] ?>">
+            <input type="text" name="category" id="category" hidden value="<?php if(isset($_GET["category"])){echo $_GET["category"];} ?>">
             <label for="price" class="form-label">Price Range</label>
             <input type="number" id="lowerprice" name="lowerprice" class="form-control" placeholder="₱ " style="width:50%"> 
             <label for="price" class="form-label">Higher Price:</label>

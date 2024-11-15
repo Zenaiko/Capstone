@@ -14,9 +14,10 @@ if (!isset($_SESSION['user'])){
                 <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
                 </div>
                 <div class="col-md-5 my-auto">
-                    <form role="search">
+                    <form role="search" action="search.php">
                         <div class="input-group">
-                            <input type="search" placeholder="Search your product" class="form-control" />
+                            <input type="search" name="search" id="search" placeholder="Search your product" class="form-control" />
+                         <?php if(isset($_GET["category"])){ ?>   <input type="hidden" name="category" id="category" value="<?php echo $_GET["category"] ?>" /> <?php } ?>
                             <button class="btn bg-white" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
@@ -50,3 +51,7 @@ if (!isset($_SESSION['user'])){
         </div>
     </div>
 </div>
+
+<script>
+      
+</script>
