@@ -50,7 +50,7 @@ require_once('../db_api/db_get.php');
                                     <a href="order_shipping.php">Shipped</a>
                                 </div>
                                 <div>
-                                    <i class="bi bi-box"></i>
+                                    <i class="bi bi-bag-check"></i>
                                     <a href="order_received.php">Recieved</a>
                                 </div>
                             </div>
