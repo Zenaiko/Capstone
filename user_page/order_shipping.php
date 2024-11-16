@@ -38,6 +38,8 @@ require_once('../utilities/back_button.php');
 require_once('../utilities/initialize.php'); 
 require_once('../db_api/db_get.php');
 $transaction_info = $get_db->get_customer_transaction($_SESSION["cus_id"], "shipping");
+echo "<pre>";
+var_dump($transaction_info);
 ?>
  <div class="container mt-4">
      <?php foreach($transaction_info as $transact_info){ ?>
