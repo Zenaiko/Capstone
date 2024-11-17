@@ -66,7 +66,10 @@ class class_get_database extends class_database{
     }
 
     public function get_is_seller($cus_id){
-        $get_is_seller = $this->query("SELECT market.is_verified, market.market_id FROM tbl_market market, tbl_customer cus WHERE market.customer_id = cus.customer_id AND market.is_verified = '1' AND cus.customer_id = ?", [$cus_id]);
+        $get_is_seller = $this->query("SELECT market.is_verified, market.market_id
+        FROM tbl_market market 
+        JOIN tbl_customer customer ON market.customer_id = customer.customer_id
+        WHERE customer.customer_id = ?", [$cus_id]);
         $seller_id = $get_is_seller->fetchAll(PDO::FETCH_ASSOC)[0]??null;
         $_SESSION['seller_id'] = $seller_id['market_id']??null;
         return $seller_id??null;
@@ -317,13 +320,21 @@ class class_get_database extends class_database{
     }
 
     public function get_customer_transaction($cus_id, $status){
-        $customer_transaction_qry = ("SELECT transact.transaction_id, transact.del_fee, transact.total_transaction_amt, pickup.recipient_name, CONCAT_WS(', ',address.city, address.street, address.brngy, address.house_unit_number) AS customer_address
+        $customer_transaction_qry = ("SELECT transact.transaction_id, transact.del_fee, transact.total_transaction_amt, transact.transaction_status, pickup.recipient_name, CONCAT_WS(', ',address.city, address.street, address.brngy, address.house_unit_number) AS customer_address
         FROM tbl_transaction transact
         JOIN tbl_customer_pickup pickup ON pickup.customer_pickup_id = transact.delivery_id
         JOIN tbl_address address ON address.address_id = pickup.address_id
-        WHERE transact.transaction_status = :status AND transact.customer_id = :customer_id
-        ORDER BY transact.transaction_id");
-        $get_customer_transaction = $this->pdo->prepare();
+        WHERE transact.customer_id = :customer_id");
+
+        if($status !== "recieved"){
+            $customer_transaction_qry .= (" AND transact.transaction_status = :status");
+        }else{
+            $customer_transaction_qry .= (" AND transact.transaction_status = :status OR transact.transaction_status = 'delivered'");
+        }
+        $customer_transaction_qry .= (" ORDER BY transact.transaction_id");
+        
+        $get_customer_transaction = $this->pdo->prepare($customer_transaction_qry);
+        $get_customer_transaction->execute([":customer_id" => $cus_id, ":status" => $status]);
         $transaction_info = $get_customer_transaction->fetchAll(PDO::FETCH_ASSOC)??null;
 
         $get_transaction_orders = $this->pdo->prepare("SELECT item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
@@ -428,10 +439,10 @@ $category_array = $get_db->get_category();
     if(isset($data) && $data['action'] === 'get_is_seller'){
         $verify_seller = $get_db->get_is_seller($_SESSION['cus_id']);
         if(!is_null($verify_seller)){
-            $result = ['is_seller' => true , 'market_id' => $verify_seller['market_id']];
-            $_SESSION['seller_id'] = $verify_seller['market_id'];
+            $result = ["seller_requested" => true, 'is_verified' => $verify_seller["is_verified"]];
+            ($verify_seller["is_verified"])? $_SESSION['seller_id'] = $verify_seller['market_id']:null;
         }else{
-            $result = ['is_seller' => false];
+            $result = ['seller_requested' => false];
         }
         echo json_encode($result);
     }

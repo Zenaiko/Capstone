@@ -14,103 +14,114 @@ if (session_status() === PHP_SESSION_NONE) {
 
         public function add_item(){
             $this->query('START TRANSACTION');
-
-            // Inserts into tbl_item
-            $insert_tbl_item = $this->pdo->prepare("INSERT INTO tbl_item (market_id, item_name, item_desc, category_id, date_added) 
-            VALUES (:market_id, :name, :desc, :categ_id, :date)");
-            $insert_tbl_item->execute([
-                ':market_id' => $_SESSION['seller_id'], 
-                ':name' => $this->item->get_name(), 
-                ':desc' => $this->item->get_desc(), 
-                ':categ_id' => $this->item->get_category_id(), 
-                ':date' => date('Y-m-d H:i:s')
-            ]);
-            $this->item->set_item_id($this->pdo->lastInsertId());
-
-            // Insert into tbl_item_img
-                // Creates the folder for the images
-            $seller_image_dir = $this->item->get_seller_dir() . 'item_images/';
-            if (!is_dir($seller_image_dir)) {
-                mkdir($seller_image_dir, 0755, true);
-            }
-
-            $insert_tbl_item_img = $this->pdo->prepare("INSERT INTO tbl_item_img (item_id,item_img, is_variant) 
-            VALUES (:item_id ,:img, :is_vari)");
-
-            foreach($this->item->get_img_array()['name'] as $key => $indiv_img){
-                // Uploads the file
-                move_uploaded_file($this->item->get_img_array()['tmp_name'][$key] ,$seller_image_dir . $indiv_img);
-                $insert_tbl_item_img->execute([
-                    ':item_id' => $this->item->get_item_id(),
-                    ':img' => $seller_image_dir . $indiv_img,
-                    ":is_vari" => false
+            try{
+                // Inserts into tbl_item
+                $insert_tbl_item = $this->pdo->prepare("INSERT INTO tbl_item (market_id, item_name, item_desc, category_id, date_added) 
+                VALUES (:market_id, :name, :desc, :categ_id, :date)");
+                $insert_tbl_item->execute([
+                    ':market_id' => $_SESSION['seller_id'], 
+                    ':name' => $this->item->get_name(), 
+                    ':desc' => $this->item->get_desc(), 
+                    ':categ_id' => $this->item->get_category_id(), 
+                    ':date' => date('Y-m-d H:i:s')
                 ]);
-            }
+                $this->item->set_item_id($this->pdo->lastInsertId());
 
+                // Insert into tbl_item_img
+                    // Creates the folder for the images
+                $seller_image_dir = $this->item->get_seller_dir() . 'item_images/';
+                if (!is_dir($seller_image_dir)) {
+                    mkdir($seller_image_dir, 0755, true);
+                }
 
-            // Inserts into tbl_variation
-            $insert_tbl_variation = $this->pdo->prepare("INSERT INTO tbl_variation (item_id, variation_name, variation_price)
-            VALUES (:item_id, :vari_name, :vari_price)");
-            // Inserts into tbl_stocks and records in tbl_stock_movement
-            $insert_tbl_stocks = $this->pdo->prepare("INSERT INTO tbl_stock (variation_id)
-            VALUES (:vari_id)");
-            $insert_tbl_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, stock_qty, stock_date) 
-            VALUES (:movement, :stock_id, :qty, :date)");
-            // Checks whether the variant is set... if not use the item information
-            if(is_null($this->item->get_variant_array())){
-                $insert_tbl_variation->execute([
-                    ':item_id' => $this->item->get_item_id(),
-                    ':vari_name' => $this->item->get_name(),
-                    ':vari_price' => $this->item->get_item_price(),
-                ]);
-                $vari_id = $this->pdo->lastInsertId();
-                $insert_tbl_stocks->execute([
-                    ":vari_id" => $vari_id
-                ]);
-                $stock_id = $this->pdo->lastInsertId();
-                $insert_tbl_stock_movement->execute([
-                    ":movement" => 'in',
-                    ":stock_id" => $stock_id,
-                    ":qty" => $this->item->get_item_stock(),
-                    ":date" => date('Y-m-d H:i:s')
-                ]);
+                $insert_tbl_item_img = $this->pdo->prepare("INSERT INTO tbl_item_img (item_id,item_img, is_variation) 
+                VALUES (:item_id ,:img, :is_variation)");
 
-            }else{ 
-                foreach ($this->item->get_variant_array() as $vairant_type => $type_info){
+                foreach($this->item->get_img_array()['name'] as $key => $indiv_img){
+                    // Uploads the file
+                    move_uploaded_file($this->item->get_img_array()['tmp_name'][$key] ,$seller_image_dir . $indiv_img);
+                    $insert_tbl_item_img->execute([
+                        ':item_id' => $this->item->get_item_id(),
+                        ':img' => $seller_image_dir . $indiv_img,
+                        ":is_variation" => false
+                    ]);
+                }
+
+                // Inserts into tbl_variation
+                $insert_tbl_variation = $this->pdo->prepare("INSERT INTO tbl_variation (item_id, variation_name, variation_price)
+                VALUES (:item_id, :vari_name, :vari_price)");
+                // Inserts into tbl_stocks and records in tbl_stock_movement
+                $insert_tbl_stocks = $this->pdo->prepare("INSERT INTO tbl_stock (variation_id)
+                VALUES (:vari_id)");
+                $insert_tbl_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, stock_qty, stock_date) 
+                VALUES (:movement, :stock_id, :qty, :date)");
+                // Checks whether the variant is set... if not use the item information
+                if(is_null($this->item->get_variant_array())){
                     $insert_tbl_variation->execute([
                         ':item_id' => $this->item->get_item_id(),
-                        ':vari_name' => $vairant_type,
-                        ':vari_price' => $type_info['price'],
+                        ':vari_name' => $this->item->get_name(),
+                        ':vari_price' => $this->item->get_item_price(),
                     ]);
                     $vari_id = $this->pdo->lastInsertId();
                     $insert_tbl_stocks->execute([
-                        ':item_id' => $this->item->get_item_id(),
                         ":vari_id" => $vari_id
                     ]);
                     $stock_id = $this->pdo->lastInsertId();
                     $insert_tbl_stock_movement->execute([
                         ":movement" => 'in',
                         ":stock_id" => $stock_id,
-                        ":vari_id" => $vari_id,
-                        ":qty" => $type_info['stock'],
+                        ":qty" => $this->item->get_item_stock(),
                         ":date" => date('Y-m-d H:i:s')
                     ]);
 
-                    // Uploads the file
-                    $img_file = $_FILES["variant_name"];
-                    $tmp_dir = $img_file["tmp_name"][$vairant_type]["img"];
-                    $name_dir = $img_file["name"][$vairant_type]["img"];
+                }else{ 
+                    // adds the variation img id
+                    $upadte_variation_img = $this->pdo->prepare("UPDATE tbl_variation SET variation_img_id = :img_id WHERE variation_id = :variation_id");
+                    foreach($this->item->get_variant_array() as $vairant_type => $type_info){
+                        $insert_tbl_variation->execute([
+                            ':item_id' => $this->item->get_item_id(),
+                            ':vari_name' => $vairant_type,
+                            ':vari_price' => $type_info['price'],
+                        ]);
+                        $vari_id = $this->pdo->lastInsertId();
+                        $insert_tbl_stocks->execute([
+                            ":vari_id" => $vari_id
+                        ]);
+                        $stock_id = $this->pdo->lastInsertId();
+                        $insert_tbl_stock_movement->execute([
+                            ":movement" => 'in',
+                            ":stock_id" => $stock_id,
+                            ":qty" => $type_info['stock'],
+                            ":date" => date('Y-m-d H:i:s')
+                        ]);
 
-                    move_uploaded_file($tmp_dir, $seller_image_dir . $name_dir);
-                    $insert_tbl_item_img->execute([
-                        ':item_id' => $this->item->get_item_id(),
-                        ':img' => $seller_image_dir . $name_dir,
-                        ":is_vari" => true
-                    ]);
+                        // Uploads the file
+                        $img_file = $_FILES["variant_name"];
+                        $tmp_dir = $img_file["tmp_name"][$vairant_type]["img"];
+                        $name_dir = $img_file["name"][$vairant_type]["img"];
+
+                        move_uploaded_file($tmp_dir, $seller_image_dir . $name_dir);
+                        $insert_tbl_item_img->execute([
+                            ':item_id' => $this->item->get_item_id(),
+                            ':img' => $seller_image_dir . $name_dir,
+                            ":is_variation" => true
+                        ]);
+                        $img_id = $this->pdo->lastInsertId();
+
+                        $upadte_variation_img->execute([
+                            ":img_id" => $img_id,
+                            ":variation_id" => $vari_id
+                        ]);
+                    }
+
                 }
-
+                $this->query('COMMIT');
+                $_SESSION["item_action"] = "add_true";
+            }catch(Exception $error){
+                echo "Failed: " . $error->getMessage();
+                $this->query("ROLLBACK");
+                $_SESSION["item_action"] = "add_false";
             }
-            $this->query('COMMIT');
             header('location: ../user_page/seller_item_page.php');
         }
 
@@ -131,7 +142,7 @@ if (session_status() === PHP_SESSION_NONE) {
             $get_item_variant = $this->query("SELECT variation.variation_id, variation.variation_name, variation.variation_price, variation.variation_stock, variation.variation_img_id, item_img.item_img
             FROM tbl_variation variation
             LEFT JOIN tbl_item item ON variation.item_id = item.item_id
-            LEFT JOIN tbl_item_img item_img ON item_img.item_id = item.item_id AND item_img.item_img = (SELECT item_img FROM tbl_item_img WHERE is_variant = 1 AND item_id = :item_id LIMIT 1)
+            LEFT JOIN tbl_item_img item_img ON item_img.item_id = item.item_id AND item_img.item_img = (SELECT item_img FROM tbl_item_img WHERE is_variation = 1 AND item_id = :item_id LIMIT 1)
             WHERE variation.item_id = item.item_id AND item.item_id = :item_id",[":item_id" => $this->item->get_item_id()]);
             $item_variations = $get_item_variant->fetchAll(PDO::FETCH_ASSOC)??null;
             $this->item->set_variant_array($item_variations);
@@ -139,39 +150,43 @@ if (session_status() === PHP_SESSION_NONE) {
 
         public function edit_item_info(){
             $this->query("START TRANSACTION");
-            $edit_item_info = $this->pdo->prepare("UPDATE tbl_item SET item_name = :name, item_desc = :desc, category_id = :category WHERE item_id = :id");
-            $edit_item_info->execute([
-                ":name" => $this->item->get_name(),
-                ":desc" => $this->item->get_desc(),
-                ":category" => $this->item->get_category_id(),
-                ":id" => $this->item->get_item_id(),
-            ]);
-            $edit_variant_info = $this->pdo->prepare("UPDATE tbl_variation SET variation_name = :variation_name, variation_price = :price");
-            $get_stock = $this->pdo->prepare("SELECT stock_id, current_stock_qty FROM tbl_stock WHERE item_id = :item_id AND variation_id = :variation_id");
-            $insert_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, stock_qty, stock_date) VALUES (:movement, :stock_id, :stock_qty, :stock_date)");
-
-            foreach($this->item->get_variant_array() as $varaint_type => $variant){
-                $edit_variant_info->execute([
-                    ":variation_name" => $varaint_type,
-                    ":price" => $variant["price"],
+            try{
+                $edit_item_info = $this->pdo->prepare("UPDATE tbl_item SET item_name = :name, item_desc = :desc, category_id = :category WHERE item_id = :id");
+                $edit_item_info->execute([
+                    ":name" => $this->item->get_name(),
+                    ":desc" => $this->item->get_desc(),
+                    ":category" => $this->item->get_category_id(),
+                    ":id" => $this->item->get_item_id(),
                 ]);
+                $edit_variant_info = $this->pdo->prepare("UPDATE tbl_variation SET variation_name = :variation_name, variation_price = :price");
+                $get_stock = $this->pdo->prepare("SELECT stock_id, current_stock_qty FROM tbl_stock WHERE item_id = :item_id AND variation_id = :variation_id");
+                $insert_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, stock_qty, stock_date) VALUES (:movement, :stock_id, :stock_qty, :stock_date)");
 
-                $get_stock->execute([":item_id" => $this->item->get_item_id(),":variation_id" => $variant["id"]]);
-                $stock_info = $get_stock->fetchAll(PDO::FETCH_ASSOC)[0]??null;
-                if($stock_info["current_stock_qty"] !== $variant["stock"]){
-                    $movement = ($stock_info["current_stock_qty"] < $variant["stock"])?"in":"out";
-                    $difference =  abs($stock_info["current_stock_qty"] - $variant["stock"]);
-                    $insert_stock_movement->execute([
-                        ":movement" => $movement,
-                        ":stock_id" => $stock_info["stock_id"], 
-                        ":stock_qty" => $difference,
-                        ":stock_date" =>  date('Y-m-d H:i:s'),
+                foreach($this->item->get_variant_array() as $varaint_type => $variant){
+                    $edit_variant_info->execute([
+                        ":variation_name" => $varaint_type,
+                        ":price" => $variant["price"],
                     ]);
+
+                    $get_stock->execute([":item_id" => $this->item->get_item_id(),":variation_id" => $variant["id"]]);
+                    $stock_info = $get_stock->fetchAll(PDO::FETCH_ASSOC)[0]??null;
+                    if($stock_info["current_stock_qty"] !== $variant["stock"]){
+                        $movement = ($stock_info["current_stock_qty"] < $variant["stock"])?"in":"out";
+                        $difference =  abs($stock_info["current_stock_qty"] - $variant["stock"]);
+                        $insert_stock_movement->execute([
+                            ":movement" => $movement,
+                            ":stock_id" => $stock_info["stock_id"], 
+                            ":stock_qty" => $difference,
+                            ":stock_date" =>  date('Y-m-d H:i:s'),
+                        ]);
+                    }
                 }
+                $this->query("COMMIT");
+            }catch(Exception $error){
+                echo "Failed: " . $error->getMessage();
+                $this->query("ROLLBACK");
             }
-            $this->query("COMMIT");
-            header('location: ../user_page/seller_item_page.php');
-            
+            header('location: ../user_page/seller_item_page.php');            
         }
     }
 

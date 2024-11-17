@@ -9,7 +9,7 @@ class class_username_database extends class_database{
         $this->username_info = $username_info;
     }
 
-    public function insert_username(){
+    public function insert_username($role_id){
         $this->query("START TRANSACTION");
         try{
         // Insert into its assigned tables and gets the last inserted id
@@ -54,12 +54,15 @@ class class_username_database extends class_database{
         ]);
         $username_id = $this->pdo->lastInsertId();
         
-        $insert_tbl_login = $this->pdo->prepare("INSERT INTO tbl_login(username_id, password_id) 
-        VALUES (:username_id, :pswd_id)");
+        $insert_tbl_login = $this->pdo->prepare("INSERT INTO tbl_login(username_id, password_id, role_id, app_id) 
+        VALUES (:username_id, :pswd_id, :role_id, :app_id)");
         $insert_tbl_login->execute([
             ":username_id" => $username_id, 
-            ":pswd_id" => $pswd_id
+            ":pswd_id" => $pswd_id,
+            ":role_id" => $role_id, 
+            ":app_id" => 1
         ]);
+
 
         $this->query("COMMIT");
         return $username_id;

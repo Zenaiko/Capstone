@@ -124,7 +124,7 @@ button:hover {
 }
 
 button#publish-btn:hover {
-    background-color: #35a07d; 
+    background-color: var(--publish); 
 }
 
 #description-counter,
@@ -226,12 +226,17 @@ button#publish-btn:hover {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 1rem;
 }
 
 .added_varaint_container *{
     background-color: white;
 }
 
+.variant_type_container{
+    display: flex;
+    flex-direction: column;
+}
 
 .variant_type_info label{
     font-size: 0.75rem;
@@ -241,6 +246,7 @@ button#publish-btn:hover {
     height: 2rem;
     min-width: 90%;
     max-width: 90%;
+    border: 1px solid black;
 }
 
 .variant_img{
@@ -253,6 +259,10 @@ button#publish-btn:hover {
 
 .variant_type_info{
     width: 100%;
+}
+
+.variant_info_container{
+    width: 70%;
 }
 
 .variant_info_container, .variant_type_info{
@@ -344,4 +354,8 @@ button#publish-btn:hover {
 
 #category_shown{
     text-transform: capitalize;
+}
+
+#add_variant_type{
+    background-color: var(--publish); 
 }

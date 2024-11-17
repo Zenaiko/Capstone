@@ -13,6 +13,7 @@
 require_once('../utilities/nav.php');
 require_once('../db_api/db_cus_info.php');
 require_once('../db_api/db_get.php');
+unset($_SESSION["seller_id"]);
 ?>
 
     <section id="cus_acc_section">
@@ -106,9 +107,29 @@ require_once('../db_api/db_get.php');
         </div>
     </div>
 
-    <script src="../js/cus_acc.js"></script>
-    <script src="../js/item_loop.js"></script>
-
-
+<?php
+if (isset($_SESSION['seller_create'])) {
+    if ($_SESSION['seller_create'] === true) {
+        echo "<script>
+            Swal.fire({
+            icon: 'success',
+            title: 'Request Sent',
+            text: 'Please wait until your reuqest is approved',
+        });
+        </script>";
+    } elseif ($_SESSION['seller_create'] === false) {
+        echo "<script>
+            Swal.fire({
+            icon: 'error',
+            title: 'An error has occured',
+            text: 'Please try again',
+        </script>";
+    }
+    // Unset the session variable after displaying it
+    unset($_SESSION['seller_create']);
+}
+?>
+<script src="../js/cus_acc.js"></script>
+<script src="../js/item_loop.js"></script>
 </body>
 </html>

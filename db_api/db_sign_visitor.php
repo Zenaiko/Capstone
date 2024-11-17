@@ -11,7 +11,7 @@ class customer_sign_up_database extends class_username_database{
 
     public function insert_customer(){
         $this->query("START TRANSACTION");
-        $username_id = $this->insert_username();
+        $username_id = $this->insert_username(1);
         try{
             $insert_tbl_customer = $this->pdo->prepare("INSERT INTO tbl_customer (username_id)
             VALUES (:username_id)");

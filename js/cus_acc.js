@@ -31,12 +31,18 @@ $('.cus_acc_body_content').click(function(){
                 }).then(is_seller => is_seller.json())
                 // Check if customer is a seller
                 .then(seller_info => {
-                    if(seller_info.is_seller !== false){
-                        redirect = 'seller_dashboard.php';
+                    if(seller_info.seller_requested !== false){
+                        redirect = (seller_info.is_verified === 1)?'seller_dashboard.php':null;
                     }else{
                         redirect = 'sign_up_seller.php';
                     }
-                    window.location.assign(redirect);
+                    (redirect)?window.location.assign(redirect):Swal.fire({
+                        title: 'Request already made',
+                        text: 'Please wait for approval',
+                        icon: 'info',
+                        confirmButtonText: 'Okay'
+                    });
+                    return;
                     })
             return;
         default:

@@ -77,3 +77,4 @@ function get_stats(frame) {
 
 // Initial chart display
 get_stats('year'); // Default to "This Year"
+

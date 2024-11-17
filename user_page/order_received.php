@@ -63,65 +63,17 @@ $completed_order = $get_db->get_customer_transaction($_SESSION["cus_id"],"reciev
         <p><strong>Transaction Total: </strong>₱<?=$transact_info["total_transaction_amt"]?></p>
         <p><strong>Receipient: </strong><?=$transact_info["recipient_name"]?></p>
         <p><strong>Shipping Address: </strong><?=$transact_info["customer_address"]?></p>
-        <button class="btn btn-primary submit-rating" onclick="confirmReceipt(123456)">Order Received</button>
-        <button class="btn btn-primary submit-rating" onclick="requestRefund(123456)">Request Refund</button>
+        <!-- If order is satisfied -->
+        <?php if($transact_info["transaction_status"] !== "completed"){ ?>
+          <button class="btn btn-primary submit-rating" data-transaction-id="<?=$transact_info["transaction_id"]?>">Order Received</button>
+          <button class="btn btn-primary submit-rating" data-transaction-id="<?=$transact_info["transaction_id"]?>">Request Refund</button>
+        <?php }else{ ?>
+          <button class="btn btn-primary submit-rating" data-transaction-id="<?=$transact_info["transaction_id"]?>">Rate</button>
+        <?php } ?>
         </div>
     </div>
     <?php } ?> 
 </div>
-  <script>
-    function confirmReceipt(orderId) {
-      Swal.fire({
-        title: 'Confirm Receipt',
-        text: "Are you sure you want to confirm receipt of this order?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, confirm it!',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire(
-            'Confirmed!',
-            'The receipt has been confirmed.',
-            'success'
-          );
-          // Hide the confirm button after confirming receipt
-          document.querySelector(`button[onclick="confirmReceipt(${orderId})"]`).style.display = 'none';
-        }
-      });
-    }
-
-    function requestRefund(orderId) {
-      Swal.fire({
-        title: 'Request Refund',
-        text: "Please provide a reason for the refund:",
-        input: 'textarea',
-        inputPlaceholder: 'Enter your reason here...',
-        showCancelButton: true,
-        confirmButtonColor: '#dc3545',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Submit Refund Request',
-        preConfirm: (reason) => {
-          if (!reason) {
-            Swal.showValidationMessage('Please enter a reason for the refund.');
-          } else {
-            return reason;
-          }
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire(
-            'Requested!',
-            'Your refund request has been submitted with the reason: ' + result.value,
-            'success'
-          );
-          document.querySelector(`button[onclick="requestRefund(${orderId})"]`).style.display = 'none';
-        }
-      });
-    }
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/cus_transaction.js"></script>
 </body>
 </html>

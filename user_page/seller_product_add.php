@@ -67,6 +67,36 @@
                     <i class="bi bi-plus-lg"  id="add_variant_btn" data-bs-toggle="offcanvas" data-bs-target="#variant_form" aria-controls="variant_form"></i>
                 </div>
 
+                 <!-- Add Variants -->
+                 <div class="offcanvas offcanvas-bottom" id="variant_form" data-bs-scroll="false" tabindex="-1" aria-labelledby="offcanvasBottomLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title vairant_title" id="vairant_title"></h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body large">
+                        <div class="variant_type_container">
+                            <div class="variant">
+                                <div class="variant_info_container">
+                                    <div class="variant_type_info">
+                                        <label for="">Name</label>
+                                        <input type="text" name="variant_form_type" class="variant_input" id="variant_form_type">
+                                    </div>
+                                    <div class="variant_type_info">
+                                        <label for="">Price</label>
+                                        <input type="number" name="variant_form_price" class="variant_input" id="variant_form_price">
+                                    </div>
+                                    <div class="variant_type_info">
+                                        <label for="">Stock</label>
+                                        <input type="number" name="variant_form_stock" class="variant_input" id="variant_form_stock">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" id="add_variant_type">Add</button>
+                            </div>
+                        </div>
+                </div>
+
                 <!-- Variants -->
                 <div class="added_varaint_container">
                     <div class="added_variant_contents" id="added_variant_contents">
@@ -93,43 +123,13 @@
 
                     </div>
                 </div>
-                
-                <!-- Add Variants -->
-                <div class="offcanvas offcanvas-bottom" id="variant_form" data-bs-scroll="false" tabindex="-1" aria-labelledby="offcanvasBottomLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title vairant_title" id="vairant_title"></h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body large">
-                    <div class="variant_type_container">
-                        <div class="variant">
-                            <div class="variant_info_container">
-                                <div class="variant_type_info">
-                                    <label for="">Name</label>
-                                    <input type="text" name="variant_form_type" id="variant_form_type">
-                                </div>
-                                <div class="variant_type_info">
-                                    <label for="">Price</label>
-                                    <input type="text" name="variant_form_price" id="variant_form_price">
-                                </div>
-                                <div class="variant_type_info">
-                                    <label for="">Stock</label>
-                                    <input type="text" name="variant_form_stock" id="variant_form_stock">
-                                </div>
-                            </div>
-                            
-                        </div>
-                            <button type="button" data-bs-dismiss="offcanvas" aria-label="Close" id="add_variant_type">Add</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
             </div>
+        </div>
             
             <!-- Upload Image Section -->
             <div class="section" id="upload-image-section">
                 <span>Upload Images</span>
-                <input type="file" id="upload-images" name="add_item_img[]"  multiple onchange="previewImages(event)">
+                <input type="file" id="upload-images" accept=".jpeg, .png, .jpg" name="add_item_img[]"  multiple onchange="previewImages(event)">
                 <div id="image-preview-container"></div>
             </div>
 

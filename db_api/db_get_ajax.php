@@ -6,7 +6,7 @@ class class_ajax_database extends class_database{
         parent::__construct('root' , '');
     
     }
-
+    
     public function get_indiv_variant($variant_id){
         $get_indiv_variant = $this->query("SELECT vari.variation_name, vari.variation_price, vari.variation_stock, item_img.item_img 
         FROM tbl_variation vari 

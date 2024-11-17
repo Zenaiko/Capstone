@@ -106,6 +106,7 @@ $('.radio_ary').on('click', function() {
 
         const added_var_img =  document.createElement('input');
         added_var_img.type = 'file';
+        added_var_img.setAttribute("accept", ".jpeg, .png, .jpg")
         added_var_img.name = 'variant_name['+variant_form_type.value+'][img]';
        
 

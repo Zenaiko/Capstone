@@ -59,6 +59,7 @@ body, html{
     --seller_sign_img_border: #B7B7B7;
     --cus_edit_inp_border: #AEAEAE;
     --pencil_edit: rgba(123, 123, 123, 0.5);
+    --publish: #35a07d;
 }
 
 body{
