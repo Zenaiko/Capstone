@@ -113,7 +113,7 @@
     left: 0;
     width: 100%;
     height: 3px; /* Thickness of the border */
-    background: var(--seller_page_green); /* Color of the border */
+    background: var(--lighter_green); /* Color of the border */
     z-index: 1; /* Ensure the border is above the parent */
     border-radius: 3rem;
   }

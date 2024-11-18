@@ -56,49 +56,52 @@ class class_order_database extends class_database {
 
     public function get_pickup_info(){
         // Gets the user pickup address info
-        $get_pickup_info = $this->pdo->prepare("SELECT pickup.customer_pickup_id, pickup.pickup_name, pickup.recipient_name, pickup.is_default, CONCAT(address.city, ', ', address.street, ', ',address.brngy, ', ', address.house_unit_number) AS full_address, contact.contact
+        $get_pickup_info = $this->query("SELECT pickup.customer_pickup_id, pickup.pickup_name, pickup.recipient_name, pickup.is_default, CONCAT_WS(', ', address.city, address.street, address.brngy, address.house_unit_number) AS full_address, contact.contact
         FROM tbl_customer_pickup pickup, tbl_address address, tbl_contact contact
-        WHERE address.address_id = pickup.address_id AND contact.contact_id = pickup.contact_id AND pickup.customer_id = :customer_id");
-        $get_pickup_info->execute([
-            ":customer_id" => $_SESSION['cus_id']
-        ]);
-        $default_address = $get_pickup_info->fetch(PDO::FETCH_ASSOC)??null;
+        WHERE address.address_id = pickup.address_id AND contact.contact_id = pickup.contact_id AND pickup.customer_id = :customer_id 
+        ORDER BY pickup.is_default DESC" , [":customer_id" => $_SESSION['cus_id']]);
 
-        $this->pickup_info->set_pickup_id($default_address["customer_pickup_id"]??null);
-        $this->pickup_info->set_pickup_name($default_address["pickup_name"]??null);
-        $this->pickup_info->set_recipient($default_address["recipient_name"]??null);
-        $this->pickup_info->set_contact($default_address["contact"]??null);
-        $this->pickup_info->set_full_address($default_address["full_address "]??null);
-        return $default_address;
+        $customer_address = $get_pickup_info->fetchAll(PDO::FETCH_ASSOC)??null;
+
+        $this->pickup_info->set_pickup_list($customer_address);
+        $this->pickup_info->set_pickup_id($customer_address[0]["customer_pickup_id"]??null);
+        $this->pickup_info->set_pickup_name($customer_address[0]["pickup_name"]??null);
+        $this->pickup_info->set_recipient($customer_address[0]["recipient_name"]??null);
+        $this->pickup_info->set_contact($customer_address[0]["contact"]??null);
+        $this->pickup_info->set_full_address($customer_address[0]["full_address"]??null);
     }
 
     public function set_order_request() {
         $this->query("START TRANSACTION");
-        $market_ids =[];
-        $insert_tbl_transaction = $this->pdo->prepare("INSERT INTO tbl_transaction(customer_id, delivery_id) VALUES (:customer_id, :delivery_id)");
-        $insert_tbl_order = $this->pdo->prepare("INSERT INTO tbl_order(transaction_id, variation_id, order_qty, order_price, date_requested) 
-        VALUES (:transaction_id, :var_id, :qty, :price, :date_req)");
-        foreach ($this->order_info->get_order_info() as $variant){
-            if(!in_array($variant["market_id"], $market_ids)){        
-                $insert_tbl_transaction->execute([
-                    ":customer_id" => $_SESSION["cus_id"],
-                    ":delivery_id" => $this->order_info->get_cus_address_id(),
+        try{
+            $market_ids =[];
+            $insert_tbl_transaction = $this->pdo->prepare("INSERT INTO tbl_transaction(customer_id, delivery_id) VALUES (:customer_id, :delivery_id)");
+            $insert_tbl_order = $this->pdo->prepare("INSERT INTO tbl_order(transaction_id, variation_id, order_qty, order_price, date_requested) 
+            VALUES (:transaction_id, :var_id, :qty, :price, :date_req)");
+            foreach ($this->order_info->get_order_info() as $variant){
+                if(!in_array($variant["market_id"], $market_ids)){        
+                    $insert_tbl_transaction->execute([
+                        ":customer_id" => $_SESSION["cus_id"],
+                        ":delivery_id" => $this->order_info->get_cus_address_id(),
+                    ]);
+                    $transaction_id = $this->pdo->lastInsertId();
+                }else{
+                    array_push($market_ids, $variant["market_id"]);
+                }
+                $insert_tbl_order->execute([
+                    "transaction_id" => $transaction_id,
+                    ":var_id" => $variant["id"],
+                    ":qty" => $variant["qty"],
+                    ":price" => ($variant["price"] * $variant["qty"]),
+                    ":date_req" =>  date('Y-m-d H:i:s'),
                 ]);
-                $transaction_id = $this->pdo->lastInsertId();
-            }else{
-                array_push($market_ids, $variant["market_id"]);
             }
-            $insert_tbl_order->execute([
-                "transaction_id" => $transaction_id,
-                ":var_id" => $variant["id"],
-                ":qty" => $variant["qty"],
-                ":price" => ($variant["price"] * $variant["qty"]),
-                ":date_req" =>  date('Y-m-d H:i:s'),
-            ]);
+            $this->query("COMMIT");
+        }catch(Exception $error){
+            echo "Failed: " . $error->getMessage();
+            $this->query("ROLLBACK");
         }
-        $this->query("COMMIT");
         header("location: ../user_page/home.php");  
-        exit;
     }
 }
 
@@ -144,6 +147,7 @@ class class_user_pickup{
     private $recipient;
     private $contact;
     private $full_address;
+    private $pickup_list;
 
     // Setter for pickup_id
     public function set_pickup_id($pickup_id) {
@@ -195,6 +199,16 @@ class class_user_pickup{
         return $this->full_address;
     }
 
+    // Setter for city
+    public function set_pickup_list($pickup_list) {
+        $this->pickup_list = $pickup_list;
+    }
+
+    // Getter for city
+    public function get_pickup_list() {
+        return $this->pickup_list;
+    }
+
 }
 
 // Initialize order info and database classes
@@ -209,16 +223,16 @@ if(isset($_POST["variant_order"])){
         $order_info->set_variant_info($var_id, $qty["qty"]);
         $order_db->get_order();
     }
-    // Fetch and display variant info
+    // Fetch and display pickup info
     $order_db->get_pickup_info();
 }
 
-   // Process the order submission
-   if (isset($_POST["order_submit"])){
-    $order_info->set_cus_address_id($_POST["pickup_id"]);
-    $order_db->set_order_request();
-    exit;
-    }
+// Process the order submission
+if (isset($_POST["order_submit"])){
+$order_info->set_cus_address_id($_POST["pickup_id"]);
+$order_db->set_order_request();
+exit;
+}
 
 ?>
 

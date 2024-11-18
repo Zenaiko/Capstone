@@ -11,12 +11,12 @@ class class_order_info extends class_database {
     public function get_orders_info(){
         $get_orders_info = $this->pdo->prepare("SELECT odr.order_id, item.item_name, variation.variation_name, odr.order_qty, odr.order_price,odr.date_requested, item_img.item_img, username.username, customer.customer_id, transact.customer_id
         FROM tbl_order odr 
-        LEFT JOIN tbl_variation variation ON variation.variation_id = odr.variation_id 
-        LEFT JOIN tbl_item item ON item.item_id = variation.item_id
-        LEFT JOIN tbl_item_img item_img ON item.item_id = item_img.item_id AND item_img.is_variant = 0
-        LEFT JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
-        LEFT JOIN tbl_customer customer ON transact.customer_id = customer.customer_id
-        LEFT JOIN tbl_username username ON customer.username_id = username.username_id
+        JOIN tbl_variation variation ON variation.variation_id = odr.variation_id 
+        JOIN tbl_item item ON item.item_id = variation.item_id
+        JOIN tbl_item_img item_img ON item.item_id = item_img.item_id AND item_img.is_variation = 0
+        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
+        JOIN tbl_customer customer ON transact.customer_id = customer.customer_id
+        JOIN tbl_username username ON customer.username_id = username.username_id
         WHERE odr.order_status = 'requesting' AND item.market_id = :market_id
         GROUP BY odr.order_id");
 

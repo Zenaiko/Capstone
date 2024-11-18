@@ -1,6 +1,9 @@
-
-
 let item_subtotal = 0;
+const pickup_name = document.getElementById("pickup-name");
+const recipient_name = document.getElementById("recipient-name");
+const shipping_address = document.getElementById("shipping-address");
+const contact = document.getElementById("contact");
+const pickup_id = document.getElementById("pickup_id");
 function num_extact(text) {
     const num_text = $(text).text();
     const num = num_text.match(/[\d]+(\.\d+)?/); 
@@ -31,31 +34,12 @@ $("#order_rqst_form").on("submit", function(event){
         });
     }
 });
-//Off Canvas
-document.getElementById('address_form').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    let selectedAddress = document.querySelector('input[name="address"]:checked');
-
-    if (selectedAddress) {
-       
-        const pickupName = selectedAddress.getAttribute('data-pickup');
-        const recipientName = selectedAddress.getAttribute('data-recipient');
-        const contact = selectedAddress.getAttribute('data-contact');
-        const address = selectedAddress.getAttribute('data-address');
-        
-        document.getElementById('pickup-name').innerText = pickupName;
-        document.getElementById('recipient-name').innerText = recipientName;
-        document.getElementById('contact').innerText = `(${contact})`;
-        document.getElementById('shipping-address').innerText = address;
-
-        const offcanvas = new bootstrap.Offcanvas(document.getElementById('addressOffCanvas'));
-        offcanvas.hide();
-    } else {
-        alert("Please select an address.");
-    }
-});
-
-function goBack() {
-    window.history.back();
-}
+$("#change_adrress").click(()=>{
+    var chosen_address = $('input[name="address"]:checked');
+    pickup_id.value = chosen_address.val();
+    pickup_name.innerText = chosen_address.data("name");
+    recipient_name.innerText = chosen_address.data("recipient");
+    shipping_address.innerText = chosen_address.data("address");
+    contact.innerText = chosen_address.data("contact");
+})

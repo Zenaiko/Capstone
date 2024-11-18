@@ -4,7 +4,7 @@ const v_price = document.getElementById('v_price');
 const v_stock = document.getElementById('variant_stock');
 const v_order = document.getElementById('variant_order');
 const order_qty = document.getElementById("order_qty");
-
+const img_feature = document.getElementById("img_feature");
 
 $('.variant').on('click', function() {
     if ($lastClicked) {
@@ -20,7 +20,7 @@ $('.variant').on('click', function() {
     }
     
     $lastClicked = $(this);
-    $lastClicked.css('border', '1px solid black');
+    $lastClicked.css('border', '1.5px solid #333333');
     order_id = $(this).attr('id');
     v_order.value = order_id; // Set the value
     v_order.name = "variant_order["+order_id+"]";
@@ -32,8 +32,9 @@ $('.variant').on('click', function() {
         data: {var_id: order_id},
         success: function(order_json) {
             const order_array = JSON.parse(order_json);
-            v_price.textContent = '₱' + order_array.variation_price;
-            v_stock.textContent = 'Stock: ' + order_array.variation_stock;
+            v_price.textContent = '₱' + (order_array.variation_price).toLocaleString();
+            v_stock.textContent = 'Stock: ' + (order_array.variation_stock).toLocaleString();
+            img_feature.src = order_array.item_img ??"../assets/tmp.png"; 
         }
     });
 });

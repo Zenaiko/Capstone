@@ -289,8 +289,11 @@ class class_get_database extends class_database{
 
     public function get_address($customer_id){
         $get_address = $this->query("SELECT pickup.customer_pickup_id, pickup.pickup_name, pickup.recipient_name, contact.contact, pickup.is_default, CONCAT_WS(',' , address.city, address.street, address.brngy, address.house_unit_number) AS 'full_addres'  
-        FROM tbl_address address, tbl_contact contact, tbl_customer_pickup pickup, tbl_customer customer
-        WHERE address.address_id = pickup.address_id AND pickup.customer_id = customer.customer_id AND contact.contact_id = pickup.contact_id AND customer.customer_id = ?", [$customer_id]);
+        FROM tbl_customer_pickup pickup
+        JOIN tbl_address address ON address.address_id = pickup.address_id
+        JOIN tbl_contact contact ON contact.contact_id = pickup.contact_id
+        JOIN tbl_customer customer ON customer.customer_id = pickup.customer_id 
+        WHERE customer.customer_id = ?", [$customer_id]);
         return $get_address->fetchAll(PDO::FETCH_ASSOC)??null;
     }
 

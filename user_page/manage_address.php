@@ -16,7 +16,7 @@
     <section id="address_section">
         <div id="address_container">
             
-            <?php if(!is_null($get_db->get_address($_SESSION["cus_id"]))){
+            <?php if(!empty($get_db->get_address($_SESSION["cus_id"]))){
                 foreach($get_db->get_address($_SESSION["cus_id"]) as $address){?>
                      <div class="address_container">
                         <div class="address_header">
@@ -32,35 +32,9 @@
                         <p><?=($address["is_default"])?"Default":null ?></p>
                     </div>
                     <hr>
-            <?php }}?>
-
-            <!-- <div class="address_container">
-                <div class="address_header">
-                    <p>Home</p>
-                    <a>Edit</a>
-                </div>
-                <div class="address_contact">
-                    <p>Identity 1</p>
-                    <span class="adr_splitter"></span>
-                    <p class="con_num">09123456780</p>
-                </div>
-                <div class="adr_info"><p><i class="bi bi-geo-alt"></i>Purok Aguinaldo, Cabu, Cabanatuan City</p></div>
-                <p>Default</p>
-            </div>
-            <hr>
-            <div class="address_container">
-                <div class="address_header">
-                    <p>Home</p>
-                    <a>Edit</a>
-                </div>
-                <div class="address_contact">
-                    <p>Identity 1</p>
-                    <span class="adr_splitter"></span>
-                    <p class="con_num">09123456780</p>
-                </div>
-                <div class="adr_info"><p><i class="bi bi-geo-alt"></i>Purok Aguinaldo, Cabu, Cabanatuan City</p></div>
-            </div>
-            <hr> -->
+            <?php }}else{ 
+                echo "No address provided";
+            } ?>
         </div>
     </section>
 

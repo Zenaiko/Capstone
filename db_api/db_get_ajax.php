@@ -8,11 +8,11 @@ class class_ajax_database extends class_database{
     }
     
     public function get_indiv_variant($variant_id){
-        $get_indiv_variant = $this->query("SELECT vari.variation_name, vari.variation_price, vari.variation_stock, item_img.item_img 
-        FROM tbl_variation vari 
-        LEFT JOIN  tbl_item_img item_img ON vari.variation_id = item_img.item_id
-        WHERE vari.variation_id = :vari_id" , [":vari_id" => $variant_id]);
-        return $get_indiv_variant->fetchAll(PDO::FETCH_ASSOC)[0];
+        $get_indiv_variant = $this->query("SELECT variation.variation_name, variation.variation_price, variation.variation_stock, item_img.item_img 
+        FROM tbl_variation variation 
+        LEFT JOIN  tbl_item_img item_img ON variation.variation_img_id = item_img.item_img_id AND item_img.is_variation = 1
+        WHERE variation.variation_id = :variation_id " , [":variation_id" => $variant_id]);
+        return $get_indiv_variant->fetchAll(PDO::FETCH_ASSOC)[0]??null;
     }
 
     public function update_market_request($req_id){

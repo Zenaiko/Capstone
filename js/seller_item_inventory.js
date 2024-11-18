@@ -24,19 +24,29 @@ $(document).ready(function() {
     $(document).on('click', '.delist-btn', function() {
         const item_id = $(this).attr("id");
         let action = ($(this).val()).toLowerCase();
-        action = (action === "delist") ? "delisted" : "live";
+        action = (action === "delist") ? "Delisted" : "Live";
         $.ajax({
-        url: "../db_api/db_get_ajax.php",
-        type: "POST",
-        data: {item_id:item_id, action: action}
+            url: "../db_api/db_get_ajax.php",
+            type: "POST",
+            data: {item_id:item_id, action: action.toLowerCase()},
+            success:function(){
+                Swal.fire({
+                    title: 'Item ' + action,
+                    icon: 'success',
+                    confirmButtonText: 'Okay'
+                }).then(() => {
+                    location.reload();
+                });
+            }
         })
+
     });
 
     
     $(document).on('click', '.edit-btn', function() {
         const item_id = $(this).attr("id");
         window.location.href = add_item_dir + "?item=" + item_id;
-});
+    });
 });
 
 

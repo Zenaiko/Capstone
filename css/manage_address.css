@@ -68,4 +68,5 @@ a{
     background-image: var(--orange_fill_gradient);
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }

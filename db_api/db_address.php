@@ -15,31 +15,44 @@
 
         public function insert_tbl_address(){
             $this->query("START TRANSACTION");
-            $insert_tbl_address = $this->pdo->prepare("INSERT INTO tbl_address (street,brngy,house_unit_number,geolocation) 
-            VALUES (:street,:brngy,:house_num,:geo)");
-            $insert_tbl_address->execute([
-                ":street"=>$this->adr->get_street(),
-                ":brngy"=>$this->adr->get_brngy(),
-                ":house_num"=>$this->adr->get_house_num(),
-                ":geo"=>$this->adr->get_geo()
-            ]);
-            $latest_adr_id = $this->pdo->lastInsertId();
+            try{
+                $insert_tbl_address = $this->pdo->prepare("INSERT INTO tbl_address (street,brngy,house_unit_number,geolocation) 
+                VALUES (:street,:brngy,:house_num,:geo)");
+                $insert_tbl_address->execute([
+                    ":street"=>$this->adr->get_street(),
+                    ":brngy"=>$this->adr->get_brngy(),
+                    ":house_num"=>$this->adr->get_house_num(),
+                    ":geo"=>$this->adr->get_geo()
+                ]);
+                $latest_adr_id = $this->pdo->lastInsertId();
 
-            $insert_tbl_contact = $this->pdo->prepare("INSERT INTO tbl_contact (contact) VALUES (:contact)");
-            $insert_tbl_contact ->execute([":contact"=>$this->adr->get_contact()]);
-            $contact_id = $this->pdo->lastInsertId();
-            
-            $insert_tbl_cus_pickup = $this->pdo->prepare("INSERT INTO tbl_customer_pickup (customer_id,address_id,pickup_name,recipient_name,is_default,contact_id) 
-            VALUES (:cus_id,:adr_id,:adr_name,:recepient_name,:def,:contact_id)");
-            $insert_tbl_cus_pickup ->execute([
-                ":cus_id" => $_SESSION["cus_id"],
-                ":adr_id" => $latest_adr_id,
-                ":adr_name" => $this->adr->get_adr_name(),
-                ":recepient_name" => $this->adr->get_recepient_name(),
-                ":def" => $this->adr->get_is_default(),
-                ":contact_id" => $contact_id
-            ]);
-            $this->query("COMMIT");
+                $insert_tbl_contact = $this->pdo->prepare("INSERT INTO tbl_contact (contact) VALUES (:contact)");
+                $insert_tbl_contact ->execute([":contact"=>$this->adr->get_contact()]);
+                $contact_id = $this->pdo->lastInsertId();
+                
+                $insert_tbl_cus_pickup = $this->pdo->prepare("INSERT INTO tbl_customer_pickup (customer_id,address_id,pickup_name,recipient_name,is_default,contact_id) 
+                VALUES (:cus_id,:adr_id,:adr_name,:recepient_name,:def,:contact_id)");
+
+                // Updates if default exists 
+                if($this->adr->get_is_default() === 1){
+                    $update_default = $this->pdo->prepare("UPDATE tbl_customer_pickup SET is_default = 0 WHERE is_default = 1 AND customer_id = :customer_id");
+                    $update_default->execute([":customer_id" => $_SESSION['cus_id']]);
+                }
+                
+                $insert_tbl_cus_pickup ->execute([
+                    ":cus_id" => $_SESSION["cus_id"],
+                    ":adr_id" => $latest_adr_id,
+                    ":adr_name" => $this->adr->get_adr_name(),
+                    ":recepient_name" => $this->adr->get_recepient_name(),
+                    ":def" => $this->adr->get_is_default(),
+                    ":contact_id" => $contact_id
+                ]);
+                $this->query("COMMIT");
+            }
+            catch(Exception $error){
+                echo "Failed: " . $error->getMessage();
+                $this->query("ROLLBACK");
+            }
             header("location: ../user_page/manage_address.php");
         }
     }

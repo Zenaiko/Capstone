@@ -111,7 +111,7 @@
     display: grid;
     flex-direction: column;
     text-align: center;
-    background-color: var(--seller_page_green);
+    background-color: var(--cart_bg);
     color: white;
     font-size: 400;
     justify-content: center;

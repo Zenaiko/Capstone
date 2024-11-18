@@ -14,20 +14,18 @@
 <form action="../db_api/db_address.php" method="post">
     <section id="add_adr_section">
         <div id="add_adr_container">
-                <div class="adr_field"><label for="">Address Name</label><input name="adr_name" type="text"></div>
-                <div class="adr_field"><label for="">Recipient Name</label><input name="recepient_name" type="text"></div>
-                <div class="adr_field"><label for="">Contact</label><input name="contact" type="text"></div>
+                <div class="adr_field"><label for="">Address Name</label><input name="adr_name" type="text" required></div>
+                <div class="adr_field"><label for="">Recipient Name</label><input name="recepient_name" type="text" required></div>
+                <div class="adr_field"><label for="">Contact</label><input name="contact" type="number" required></div>
 
                 <p>Address</p>
                 <button>Use Current Location<i class="bi bi-geo-alt"></i></button>
 
-                <div class="adr_field"><label for="">Street</label><input name="street" type="text"></div>
-                <div class="adr_field"><label for="">Barangay</label><input name="brngy" type="text"></div>
-                <div class="adr_field"><label for="">House/Unit Number</label><input name="hosue_num" type="text"></div>
+                <div class="adr_field"><label for="">Street</label><input name="street" type="text" required></div>
+                <div class="adr_field"><label for="">Barangay</label><input name="brngy" type="text" required></div>
+                <div class="adr_field"><label for="">House/Unit Number</label><input name="hosue_num" type="text" required></div>
                 
                 <div id="default_adr_div"><input type="checkbox" name="default" id="default"><label for="">Set as Default Address</label></div>
-
-
         </div>
     </section>
 
