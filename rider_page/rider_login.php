@@ -57,7 +57,28 @@
             <p><a href="">Forgot Password?</a></p>
         </div>
     </div>
-
-    
 </body>
+<?php
+if (isset($_SESSION['form_success'])) {
+    if ($_SESSION['form_success'] === "success") {
+        echo "<script>
+            Swal.fire({
+            icon: 'success',
+            title: 'Rider Application Submitted',
+            text: 'Your rider request is under review, please check back shortly',
+        });
+        </script>";
+    } elseif ($_SESSION['form_success'] === "error") {
+        echo "<script>
+            Swal.fire({
+            icon: 'error',
+            title: 'An error has occured when creating you account',
+            text: 'Please try again',
+        </script>";
+    }
+
+    // Unset the session variable after displaying it
+    unset($_SESSION['form_success']);
+}
+?>
 </html>

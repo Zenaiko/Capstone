@@ -32,7 +32,10 @@ $(".transac_tab").on('click', function(){
         url: load_page,
         success: function(page){
             transaction_loader.innerHTML = page;
-            attachEventHandlers();
+            try{
+                attachEventHandlers();
+            }catch(error){
+            }
         }
     });
 });
@@ -79,7 +82,32 @@ $(document).on("click", ".order_btn", function() {
         url: "../db_api/db_updt_order_stat.php",
         type: "POST",
         data: {basis_id:basis_id, stats:stats},
-        success(results){
+        success(response){
+            let icon;
+            let text;
+            var result = JSON.parse(response);
+            if(result.result !== "failed"){
+                icon = "success";
+                switch (result.stat){
+                    case "accepted" : 
+                        text = "Order Accepted"
+                        break;
+                    case "prepared" :
+                        text = "Transaction prepared for shipping"
+                        break;
+                }
+            }else{
+                icon = "error"
+                text = "Transaction Failed"
+            }
+            Swal.fire({
+                title: icon.toUpperCase(),
+                text: text,
+                icon: icon,
+                confirmButtonText: 'Okay'
+            }).then(()=>{
+                window.location.reload();
+            });
         }
 
     });

@@ -19,11 +19,11 @@ $transaction_processing = $order_info_db->get_transaction_info("prepared_shippin
         <?php foreach($transaction["orders"] as $order){ ?>
           <div class="product-text">
             <p class="product-name"><?=$order["item_name"] . "(" . $order["variation_name"] . ")"?></</p>
-            <p class="quantity">Quantity: <?=$order["order_qty"]?></p>
-            <p class="price">₱<?=$order["order_price"]?></p>
+            <p class="quantity">Quantity: <?=number_format($order["order_qty"])?></p>
+            <p class="price">₱<?=number_format($order["order_price"])?></p>
           </div> 
         <?php } ?>
-          <p>Order Subtotal Price: ₱<?=$transaction["total_transaction_amt"]?></p>
+          <p>Transaction Subtotal: ₱<?=number_format($transaction["total_transaction_amt"])?></p>
       </div>
     </div>
     <div class="order-time">

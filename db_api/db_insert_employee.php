@@ -20,10 +20,10 @@ class class_employee_database extends class_username_database{
         return $employee_files_dir;
     }
 
-    public function insert_employee(){
+    public function insert_employee($role_id){
         $this->query("START TRANSACTION");
-        $username_id = $this->insert_username();
         try{
+            $username_id = $this->insert_username($role_id);
             $insert_employee_registration = $this->pdo->prepare("INSERT INTO tbl_employee_registration 
             (username_id, is_manager, date_registered)
             VALUES (:username_id, :is_manager, :date_registrered)");

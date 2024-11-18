@@ -35,6 +35,15 @@ class class_order_info extends class_database {
         JOIN tbl_username username ON username.username_id = customer.username_id
         WHERE item.market_id = :market_id");
 
+        // Get the order information
+        $get_orders_qry = ("SELECT item.item_name, variation.variation_name, odr.order_qty, odr.order_price
+        FROM tbl_order odr
+        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
+        JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
+        JOIN tbl_item item ON item.item_id = variation.item_id
+        JOIN tbl_market market ON market.market_id = item.market_id
+        WHERE transact.transaction_id = :transaction_id AND (odr.order_status = :order_status");
+
         // Dynamic situational query
         if($transaction_status === "preparing"){
             $transaction_query .= (" AND transact.transaction_status = 'preparing'");
@@ -44,24 +53,19 @@ class class_order_info extends class_database {
             $order_status = 'completed';
         }else{
             $transaction_query .= (" AND (transact.transaction_status = 'prepared' OR transact.transaction_status = 'shipping')");
-            $order_status = 'shipping';
+            $get_orders_qry .= (" OR odr.order_status = 'shipped'");
+            $order_status = 'accepted';
         }
+        $get_orders_qry .= ")";
 
         // Finalize the query
         $transaction_query .= ("GROUP BY transact.transaction_id");
         $get_transaction_info = $this->pdo->prepare($transaction_query);
 
-        // Get the order information
-        $get_orders = $this->pdo->prepare("SELECT item.item_name, variation.variation_name, odr.order_qty, odr.order_price
-        FROM tbl_order odr
-        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
-        JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
-        JOIN tbl_item item ON item.item_id = variation.item_id
-        JOIN tbl_market market ON market.market_id = item.market_id
-        WHERE transact.transaction_id = :transaction_id AND odr.order_status = :order_status");
-
         $get_transaction_info->execute([":market_id"=> $_SESSION["seller_id"],]);
         $transactions_array = $get_transaction_info->fetchAll(PDO::FETCH_ASSOC);
+
+        $get_orders = $this->pdo->prepare($get_orders_qry);
 
         // Gets the rider information
         $get_rider_info = $this->pdo->prepare("SELECT username.username, contact.contact, delivery.date_time_accepted, delivery.date_time_delivered

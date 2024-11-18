@@ -17,7 +17,7 @@ class class_rider_database extends class_employee_database{
 
     public function sign_up_rider(){
         $this->query("START TRANSACTION");
-        $employee_registration_id = $this->insert_employee();
+        $employee_registration_id = $this->insert_employee(2);
         $get_employee_dir = $this->query("SELECT employee_dir FROM tbl_employee_registration WHERE employee_registration_id = ?", [$employee_registration_id]);
         $employee_folder =  ($get_employee_dir->fetchAll(PDO::FETCH_ASSOC)[0]["employee_dir"]) . "/";
         try{
@@ -82,12 +82,13 @@ class class_rider_database extends class_employee_database{
             }
 
             $this->query("COMMIT");
-            header("Location: ../rider_page/rider_login.php");
+            $_SESSION["form_success"] = "success";
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();
             $this->query('ROLLBACK');
-            return null;
+            $_SESSION["form_success"] = "error";
         }
+        header("Location: ../rider_page/rider_login.php");
     }
 }
 
@@ -265,11 +266,12 @@ $rider_info["employee"]->set_valid_id($_FILES["license_photo"]);
 $rider_info["registration"]->set_drug_test($_FILES["drug_test"]);
 $rider_info["registration"]->set_license_number($_POST["license_number"]);
 $rider_info["registration"]->set_license_photo($_FILES["license_photo"]);
-
 $rider_info["registration"]->set_vehicle_registration($_FILES["vehicle_registration"]);
 $rider_info["registration"]->set_vehicle_type($_POST["vehicle_type"]);
 $rider_info["registration"]->set_vehice_or_cr($_FILES["or_cr"]);
 $rider_info["registration"]->set_vehicle_coding($_POST["coding_number"]);
+$rider_info["registration"]->set_has_motor(1);
+$rider_info["registration"]->set_is_owner($_POST["is_owner"]??0);
 $rider_info["registration"]->set_dealer_certificcate($_FILES["dealer_certificate"]);
 // Situational Documents
 $rider_info["registration"]->set_is_owner($_POST["is_owner"]??null);

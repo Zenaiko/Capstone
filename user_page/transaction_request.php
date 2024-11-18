@@ -32,8 +32,3 @@ $order_requests = $order_info_db->get_orders_info();
     </div>
   </div>
 <?php } ?>
-
-  <script>
-    
-
-  </script>
