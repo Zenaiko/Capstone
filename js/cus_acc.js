@@ -52,3 +52,9 @@ $('.cus_acc_body_content').click(function(){
 
 });
 
+$(".order_status").click(function(){
+    var stats = $(this).attr('id');
+    var page = "order_"+stats+".php";
+    window.location.assign(page);
+});
+

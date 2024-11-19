@@ -1,29 +1,32 @@
-$(".submit-rating").click(function(){
-    const transaction_id = $(this).data('transaction-id');
-    Swal.fire({
-        title: 'Confirm Receipt',
-        text: "Are you sure you want to confirm your order?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, confirm it!',
-        }).then((result) => {
-          $.ajax({
-            url: "../db_api/db_cus_transaction.php",
-            type: "POST",
-            data: {transaction_id:transaction_id},
-            success:function(){
-              Swal.fire(
-              'Confirmed!',
-              'The receipt has been confirmed.',
-              'success'
-            ).then(()=>{
-              location.reload();
-            })
-            }
-          });
+$(".recieve_button").click(function(){
+  const transaction_id = $(this).data('transaction_id');
+  Swal.fire({
+    title: 'Confirm Receipt',
+    text: "Are you sure you want to confirm your order?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, confirm it!',
+    cancelButtonText: 'No, cancel it!'
+    }).then((result) => {
+      if(result.isConfirmed){
+        $.ajax({
+          url: "../db_api/db_cus_transaction.php",
+          type: "POST",
+          data: {transaction_id:transaction_id, action:"recieve"},
+          success:function(res){
+            Swal.fire(
+            'Confirmed!',
+            'The order has been confirmed.',
+            'success'
+          ).then(()=>{
+            location.reload();
+          })
+          }
         });
+      }
+    });
 });
 
   

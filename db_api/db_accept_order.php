@@ -9,9 +9,10 @@ class class_accept_order_database extends class_database{
     }
 
     public function accept_order($transaction_id){
+        $this->query("START TRANSACTION");
         try{
             $accept_order = $this->pdo->prepare("UPDATE tbl_order odr, tbl_transaction transact 
-            SET odr.order_status = 'shipping', transact.transaction_status = 'shipping'
+            SET odr.order_status = 'shipping', transact.transaction_status = 'shipping', transact.transaction_status = 'in_transit'
             WHERE transact.transaction_id = odr.transaction_id
             AND transact.transaction_id = :transaction_id");
             $insert_delivery = $this->pdo->prepare("INSERT INTO tbl_delivery(transaction_id, rider_id, date_time_accepted) 
@@ -24,10 +25,14 @@ class class_accept_order_database extends class_database{
                 ":rider_id" => $_SESSION["rider_num"], 
                 ":date_accept" => date('Y-m-d H:i:s')
             ]);
+            $this->query("COMMIT");
+            echo "success";
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();
             $this->query('ROLLBACK');
+            echo "fail";
         }
+        exit;
     }
 }
 $accept_rider_db = new class_accept_order_database();

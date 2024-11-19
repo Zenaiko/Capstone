@@ -16,11 +16,11 @@ $transaction_processing = $order_info_db->get_transaction_info("prepared_shippin
     <div class="order-info">
       <div class="order-details">
         <!-- loop for each order/s -->
-        <?php foreach($transaction["orders"] as $order){ ?>
+        <?php foreach($transaction["orders"] as $order){  ?>
           <div class="product-text">
             <p class="product-name"><?=$order["item_name"] . "(" . $order["variation_name"] . ")"?></</p>
             <p class="quantity">Quantity: <?=number_format($order["order_qty"])?></p>
-            <p class="price">₱<?=number_format($order["order_price"])?></p>
+            <p class="price">Order Total: ₱<?=number_format($order["order_price"])?></p>
           </div> 
         <?php } ?>
           <p>Transaction Subtotal: ₱<?=number_format($transaction["total_transaction_amt"])?></p>
@@ -32,7 +32,7 @@ $transaction_processing = $order_info_db->get_transaction_info("prepared_shippin
     <div class="separator"></div>
 
     <!-- Checks if a rider is already assigned -->
-     <?php if(isset($transaction["rider"])){?>
+     <?php if(isset($transaction["rider"]) && !empty($transaction["rider"])){?>
         <div class="rider-info">
           <p>Rider Name: <?=$transaction["rider"]["username"] ?> </p>
           <p>Rider Number: <?=$transaction["rider"]["contact"] ?> </p>

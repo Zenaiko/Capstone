@@ -207,3 +207,7 @@ body {
     flex-wrap: wrap;
     gap: 0.50rem;
 }
+
+.order_status{
+    cursor: pointer;
+}

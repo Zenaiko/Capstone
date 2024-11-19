@@ -274,9 +274,9 @@ class class_get_database extends class_database{
     public function get_item_status($seller_id, $status){
         $get_item_status =  $this->query("SELECT item.item_id, item.item_name, MIN(vari.variation_price) as min_price, SUM(vari.variation_stock) as total_stocks, item_img.item_img
         FROM tbl_item item
-        LEFT JOIN tbl_market market ON item.market_id = market.market_id 
+        JOIN tbl_market market ON item.market_id = market.market_id 
         LEFT JOIN tbl_item_img item_img ON item_img.item_id = item.item_id AND item_img.item_img = (SELECT item_img FROM tbl_item_img LIMIT 1)
-        LEFT JOIN tbl_variation vari ON vari.item_id = item.item_id
+        JOIN tbl_variation vari ON vari.item_id = item.item_id
         WHERE item.item_status = :status AND market.market_id = :market_id
         GROUP BY item.item_id
         ORDER BY item.item_id" , 
@@ -329,24 +329,37 @@ class class_get_database extends class_database{
         JOIN tbl_address address ON address.address_id = pickup.address_id
         WHERE transact.customer_id = :customer_id");
 
-        if($status !== "recieved"){
-            $customer_transaction_qry .= (" AND transact.transaction_status = :status");
-        }else{
-            $customer_transaction_qry .= (" AND transact.transaction_status = :status OR transact.transaction_status = 'delivered'");
-        }
-        $customer_transaction_qry .= (" ORDER BY transact.transaction_id");
-        
-        $get_customer_transaction = $this->pdo->prepare($customer_transaction_qry);
-        $get_customer_transaction->execute([":customer_id" => $cus_id, ":status" => $status]);
-        $transaction_info = $get_customer_transaction->fetchAll(PDO::FETCH_ASSOC)??null;
-
-        $get_transaction_orders = $this->pdo->prepare("SELECT item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
+        $get_transaction_orders_qry = ("SELECT item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
         FROM tbl_variation variaiton
         JOIN tbl_item item ON item.item_id = variaiton.item_id
         JOIN tbl_order odr ON odr.variation_id = variaiton.variation_id
-        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
-        WHERE transact.transaction_id = :transaction_id AND (odr.order_status = 'accepted' OR odr.order_status = 'completed')");
+        JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id 
+        WHERE transact.transaction_id = :transaction_id");
 
+        switch ($status){
+            case "accepted":
+                $customer_transaction_qry.= (" AND (transact.transaction_status = 'preparing' OR transact.transaction_status = 'prepared')");
+                $get_transaction_orders_qry.= (" AND odr.order_status = 'accepted'");
+                break;
+            case "shipping":
+                $customer_transaction_qry.= (" AND transact.transaction_status = 'shipping'");
+                $get_transaction_orders_qry.= (" AND odr.order_status = 'shipping'");
+                break;
+            case "recieved":
+                $customer_transaction_qry.= (" AND (transact.transaction_status = 'delivered' OR transact.transaction_status = 'paid')");
+                $get_transaction_orders_qry.= (" AND (odr.order_status= 'delivered' OR odr.order_status= 'paid' )");
+        }
+        
+        // Finalizes and queries the customer's transaction
+        $customer_transaction_qry .= (" GROUP BY transact.transaction_id");
+        $get_customer_transaction = $this->query($customer_transaction_qry,[":customer_id" => $cus_id]);
+        $transaction_info = $get_customer_transaction->fetchAll(PDO::FETCH_ASSOC)??null;
+
+        // Finalizes the transaction's order/s
+        $get_transaction_orders_qry.= (" GROUP BY transact.transaction_id ");
+        $get_transaction_orders = $this->pdo->prepare($get_transaction_orders_qry);
+
+        // Queries each transaction's orders and assign them associatively
         foreach($transaction_info as $key => $transact){
             $get_transaction_orders->execute([":transaction_id" => $transact["transaction_id"]]);
             $order = $get_transaction_orders->fetchAll(PDO::FETCH_ASSOC)??null;
@@ -389,11 +402,11 @@ class class_get_database extends class_database{
     public function get_active_delivery($rider_id){
         $get_rider_delivery = $this->query("SELECT delivery.rider_id, market.market_name, CONCAT_WS(', ', market_address.city, market_address.street, market_address.brngy, market_address.house_unit_number) AS market_address, market_contact.contact AS market_contact, pickup.recipient_name, CONCAT_WS(', ', customer_address.city, customer_address.street, customer_address.brngy, customer_address.house_unit_number) AS customer_address, customer_contact.contact AS customer_contact
         FROM tbl_delivery delivery
-        JOIN tbl_transaction transact ON transact.transaction_id = delivery.delivery_id
+        JOIN tbl_transaction transact ON transact.transaction_id = delivery.transaction_id
         JOIN tbl_order odr ON odr.transaction_id = transact.transaction_id
         JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
-        JOIN tbl_item item ON item.item_id = variation.variation_id
-        JOIN tbl_market market ON market.market_id = item.item_id
+        JOIN tbl_item item ON item.item_id = variation.item_id
+        JOIN tbl_market market ON market.market_id = item.market_id
         LEFT JOIN tbl_contact market_contact ON market_contact.contact_id = market.contact_id
         LEFT JOIN tbl_address market_address ON market_address.address_id = market.address_id
         JOIN tbl_customer customer ON customer.customer_id = transact.customer_id
@@ -402,7 +415,8 @@ class class_get_database extends class_database{
         JOIN tbl_contact customer_contact ON customer_contact.contact_id = usr.contact_id
         JOIN tbl_customer_pickup pickup ON pickup.customer_id = customer.customer_id
         JOIN tbl_address customer_address ON customer_address.address_id = pickup.address_id
-        WHERE delivery.rider_id = :rider_id", [":rider_id" => $rider_id]);
+        WHERE transact.transaction_status = 'shipping' AND delivery.rider_id = :rider_id
+        GROUP BY delivery.delivery_id", [":rider_id" => $rider_id]);
         return $get_rider_delivery->fetchAll(PDO::FETCH_ASSOC)[0]??null;
     }
 

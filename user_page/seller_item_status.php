@@ -16,10 +16,10 @@
                     <div class="product-details">
                         <span class="product-name"><?=$item['item_name']?></span>
                         <div class="product-info">
-                            <span class="product-price">₱<?=$item['min_price']??0?></span>
+                            <span class="product-price">₱<?=number_format($item['min_price'])??0?></span>
                         </div>
                     <div class="product-info">
-                        <span class="product-quantity">Stock: <?=$item['total_stocks']??0?> pcs</span>
+                        <span class="product-quantity">Stock: <?=number_format($item['total_stocks'])??0?> pcs</span>
                     </div>
                     </div>
                 </div>

@@ -49,60 +49,40 @@ require_once('../utilities/back_button.php');
     </div>
     <?php } ?>
   <script>
-    // Function to handle accepting a request with SweetAlert confirmation
-    function acceptRequest(id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to accept this delivery request?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, accept it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $.ajax({
-            url : '../db_api/db_accept_order.php',
-            type: 'POST',
-            data: {transaction_id:id} ,
-            success:function(r){
-              console.log(r);
+  // Function to handle accepting a request with SweetAlert confirmation
+  function acceptRequest(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you want to accept this delivery request?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, accept it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url : '../db_api/db_accept_order.php',
+          type: 'POST',
+          data: {transaction_id:id} ,
+          success:function(stats){
+            if(stats === "success"){
+              Swal.fire({
+                title: 'Accepted!',
+                text: 'You have accepted the delivery request.',
+                icon: 'success',
+                confirmButtonText: "Okay"
+              }).then(()=>{
+                window.history.back();
+              })
             }
-          })
-            Swal.fire(
-              'Accepted!',
-              'You have accepted the delivery request.',
-              'success'
-            );
-        }
-      });
-    }
-
-    // Function to handle declining a request with SweetAlert confirmation
-    // function declineRequest(id) {
-    //   Swal.fire({
-    //     title: 'Are you sure?',
-    //     text: "Do you want to decline this delivery request?",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes, decline it!'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       const requestCard = document.getElementById(id);
-    //       if (requestCard) {
-    //         Swal.fire(
-    //           'Declined!',
-    //           'You have declined the delivery request.',
-    //           'error'
-    //         );
-    //         requestCard.remove(); // Remove the card after declining
-    //       }
-    //     }
-    //   });
-    // }
-  </script>
+          }
+        })
+      
+      }
+    });
+  }
+</script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
