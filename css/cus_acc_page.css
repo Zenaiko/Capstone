@@ -208,6 +208,35 @@ body {
     gap: 0.50rem;
 }
 
-.order_status{
-    cursor: pointer;
-}
+.order_status {
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  
+  .order_status:hover {
+    transform: scale(1.05); 
+  }
+  
+  .order-indicator {
+    position: absolute;
+    top: -5px; 
+    right: -5px;
+    background-color: red;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .order_status:hover .order-indicator {
+    transform: scale(1.3); 
+    background-color: #ff5722; 
+  }
+  
