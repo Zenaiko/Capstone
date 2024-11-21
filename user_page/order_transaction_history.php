@@ -42,29 +42,38 @@
   </style>
 </head>
 <body>
-<?php require_once('../utilities/back_button.php'); ?>
-<?php require_once("../utilities/initialize.php"); ?>
-  <div class="container mt-4">
-
-    <!-- Sample Order History Item -->
+<?php
+require_once("../utilities/initialize.php"); 
+require_once("../db_api/db_get.php");
+$transac_history = $get_db->get_customer_transaction($_SESSION["cus_id"], "paid");
+require_once('../utilities/back_button.php'); 
+?>
+<div class="container mt-4">
+<!-- Sample Order History Item -->
+  <?php foreach($transac_history as $transaction){ ?>
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <h6 class="card-title">Order #123456</h6>
-            <p><strong>Order Date:</strong> 2024-10-10</p>
-            <p><strong>Order Summary:</strong> 2x Pizza, 1x Salad</p>
-            <p><strong>Total:</strong> ₱1,200.00</p>
+            <h6 class="card-title">Transaction #<?=$transaction["transaction_id"]?></h6>
+            <p><strong>Transaction Completed Date:</strong> <?=$transaction["transaction_id"]?></p>
+            <p><strong>Order Summary:</strong> </p>
+              <ul>
+                <?php foreach($transaction["orders"] as $order){ ?> 
+                    <li><?=$order["order_qty"] . "x " . $order["item_name"] . "(" . $order["variation_name"] . ")"?></li>
+                <?php } ?>
+              </ul>
+            <p><strong>Total:</strong> ₱<?=number_format($transaction["total_transaction_amt"])?></p>
             <p class="order-status completed"><strong>Status:</strong> Completed</p>
           </div>
           <div>
             <a href="order_detailed_history.php" class="btn btn-outline-primary">View Details</a>
           </div>
         </div>
+        <button class="btn btn-primary rate_button" data-transaction_id="<?=$transact_info["transaction_id"]?>">Rate</button>
       </div>
     </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <?php } ?>
+</div>
 </body>
 </html>

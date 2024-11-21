@@ -63,7 +63,6 @@ $completed_order = $get_db->get_customer_transaction($_SESSION["cus_id"],"delive
         <p><strong>Shipping Address: </strong><?=$transact_info["customer_address"]?></p>
           <button class="btn btn-primary  transaction_button recieve_button" data-transaction_id="<?=$transact_info["transaction_id"]?>">Order Received</button>
           <button class="btn btn-primary  transaction_button refund_button" data-transaction_id="<?=$transact_info["transaction_id"]?>">Request Refund</button>
-
         </div>
     </div>
     <?php } ?> 

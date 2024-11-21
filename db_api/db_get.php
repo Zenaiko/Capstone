@@ -347,7 +347,12 @@ class class_get_database extends class_database{
                 break;
             case "delivered":
                 $customer_transaction_qry.= (" AND transact.transaction_status = 'delivered' ");
-                $get_transaction_orders_qry.= (" AND odr.order_status= 'delivered' ");
+                $get_transaction_orders_qry.= (" AND odr.order_status= 'delivered'");
+                break;
+            case "paid":
+                $customer_transaction_qry.= (" AND transact.transaction_status = 'paid'");
+                $get_transaction_orders_qry.= (" AND odr.order_status = 'paid'");
+                break;
         }
         
         // Finalizes and queries the customer's transaction
