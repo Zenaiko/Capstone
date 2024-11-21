@@ -323,13 +323,14 @@ class class_get_database extends class_database{
     }
 
     public function get_customer_transaction($cus_id, $status){
+        try{
         $customer_transaction_qry = ("SELECT transact.transaction_id, transact.del_fee, transact.total_transaction_amt, transact.transaction_status, pickup.recipient_name, CONCAT_WS(', ',address.city, address.street, address.brngy, address.house_unit_number) AS customer_address
         FROM tbl_transaction transact
         JOIN tbl_customer_pickup pickup ON pickup.customer_pickup_id = transact.delivery_id
         JOIN tbl_address address ON address.address_id = pickup.address_id
         WHERE transact.customer_id = :customer_id");
 
-        $get_transaction_orders_qry = ("SELECT item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
+        $get_transaction_orders_qry = ("SELECT item.item_id, item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
         FROM tbl_variation variaiton
         JOIN tbl_item item ON item.item_id = variaiton.item_id
         JOIN tbl_order odr ON odr.variation_id = variaiton.variation_id
@@ -353,6 +354,9 @@ class class_get_database extends class_database{
                 $customer_transaction_qry.= (" AND transact.transaction_status = 'paid'");
                 $get_transaction_orders_qry.= (" AND odr.order_status = 'paid'");
                 break;
+            default:
+                $customer_transaction_qry = null;
+                break;
         }
         
         // Finalizes and queries the customer's transaction
@@ -364,14 +368,30 @@ class class_get_database extends class_database{
         $get_transaction_orders_qry.= (" GROUP BY transact.transaction_id ");
         $get_transaction_orders = $this->pdo->prepare($get_transaction_orders_qry);
 
+        // Gets the relationship for each item 
+        $get_item_relationship = $this->pdo->prepare("SELECT NOT EXISTS (SELECT customer_rel.rating FROM tbl_transaction transact 
+        JOIN tbl_order odr ON odr.transaction_id = transact.transaction_id
+        JOIN tbl_variation variation ON variation.variation_id = odr.variation_id
+        JOIN tbl_item item ON item.item_id = variation.item_id
+        JOIN tbl_customer_item_relationship customer_rel ON customer_rel.item_id = item.item_id
+        WHERE odr.order_status = 'paid' AND transact.transaction_id = :transact_id AND customer_rel.customer_id = :customer_id) AS relation_not_exists");
+
         // Queries each transaction's orders and assign them associatively
         foreach($transaction_info as $key => $transact){
             $get_transaction_orders->execute([":transaction_id" => $transact["transaction_id"]]);
-            $order = $get_transaction_orders->fetchAll(PDO::FETCH_ASSOC)??null;
-            $transaction_info[$key]["orders"] = $order;
+            $transaction_info[$key]["orders"] = $get_transaction_orders->fetchAll(PDO::FETCH_ASSOC)??null;
+            if($status === "paid"){
+                $get_item_relationship->execute([
+                    ":transact_id" => $transact["transaction_id"],
+                    ":customer_id" => $cus_id
+                ]);
+                $transaction_info[$key]["relation"] = $get_item_relationship->fetchAll(PDO::FETCH_ASSOC)??null;
+            }
         }
-
         return $transaction_info;
+        }catch(Exception $error){
+            
+        }
     }
 
     public function get_rider_request(){

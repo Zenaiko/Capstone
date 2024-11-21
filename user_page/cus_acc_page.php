@@ -34,7 +34,7 @@ unset($_SESSION["seller_id"]);
                     <div id="cus_acc_order_info_container">
                         <div id="cus_acc_order_head">
                             <p>Orders</p>
-                            <a href="order_transaction_history.php">View Transaction History <i class="bi bi-chevron-compact-right"></i></a>
+                            <a href="../utilities/transaction.php">View Transaction History <i class="bi bi-chevron-compact-right"></i></a>
                         </div>
                         <div id="cus_order_info_wrapper">
                             <div id="cus_order_info_container">

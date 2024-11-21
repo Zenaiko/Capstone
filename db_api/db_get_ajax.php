@@ -1,5 +1,7 @@
 <?php 
 require_once('db_root_conn.php');
+(session_status() === PHP_SESSION_NONE)?session_start():null;
+
 class class_ajax_database extends class_database{
             
     public function __construct(){
@@ -48,6 +50,29 @@ class class_ajax_database extends class_database{
         ]);
         $this->query("COMMIT");
     }
+
+    public function get_order_list(){
+        $count_array = [
+            "requesting" => 0,
+            "accepted" => 0,
+            "shipping" => 0,
+            "delivered" => 0,
+        ];
+        $order_request = $this->pdo->prepare("SELECT COUNT(odr.order_id) AS order_count FROM
+        tbl_transaction transac 
+        JOIN tbl_order odr ON transac.transaction_id = odr.transaction_id
+        WHERE odr.order_status = :stat AND transac.customer_id = :customer_id
+        GROUP BY odr.order_id");
+
+        foreach($count_array as $stat => $count){
+            $order_request->execute([
+                ':stat' => $stat ,
+                ':customer_id' => $_SESSION["cus_id"]
+            ]);
+            $count_array[$stat] = $order_request->fetchAll(PDO::FETCH_ASSOC)[0]["order_count"]??0;
+        }
+        return $count_array;
+    }
 }
 
     $ajax = new class_ajax_database();
@@ -61,5 +86,10 @@ class class_ajax_database extends class_database{
         $ajax->change_item_stats($_POST['item_id'], $_POST["action"]);
     }elseif(isset($_POST["rider_id"])){
         $ajax->accept_rider($_POST["rider_id"]);
+    }elseif(isset($_POST["action"]) && $_POST["action"] === "get_order_list"){
+        header('Content-Type: application/json');
+        echo json_encode($ajax->get_order_list());
+        // echo json_encode(["test" => "value"]);
+        exit;
     }
 ?>
