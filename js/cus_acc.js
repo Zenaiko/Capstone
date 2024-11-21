@@ -58,3 +58,35 @@ $(".order_status").click(function(){
     window.location.assign(page);
 });
 
+// Placeholder data (idk how xhr works)
+const orderCounts = {
+    request: 2,    // Number of "Requested" orders
+    accepted: 3,   // Number of "Accepted" orders
+    shipping: 1,   // Number of "Shipped" orders
+    received: 10,   // Number of "Delivered" orders
+  };
+  
+  // Function to update the circle indicators
+  function addIndicators() {
+    for (const [status, count] of Object.entries(orderCounts)) {
+      // Find the corresponding div by ID
+      const statusDiv = document.getElementById(status);
+  
+      if (statusDiv) {
+        // Remove existing indicator if any
+        const existingIndicator = statusDiv.querySelector(".order-indicator");
+        if (existingIndicator) existingIndicator.remove();
+  
+        // Create the indicator only if count > 0
+        if (count > 0) {
+          const indicator = document.createElement("div");
+          indicator.className = "order-indicator";
+          indicator.textContent = count; // Add the count as text
+          statusDiv.appendChild(indicator);
+        }
+      }
+    }
+  }
+  
+  addIndicators();
+  
