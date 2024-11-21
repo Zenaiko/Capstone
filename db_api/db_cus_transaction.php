@@ -17,6 +17,27 @@ class class_customer_transaction_database extends class_database {
             $update_transaction->execute([
                 ":transaction_id" => $transact_id
             ]);
+
+            $get_order_info = $this->query("SELECT stock.stock_id, odr.order_qty
+            FROM tbl_order odr 
+            JOIN tbl_transaction transact ON transact.transaction_id = odr.transaction_id
+            JOIN tbl_variation variation ON variation.variation_id = odr.variation_id 
+            JOIN tbl_stock stock ON stock.variation_id = variation.variation_id
+            WHERE transact.transaction_id = :transaction_id AND odr.order_status = 'paid'
+            ORDER BY odr.order_id",[":transaction_id" =>$transact_id]);
+            $transaction_orders = $get_order_info->fetchAll(PDO::FETCH_ASSOC);
+
+            $insert_stock_movement = $this->pdo->prepare("INSERT INTO tbl_stock_movement (stock_movement, stock_id, stock_qty, stock_date) 
+            VALUES ('out', :stock_id, :order_qty, :stock_date)");
+
+            foreach($transaction_orders as $order){
+                $insert_stock_movement->execute([
+                    ":stock_id" => $order['stock_id'],
+                    ":order_qty" => $order["order_qty"],
+                    ":stock_date" => date('Y-m-d H:i:s')
+                ]);
+            }
+
             $this->query("COMMIT");
         }catch(Exception $error){
             echo "Failed: " . $error->getMessage();
@@ -24,7 +45,6 @@ class class_customer_transaction_database extends class_database {
         }
     }
 }
-
 $customer_transaction_db = new class_customer_transaction_database();
 
 $action = $_POST["action"]??null;

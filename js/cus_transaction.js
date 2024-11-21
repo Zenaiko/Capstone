@@ -16,6 +16,7 @@ $(".recieve_button").click(function(){
           type: "POST",
           data: {transaction_id:transaction_id, action:"recieve"},
           success:function(res){
+            console.log(res);
             Swal.fire(
             'Confirmed!',
             'The order has been confirmed.',

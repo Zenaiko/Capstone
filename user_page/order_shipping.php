@@ -40,25 +40,25 @@ $transaction_info = $get_db->get_customer_transaction($_SESSION["cus_id"], "ship
 require_once('../utilities/back_button.php');
 ?>
  <div class="container mt-4">
-     <?php foreach($transaction_info as $transact_info){ ?>
-    <div class="card mb-3">
-      <div class="card-body">
-        <p class="status-shipping">Status: Shipping</p>
-        <h6 class="card-title">Transaction #<?=$transact_info["transaction_id"]?></h6>
-        <hr>
-        <!-- Loop foreach transaction order -->
-         <?php foreach($transact_info["orders"] as $order){?>
-            <p><?=$order["item_name"]."(".$order["variation_name"].")"?></p>
-            <p><strong>Quantity:</strong> <?=number_format($order["order_qty"])?></p>
-            <p><strong>Total Price:</strong>₱<?=number_format($order["order_price"])?></p>
-            <hr>
-        <?php } ?>
-        <p><strong>Delivery Fee: </strong>₱<?=number_format($transact_info["del_fee"])?></p>
-        <p><strong>Transaction Total: </strong>₱<?=number_format($transact_info["total_transaction_amt"])?></p>
-        <p><strong>Reciepient: </strong><?=$transact_info["recipient_name"]?></p>
-        <p><strong>Shipping Address: </strong><?=$transact_info["customer_address"]?></p>
-        </div>
-    </div>
+    <?php foreach($transaction_info as $transact_info){ ?>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="status-shipping">Status: Shipping</p>
+          <h6 class="card-title">Transaction #<?=$transact_info["transaction_id"]?></h6>
+          <hr>
+          <!-- Loop foreach transaction order -->
+          <?php foreach($transact_info["orders"] as $order){?>
+              <p><?=$order["item_name"]."(".$order["variation_name"].")"?></p>
+              <p><strong>Quantity:</strong> <?=number_format($order["order_qty"])?></p>
+              <p><strong>Total Price:</strong>₱<?=number_format($order["order_price"])?></p>
+              <hr>
+          <?php } ?>
+          <p><strong>Delivery Fee: </strong>₱<?=number_format($transact_info["del_fee"])?></p>
+          <p><strong>Transaction Total: </strong>₱<?=number_format($transact_info["total_transaction_amt"])?></p>
+          <p><strong>Reciepient: </strong><?=$transact_info["recipient_name"]?></p>
+          <p><strong>Shipping Address: </strong><?=$transact_info["customer_address"]?></p>
+          </div>
+      </div>
     <?php } ?>    
  </div>
 </body>

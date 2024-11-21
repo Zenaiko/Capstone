@@ -42,7 +42,7 @@
 require_once('../utilities/back_button.php');
 require_once('../utilities/initialize.php'); 
 require_once('../db_api/db_get.php');
-$completed_order = $get_db->get_customer_transaction($_SESSION["cus_id"],"recieved");
+$completed_order = $get_db->get_customer_transaction($_SESSION["cus_id"],"delivered");
 ?>
 <div class="container mt-4">
  <?php foreach($completed_order as $transact_info){ ?>
@@ -61,13 +61,9 @@ $completed_order = $get_db->get_customer_transaction($_SESSION["cus_id"],"reciev
         <p><strong>Transaction Total: </strong>₱<?=number_format($transact_info["total_transaction_amt"])?></p>
         <p><strong>Receipient: </strong><?=$transact_info["recipient_name"]?></p>
         <p><strong>Shipping Address: </strong><?=$transact_info["customer_address"]?></p>
-        <!-- If order is satisfied -->
-        <?php if($transact_info["transaction_status"] !== "paid"){ ?>
           <button class="btn btn-primary  transaction_button recieve_button" data-transaction_id="<?=$transact_info["transaction_id"]?>">Order Received</button>
           <button class="btn btn-primary  transaction_button refund_button" data-transaction_id="<?=$transact_info["transaction_id"]?>">Request Refund</button>
-        <?php }else{ ?>
-          <button class="btn btn-primary transaction_button rate_button" data-transaction_id="<?=$transact_info["transaction_id"]?>">Rate</button>
-        <?php } ?>
+
         </div>
     </div>
     <?php } ?> 
