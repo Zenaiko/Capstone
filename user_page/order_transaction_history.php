@@ -41,32 +41,27 @@ $transac_history = $get_db->get_customer_transaction($_SESSION["cus_id"], $_POST
 <!-- Sample Order History Item -->
   <?php 
   if($transac_history){
-  foreach($transac_history as $transaction){ ?>
+  foreach($transac_history as $transaction){
+    foreach($transaction["orders"] as $order){ ?>
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center">
           <div>
-            <h6 class="card-title">Transaction #<?=$transaction["transaction_id"]?></h6>
-            <p><strong>Transaction Completed Date:</strong> <?=$transaction["transaction_id"]?></p>
-            <p><strong>Order Summary:</strong> </p>
-              <ul>
-                <?php foreach($transaction["orders"] as $order){ ?> 
-                    <li><?=$order["order_qty"] . "x " . $order["item_name"] . "(" . $order["variation_name"] . ")"?></li>
-                <?php } ?>
-              </ul>
-            <p><strong>Total:</strong> ₱<?=number_format($transaction["total_transaction_amt"])?></p>
-            <p class="order-status completed"><strong>Status:</strong> Completed</p>
+            <h6 class="card-title">Order #<?=$order["order_id"]?></h6>
+                <?=$order["order_qty"] . "x " . $order["item_name"] . "(" . $order["variation_name"] . ")"?></>
+              <p class="order-status completed"><strong>Status:</strong> Completed</p>
+              <p><strong>Order Completed Date:</strong> <?=$transaction["transaction_id"]?></p>
           </div>
           <div>
-            <a href="../user_page/order_detailed_history.php" class="btn btn-outline-primary">View Details</a>
           </div>
         </div>
         <?php if($transaction["transaction_status"] === "paid" && $transaction["relation"] !== 1){ ?>
-          <button class="btn btn-primary rate_button" data-transaction_id="<?=$transact_info["transaction_id"]?>">Rate</button>
+          <button class="btn btn-primary rate_button" data-order_id="<?=$order["order_id"]?>">Rate</button>
         <?php } ?>
       </div>
     </div>
-  <?php }}else{
+  <?php }}}else{
     echo "No data found";
   } ?>
 </div>
+

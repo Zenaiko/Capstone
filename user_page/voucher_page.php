@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vouchers</title>
   <link rel="icon" type="icon" href="../assets/cab_mart_logo.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <style>
     body {
       background-color: #f8f9fa;
@@ -64,6 +62,10 @@
   </style>
 </head>
 <body>
+<?php
+  require_once("../utilities/initialize.php");
+  require_once("../utilities/seller_nav.php");
+?>
   <div class="container mt-4">
     <h4 class="mb-4">Vouchers</h4>
     <div class="d-flex justify-content-center mb-4">
@@ -203,6 +205,5 @@
     }
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

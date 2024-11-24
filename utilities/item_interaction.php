@@ -8,8 +8,8 @@
         <div id="item_interaction_container">
            <div id="item_interaction_share"><i class="bi bi-share"></i><p>Share</p></div>
            <div id="item_interaction_message"><i class="bi bi-chat-dots"></i><p>Message</p></div>
-           <div id="item_interaction_cart" data-bs-toggle="offcanvas" data-bs-target="#order" aria-controls="offcanvasBottom"><i class="bi bi-cart2"></i><p>Add to cart</p></div>
-           <div id="item_interaction_order" data-bs-toggle="offcanvas" data-bs-target="#order" aria-controls="offcanvasBottom"><p>Order Now</p></div>
+           <div id="item_interaction_cart" class="interact_buttons" data-bs-toggle="offcanvas" data-bs-target="#order" aria-controls="offcanvasBottom"><i class="bi bi-cart2"></i><p>Add to cart</p></div>
+           <div id="item_interaction_order" class="interact_buttons" data-bs-toggle="offcanvas" data-bs-target="#order" aria-controls="offcanvasBottom"><p>Order Now</p></div>
         </div>
     </div>
     

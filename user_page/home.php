@@ -10,11 +10,13 @@
 
     <link href="../css/home.css" rel="stylesheet">
 </head>
-<?php require_once('../utilities/initialize.php');
-        require_once('../utilities/nav.php');
-        require_once('../db_api/db_get.php');
-        unset($_SESSION['seller_id']);
-        ?>
+<?php 
+    require_once('../utilities/initialize.php');
+    require_once('../utilities/nav.php');
+    require_once('../db_api/db_get.php');
+    unset($_SESSION['seller_id']);
+    (!isset($_SESSION["user"]) OR !isset($_SESSION["cus_id"]))? $_SESSION["user"] = "visitor": null
+?>
 <body>
 
 <!-- Carousel Section -->
@@ -121,6 +123,21 @@
         </div>
     </div>
 </section>
+
+<?php
+if (isset($_SESSION['error'])) {
+    if ($_SESSION['error'] === "sign_up") {
+        echo "<script>
+            Swal.fire({
+            icon: 'error',
+            title: 'Please sign up before proceeding',
+        });
+        </script>";
+    }
+    // Unset the session variable after displaying it
+    unset($_SESSION['error']);
+}
+?>
 
 <script src="../js/item_loop.js"></script>
 </body>

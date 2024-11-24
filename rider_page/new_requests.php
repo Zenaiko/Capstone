@@ -64,7 +64,7 @@ require_once('../utilities/back_button.php');
         $.ajax({
           url : '../db_api/db_accept_order.php',
           type: 'POST',
-          data: {transaction_id:id} ,
+          data: {transaction_id:id, action:"shipping"} ,
           success:function(stats){
             if(stats === "success"){
               Swal.fire({

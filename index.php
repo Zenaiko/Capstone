@@ -13,6 +13,6 @@
     $_SESSION['user'] = 'visitor';
     header("location: user_page/home.php") ;
     ?>
-        
+
 </body>
 </html>

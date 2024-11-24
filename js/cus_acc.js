@@ -10,7 +10,7 @@ $('.cus_acc_body_content').click(function(){
             redirect = 'manage_address.php';
             break;
         case 'liked':
-            redirect = '';
+            redirect = 'liked_products.php';
             break;
         case 'logout':
             redirect = '../db_api/db_logout.php';

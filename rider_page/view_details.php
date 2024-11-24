@@ -15,7 +15,6 @@ require_once("../db_api/db_get.php");
 $active_delivery = $get_db->get_active_delivery($_SESSION["rider_num"]);
 $delivery_info = $get_db->active_delivery_info($_SESSION["rider_num"]);
  ?>
-<div class="container mt-4">
   <?php 
     if($active_delivery){?>
 <?php require_once('../utilities/back_button.php'); ?>
@@ -45,39 +44,51 @@ $delivery_info = $get_db->active_delivery_info($_SESSION["rider_num"]);
         <p><strong>Total Amount:</strong> ₱<?=$delivery_info[0]["total_transaction_amt"]?></p>
       </div>
     </div>
-
-
-
-  <?php }else{
-    echo "No active deliveries";
-  } ?>
+    <div class="d-flex justify-content-between">
+          <button class="btn btn-outline-primary btn-custom"  onclick="confirm_delivery('<?=$active_delivery['transaction_id']?>')">Delivered</button>
+        </div>
+  </div>
+<?php }else{
+  echo "No active deliveries";
+} ?>
   
-
-  <!-- Delivery Overview -->
-  <!-- <div class="card mb-3">
-    <div class="card-body">
-      <h6 class="card-title">Delivery Overview</h6>
-      <p><strong>Seller Name:</strong> CJshabu</p>
-      <p><strong>Seller Address:</strong> hehe</p>
-      <p><strong>Customer Name:</strong> Nicoteen69</p>
-      <p><strong>Address:</strong> secret</p>
-      <p><strong>Contact Number:</strong> (69) 456-7890</p>
-    </div>
-  </div> -->
-
-  <!-- Order Summary -->
-  <!-- <div class="card mb-3">
-    <div class="card-body">
-      <h6 class="card-title">Order Summary</h6>
-      <ul>
-        <li>2x Pizza - ₱500</li>
-        <li>1x Salad - ₱200</li>
-      </ul>
-      <p><strong>Total Amount:</strong> ₱700</p>
-    </div>
-  </div> -->
-
-</div>
+<script>
+  // Accept delivery
+    function confirm_delivery(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Is the delivery successful",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, I have completed the delivery',
+      cancelButtonText: 'No, the orders hasn\'t been delivered '
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url : '../db_api/db_accept_order.php',
+          type: 'POST',
+          data: {transaction_id:id, action: "delivered"} ,
+          success:function(stats){
+            console.log(stats);
+            if(stats === "success"){
+              Swal.fire({
+                title: 'Accepted!',
+                text: 'You have confirmed the delivery, please await for the seller\'s confirmation',
+                icon: 'success',
+                confirmButtonText: "Okay"
+              }).then(()=>{
+                window.history.back();
+              })
+            }
+          }
+        })
+      
+      }
+    });
+  }
+</script>
 
 </body>
 </html>

@@ -9,6 +9,7 @@
 </head>
 <body>
 <?php 
+(session_status() === PHP_SESSION_NONE)?session_start():null;
 require_once('../utilities/initialize.php');
 require_once('../db_api/db_item_info.php');
 require_once('../utilities/back_button.php');
@@ -120,9 +121,12 @@ require_once('../utilities/back_button.php');
 
         </div>
     </div>
+    <?php
+     echo "<br><br><br>";
+     ((isset($_SESSION["user"])&&$_SESSION["user"] === "customer"&&isset($_SESSION["cus_id"])))?include_once('../utilities/item_interaction.php'):null
+    ?>
 </section>
 
-<?php require_once('../utilities/item_interaction.php'); ?>
 <script src="../js/solo_item.js"></script>
 <script src="../js/item_loop.js"></script>
 </body>

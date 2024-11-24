@@ -14,8 +14,8 @@
             FROM tbl_contact con, tbl_user user, tbl_username username, tbl_login log, tbl_password pswd, tbl_customer cus
             WHERE con.contact_id = user.contact_id AND user.user_id = username.user_id 
             AND username.username_id = log.username_id AND log.password_id = pswd.password_id 
-            AND cus.username_id = username.username_id AND (username.username = :credentials OR con.contact = :credentials 
-            AND pswd.password = :pswd)" ,[
+            AND cus.username_id = username.username_id AND (username.username = :credentials OR con.contact = :credentials)
+            AND pswd.password = :pswd" ,[
             ':credentials' => $this->login_form->get_credentials(), 
             ':pswd' => $this->login_form->get_password()
             ]);

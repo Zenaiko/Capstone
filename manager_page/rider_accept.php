@@ -37,7 +37,6 @@
         type: 'POST',
         data: {rider_id: id},
         success: function(r){
-            console.log(r);
         }
     })
     });

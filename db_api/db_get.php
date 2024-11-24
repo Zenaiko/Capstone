@@ -33,11 +33,12 @@ class class_get_database extends class_database{
         SUM(odr.order_qty) AS order_qty, 
         COUNT(item_rel.rating) AS rate_count
         FROM tbl_item item
-        LEFT JOIN tbl_market mrkt ON mrkt.market_id = item.market_id
+        JOIN tbl_market mrkt ON mrkt.market_id = item.market_id
         LEFT JOIN tbl_item_img img ON item.item_id = img.item_id
-        LEFT JOIN tbl_variation variation ON variation.item_id = item.item_id
+        JOIN tbl_variation variation ON variation.item_id = item.item_id
         LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id 
         LEFT JOIN tbl_order odr ON odr.variation_id = variation.variation_id AND odr.order_status = 'completed'
+        WHERE item.item_status = 'live'
         GROUP BY item.item_id");
         return $get_item->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -49,6 +50,7 @@ class class_get_database extends class_database{
         LEFT JOIN tbl_item item ON  item.market_id = market.market_id
         LEFT JOIN tbl_customer_item_relationship item_rel ON item_rel.item_id = item.item_id
         LEFT JOIN tbl_customer_market_relationship market_rel ON market_rel.market_id = market.market_id
+        WHERE market.market_status = 'active' AND market.is_verified = 1
         GROUP BY market.market_id LIMIT 10");
         return $get_top_shop->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -298,15 +300,15 @@ class class_get_database extends class_database{
     }
 
     public function get_cart($cus_id){
-        $get_cart = $this->query("SELECT market.market_id, market.market_name, item.item_name, variation.variation_id, variation.variation_name, cart.item_qty, (variation.variation_price * cart.item_qty) AS cart_price, item_img.item_img
-        FROM tbl_cart cart, tbl_variation variation, tbl_item item, tbl_market market, tbl_item_img item_img
-        WHERE cart.variant_id = variation.variation_id 
-        AND variation.item_id = item.item_id 
-        AND item.market_id = market.market_id
-        AND item.item_id = item_img.item_id
-        AND item_img.item_img = (SELECT item_img.item_img FROM tbl_item_img item_img, tbl_item item WHERE item.item_id = item_img.item_id LIMIT 1)
-        AND cart.cart_status = 'cart'
-        AND  cart.customer_id = ?
+        $get_cart = $this->query("SELECT cart.cart_id ,market.market_id, market.market_name, item.item_name, variation.variation_id, variation.variation_name, cart.item_qty, (variation.variation_price * cart.item_qty) AS cart_price, item_img.item_img
+        FROM tbl_cart cart
+        JOIN tbl_variation variation ON cart.variant_id = variation.variation_id 
+        JOIN tbl_item item ON variation.item_id = item.item_id 
+        JOIN tbl_market market ON item.market_id = market.market_id
+        LEFT JOIN tbl_item_img item_img ON variation.variation_img_id = item_img.item_img_id AND is_variation = 1
+        WHERE cart.cart_status = 'pending'
+        AND cart.customer_id = ?
+        GROUP BY cart.cart_id
         ORDER BY market.market_id" , [$cus_id]);
         return  $get_cart->fetchAll(PDO::FETCH_ASSOC)??null;
     }
@@ -330,7 +332,7 @@ class class_get_database extends class_database{
         JOIN tbl_address address ON address.address_id = pickup.address_id
         WHERE transact.customer_id = :customer_id");
 
-        $get_transaction_orders_qry = ("SELECT item.item_id, item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
+        $get_transaction_orders_qry = ("SELECT odr.order_id, item.item_id, item.item_name, variaiton.variation_name, odr.order_qty, odr.order_price
         FROM tbl_variation variaiton
         JOIN tbl_item item ON item.item_id = variaiton.item_id
         JOIN tbl_order odr ON odr.variation_id = variaiton.variation_id
@@ -425,7 +427,7 @@ class class_get_database extends class_database{
     }
 
     public function get_active_delivery($rider_id){
-        $get_rider_delivery = $this->query("SELECT delivery.rider_id, market.market_name, CONCAT_WS(', ', market_address.city, market_address.street, market_address.brngy, market_address.house_unit_number) AS market_address, market_contact.contact AS market_contact, pickup.recipient_name, CONCAT_WS(', ', customer_address.city, customer_address.street, customer_address.brngy, customer_address.house_unit_number) AS customer_address, customer_contact.contact AS customer_contact
+        $get_rider_delivery = $this->query("SELECT delivery.rider_id, transact.transaction_id, market.market_name, CONCAT_WS(', ', market_address.city, market_address.street, market_address.brngy, market_address.house_unit_number) AS market_address, market_contact.contact AS market_contact, pickup.recipient_name, CONCAT_WS(', ', customer_address.city, customer_address.street, customer_address.brngy, customer_address.house_unit_number) AS customer_address, customer_contact.contact AS customer_contact
         FROM tbl_delivery delivery
         JOIN tbl_transaction transact ON transact.transaction_id = delivery.transaction_id
         JOIN tbl_order odr ON odr.transaction_id = transact.transaction_id

@@ -55,8 +55,8 @@
                 <img src="<?=file_exists($item["item_img"]) ? $item["item_img"] : "../assets/tmp.png";?>" alt="Product 1">
                 <div class="product-info">
                     <div class="product-name"><?=$item["item_name"]?></div>
-                    <div>Total Orders: <?=$item["total_sold"]?></div>
-                    <div>Total Income: ₱<?=$item["total_income"]?></div>
+                    <div>Total Orders: <?=number_format($item["total_sold"])?></div>
+                    <div>Total Income: ₱<?=number_format($item["total_income"])?></div>
                 </div>
             </div>
             

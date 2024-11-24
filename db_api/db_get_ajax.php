@@ -18,7 +18,7 @@ class class_ajax_database extends class_database{
     }
 
     public function update_market_request($req_id){
-        $update_req = $this->pdo->prepare("UPDATE tbl_market_request market_req, tbl_market market SET market_req.market_req_status = 'accepted' , market.is_verified = '1' WHERE market_req.market_id = market.market_id AND market_req.market_request_id = :id");
+        $update_req = $this->pdo->prepare("UPDATE tbl_market_request market_req, tbl_market market SET market_req.market_req_status = 'accepted' , market.is_verified = '1', market_market_status = 'active' WHERE market_req.market_id = market.market_id AND market_req.market_request_id = :id");
         $update_req->execute([
             ":id" => $req_id
         ]);

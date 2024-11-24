@@ -11,3 +11,8 @@ $(".transact_tab").click(function(){
         },
     });
 });
+
+$(document).on("click" , ".rate_button" , function(){
+    const order_id = $(this).data("order_id");
+
+})

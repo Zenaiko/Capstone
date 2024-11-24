@@ -16,14 +16,14 @@
 
         // Gets the customers information
         public function get_cus_info(){
-            $get_cus_info =  $this->query("SELECT cus.customer_img, cus.cus_asset_folder,username.username, con.contact, email.email, person.l_name, person.m_name, person.f_name, person.birthdate, person.gender
-            FROM tbl_customer cus, tbl_username username, tbl_user user ,  tbl_person person, tbl_contact con, tbl_email email
-            WHERE username.username_id = cus.username_id 
-            AND user.user_id = username.user_id
-            AND person.personID = user.person_id
-            AND user.contact_id = con.contact_id
-            AND user.email_id = email.emailID 
-            AND cus.customer_id = ? " ,[$this->cus_id]);
+            $get_cus_info =  $this->query("SELECT customer.customer_img, customer.cus_asset_folder,username.username, contact.contact, email.email, person.l_name, person.m_name, person.f_name, person.birthdate, person.gender
+            FROM tbl_customer customer
+            JOIN tbl_username username ON username.username_id = customer.username_id
+            JOIN tbl_user user ON user.user_id = username.user_id
+            JOIN tbl_person person ON person.person_id = user.person_id
+            JOIN tbl_contact contact ON user.contact_id = contact.contact_id
+            JOIN tbl_email email ON user.email_id = email.email_id
+            WHERE customer.customer_id = ? " ,[$this->cus_id]);
             return $get_cus_info->fetchAll(PDO::FETCH_ASSOC)[0];
         }
 
@@ -31,38 +31,37 @@
         public function update_customer_info(){
             $this->query("START TRANSACTION");
             try{
-            
-            if(!is_null($this->cus_info->get_img())){
-                $new_profile_dir = $this->cus_info->get_cus_folder() . "/" .basename($this->cus_info->get_img()['name']);
-                if(is_null($this->cus_info->get_orig_img())){
-                    move_uploaded_file($this->cus_info->get_img()['tmp_name'] , $new_profile_dir);
-                }else{
-                    $new_profile_dir = $this->cus_info->get_cus_folder() . "/" .basename($this->cus_info->get_img());
-                    rename($this->cus_info->get_orig_img(), $new_profile_dir);
+                if(!is_null($this->cus_info->get_img())){
+                    $new_profile_dir = $this->cus_info->get_cus_folder() . "/" .basename($this->cus_info->get_img()['name']);
+                    if(is_null($this->cus_info->get_orig_img())){
+                        move_uploaded_file($this->cus_info->get_img()['tmp_name'] , $new_profile_dir);
+                    }else{
+                        $new_profile_dir = $this->cus_info->get_cus_folder() . "/" .basename($this->cus_info->get_img());
+                        rename($this->cus_info->get_orig_img(), $new_profile_dir);
+                    }
                 }
-            }
-         
-            $edit_customer_info = $this->pdo->prepare("UPDATE tbl_customer cus, tbl_username username, tbl_user user, tbl_person person, tbl_contact con, tbl_email email 
-            SET cus.customer_img = :img, username.username = :username, con.contact = :contact, email.email = :email, person.l_name = :l_name, person.m_name = :m_name, person.f_name = :f_name, person.birthdate = :bday
-            WHERE username.username_id = cus.username_id 
-            AND user.user_id = username.user_id
-            AND person.personID = user.person_id
-            AND user.contact_id = con.contact_id
-            AND user.email_id = email.emailID 
-            AND cus.customer_id = :cus_id ");
-            $edit_customer_info->execute([
-                ':img' => $new_profile_dir??null,
-                ':username' => $this->cus_info->get_username(),
-                ':contact' => $this->cus_info->get_contact(),
-                ':email' => $this->cus_info->get_email(),
-                ':l_name' => $this->cus_info->get_l_name(),
-                ':m_name' => $this->cus_info->get_m_name(),
-                ':f_name' => $this->cus_info->get_f_name(),
-                ':bday' => $this->cus_info->get_bday(),
-                ':cus_id' => $this->cus_id
-            ]);
-            $this->query('COMMIT');
-            header('location: ../user_page/cus_acc_edit_page.php');
+            
+                $edit_customer_info = $this->pdo->prepare("UPDATE tbl_customer customer, tbl_username username, tbl_user user, tbl_person person, tbl_contact contact, tbl_email email 
+                SET customer.customer_img = :img, username.username = :username, contact.contact = :contact, email.email = :email, person.l_name = :l_name, person.m_name = :m_name, person.f_name = :f_name, person.birthdate = :bday
+                WHERE username.username_id = customer.username_id 
+                AND user.user_id = username.user_id
+                AND person.person_id = user.person_id
+                AND user.contact_id = contact.contact_id
+                AND user.email_id = email.emailID 
+                AND customer.customer_id = :cus_id ");
+                $edit_customer_info->execute([
+                    ':img' => $new_profile_dir??null,
+                    ':username' => $this->cus_info->get_username(),
+                    ':contact' => $this->cus_info->get_contact(),
+                    ':email' => $this->cus_info->get_email(),
+                    ':l_name' => $this->cus_info->get_l_name(),
+                    ':m_name' => $this->cus_info->get_m_name(),
+                    ':f_name' => $this->cus_info->get_f_name(),
+                    ':bday' => $this->cus_info->get_bday(),
+                    ':cus_id' => $this->cus_id
+                ]);
+                $this->query('COMMIT');
+                header('location: ../user_page/cus_acc_edit_page.php');
             }catch(Exception $error){
                 echo "Failed: " . $error->getMessage();
                 $this->query("ROLLBACK");

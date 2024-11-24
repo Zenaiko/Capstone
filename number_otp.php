@@ -17,6 +17,7 @@
                     <div id="otp_number_container">
                         <div id="otp_number_contents">
                             <p class="h3 fw-bold text-center">Enter your phone number</p>
+                                
                             <form action="" id="visitor_sign_contact">
                                 <input type="number" name="opt_phone" id="opt_phone" autocomplete="off" placeholder="Phone Number" maxlength="11">
                                 <input type="submit" name="" id="otp_send_code" value="Send Code" class="submit_button">
