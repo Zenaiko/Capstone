@@ -427,7 +427,7 @@ class class_get_database extends class_database{
     }
 
     public function get_active_delivery($rider_id){
-        $get_rider_delivery = $this->query("SELECT delivery.rider_id, transact.transaction_id, market.market_name, CONCAT_WS(', ', market_address.city, market_address.street, market_address.brngy, market_address.house_unit_number) AS market_address, market_contact.contact AS market_contact, pickup.recipient_name, CONCAT_WS(', ', customer_address.city, customer_address.street, customer_address.brngy, customer_address.house_unit_number) AS customer_address, customer_contact.contact AS customer_contact
+        $get_rider_delivery = $this->query("SELECT delivery.rider_id, transact.transaction_id, transact.transaction_status, market.market_name, CONCAT_WS(', ', market_address.city, market_address.street, market_address.brngy, market_address.house_unit_number) AS market_address, market_contact.contact AS market_contact, pickup.recipient_name, CONCAT_WS(', ', customer_address.city, customer_address.street, customer_address.brngy, customer_address.house_unit_number) AS customer_address, customer_contact.contact AS customer_contact
         FROM tbl_delivery delivery
         JOIN tbl_transaction transact ON transact.transaction_id = delivery.transaction_id
         JOIN tbl_order odr ON odr.transaction_id = transact.transaction_id
@@ -442,7 +442,7 @@ class class_get_database extends class_database{
         JOIN tbl_contact customer_contact ON customer_contact.contact_id = usr.contact_id
         JOIN tbl_customer_pickup pickup ON pickup.customer_id = customer.customer_id
         JOIN tbl_address customer_address ON customer_address.address_id = pickup.address_id
-        WHERE transact.transaction_status = 'shipping' AND delivery.rider_id = :rider_id
+        WHERE (transact.transaction_status = 'shipping' OR transact.transaction_status = 'delivered') AND delivery.rider_id = :rider_id
         GROUP BY delivery.delivery_id", [":rider_id" => $rider_id]);
         return $get_rider_delivery->fetchAll(PDO::FETCH_ASSOC)[0]??null;
     }

@@ -20,8 +20,6 @@ require_once("../utilities/seller_nav.php");
         <ul class="scrollable-tabs">
             <li class="tab" id="live">Live</li>
             <li class="tab" id="sold_out">Sold Out</li>
-            <li class="tab" id="reviewing">Reviewing</li>
-            <li class="tab" id="violation">Violation</li>
             <li class="tab" id="delisted">Delisted</li>
             <li class="tab" id="history">History</li>
         </ul>

@@ -66,6 +66,7 @@ require_once('../utilities/back_button.php');
           type: 'POST',
           data: {transaction_id:id, action:"shipping"} ,
           success:function(stats){
+            console.log(stats);
             if(stats === "success"){
               Swal.fire({
                 title: 'Accepted!',

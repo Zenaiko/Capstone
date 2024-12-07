@@ -64,9 +64,9 @@
 <body>
 <?php
   require_once("../utilities/initialize.php");
-  require_once("../utilities/seller_nav.php");
 ?>
   <div class="container mt-4">
+    <?php require_once("../utilities/seller_nav.php");?>
     <h4 class="mb-4">Vouchers</h4>
     <div class="d-flex justify-content-center mb-4">
       <span class="voucher-type-btn active" onclick="showSection('active')">Active Vouchers</span>
